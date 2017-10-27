@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bg"
+    android:id="@+id/widget40"
+    >
+
+
+    <LinearLayout android:id="@+id/widget40"
+        android:layout_width="fill_parent"
+        android:layout_height="120px"
+        android:orientation="horizontal"
+        android:gravity="right"
+        android:weightSum="1">
+
+
+
+        <Button
+            android:text="上传"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:background="@drawable/btngreen"
+            android:layout_marginLeft="15dp"
+            android:layout_alignParentBottom="true"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/upload"
+            android:layout_weight="0.09" />
+
+
+        <TextView android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="页数选择"
+            android:textColor="#000"
+            android:textSize="18sp"></TextView>
+        <!-- 2011-7-28 进度条修改  修改起始点 -->
+        <Spinner
+
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="3dp"
+
+            android:layout_alignParentBottom="true"
+
+            android:layout_width="4dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonopen_ID"
+            android:layout_weight="0.41" />
+        <TextView android:layout_width="400px"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:id="@+id/course"
+            android:textSize="18sp"
+            android:paddingLeft="@dimen/activity_vertical_margin"></TextView>
+
+        <LinearLayout android:id="@+id/layout"
+            android:layout_width="387dp"
+            android:layout_height="fill_parent"
+            android:gravity="center_vertical"
+            xmlns:android="http://schemas.android.com/apk/res/android">
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:textColor="#0F0F0F"
+                android:text="@string/thin" />
+            <SeekBar android:id="@+id/seekBar"
+                android:layout_width="100dip"
+                android:layout_height="10dip"
+                android:background="@drawable/bar"/>
+            <TextView android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:textColor="#0F0F0F"
+                android:text="@string/thick" />
+        </LinearLayout>
+        <!-- 修改截止点 -->
+        <ImageButton android:id="@+id/buttonclose_ID"
+            android:layout_width="20px"
+            android:layout_height="20px"
+            android:background="@drawable/close"></ImageButton>
+    </LinearLayout>
+
+
+    <LinearLayout android:id="@+id/widget40"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal"
+        android:gravity="right"
+        android:weightSum="1">
+
+        <SurfaceView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/surfaceView"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            />
+
+        <cn.yaheen.online.view.SketchpadView
+
+            android:id="@+id/SketchadView"
+            android:layout_height="match_parent"
+            android:layout_width="413dp"
+            android:layout_marginLeft="5dp">"
+        </cn.yaheen.online.view.SketchpadView>
+
+        <LinearLayout android:id="@+id/widget40"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+            <LinearLayout android:id="@+id/widget40"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="left"
+                xmlns:android="http://schemas.android.com/apk/res/android">
+
+                <Button android:id="@+id/buttonsave_ID"
+                    android:layout_width="80px"
+                    android:layout_height="80px"
+                    android:background="@drawable/savex"></Button>
+                <Button android:id="@+id/buttonnew_ID"
+                    android:layout_width="80px"
+                    android:layout_height="80px"
+                    android:background="@drawable/newx"></Button>
+
+                <Button android:id="@+id/buttonpen_ID"
+                    android:layout_width="80px"
+                    android:layout_height="80px"
+                    android:background="@drawable/penx"></Button>
+                <Button android:id="@+id/buttoneraser_ID"
+                    android:layout_width="80px"
+                    android:layout_height="80px"
+                    android:background="@drawable/eraserx"></Button>
+
+                <Button android:id="@+id/buttonundo_ID"
+                    android:layout_width="80px"
+                    android:layout_height="80px"
+                    android:background="@drawable/undox"></Button>
+
+                <Button android:id="@+id/buttonredo_ID"
+                    android:layout_width="80px"
+                    android:layout_height="80px"
+                    android:background="@drawable/redox"></Button>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+
+
+    <!-- <LinearLayout
+    android:id="@+id/widget40"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <ImageButton
+    android:id="@+id/widget36"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/redox"
+    >
+    </ImageButton>
+    <ImageButton
+    android:id="@+id/widget36"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/gyx"
+    >
+    </ImageButton>
+    </LinearLayout> -->
+
+
+
+
+    <!--<TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hello"
+        />
+    </LinearLayout>
+    -->

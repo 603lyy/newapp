@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_online"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="1dp"
+    android:paddingLeft="1dp"
+    android:paddingRight="1dp"
+    android:paddingTop="1dp"
+    tools:context=".activity.OnlineActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+        <!--顶栏-->
+        <LinearLayout
+            android:id="@+id/topPanel"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@drawable/online_bg"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/backhome"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="left|center_vertical"
+                android:layout_marginLeft="-15dp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:src="@drawable/back" />
+
+            <TextView
+                android:id="@+id/sptv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10px"
+                android:gravity="right|center_vertical"
+                android:text="视讯"
+                android:textColor="#FFF"
+                android:textSize="12sp" />
+
+            <cn.yaheen.online.switchbutton.SwitchButton
+                android:id="@+id/sb_default"
+                style="@style/SwitchButtonStyle"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right|center_vertical"
+                android:layout_weight="0.3" />
+
+            <TextView
+                android:id="@+id/kjtv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10px"
+                android:gravity="center_vertical"
+                android:text="课件"
+                android:textColor="#FFF"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:maxEms="3"
+                android:maxLines="1"
+                android:text="在线评教系统"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/pagetv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text=""
+                android:textColor="@color/white" />
+
+            <ImageView
+                android:id="@+id/rightbtn"
+                android:layout_width="58dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:src="@drawable/morebg" />
+        </LinearLayout>
+
+
+        <!--核心部分-->
+        <LinearLayout
+            android:id="@+id/print"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="1dp">
+
+
+            <!--视讯、课件、IM-->
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.618"
+                android:orientation="vertical">
+
+
+                <!--视讯、课件、IM-->
+                <LinearLayout
+                    android:id="@+id/main_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <!--课件或视讯-->
+                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/showview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical">
+
+                        <!--课件控制按钮-->
+                        <LinearLayout
+                            android:id="@+id/toolsbar"
+                            android:layout_width="fill_parent"
+                            android:layout_height="40dp"
+                            android:layout_alignParentTop="true"
+                            android:background="@color/Grey_200"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/kjlist"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.4"
+                                android:textSize="10sp"
+                                android:text="课件列表" />
+
+                            <Button
+                                android:id="@+id/perwebpage"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.5"
+                                android:textSize="8sp"
+                                android:text="上一页" />
+
+                            <Button
+                                android:id="@+id/nextwebpage"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.5"
+                                android:textSize="8sp"
+                                android:text="下一页" />
+
+                        </LinearLayout>
+
+                        <SurfaceView
+                            android:id="@+id/content"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                        <WebView
+                            android:id="@+id/loadwebview"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:visibility="gone"/>
+
+
+                    </LinearLayout>
+
+                    <!--IM-->
+                    <RelativeLayout
+                        android:id="@+id/ffff"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentTop="true"
+                        android:layout_toRightOf="@+id/showview"
+                        android:layout_weight="0.5">
+
+                        <ImageView
+                            android:id="@+id/msg_resize"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="50dp"
+                            android:src="@drawable/simple_player_icon_fullscreen_stretch_o"
+                            android:visibility="gone" />
+
+                        <LinearLayout
+                            android:id="@+id/chat"
+                            android:layout_width="match_parent"
+                            android:layout_height="320dp"
+                            android:layout_weight="20"
+                            android:orientation="vertical"
+                            android:weightSum="1">
+
+
+                            <ListView
+                                android:id="@+id/msglistview"
+                                android:layout_width="match_parent"
+                                android:layout_height="248dp"
+                                android:layout_marginLeft="10.0dip"
+                                android:layout_marginRight="10.0dip"
+                                android:layout_marginTop="10.0dip"
+                                android:cacheColorHint="#00000000"
+                                android:divider="@null"
+                                android:dividerHeight="5dp"
+                                android:scrollbars="none" />
+
+                        </LinearLayout>
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:background="@drawable/layout_bg1">
+
+                            <Button
+                                android:id="@+id/btn_send"
+                                android:layout_width="60dp"
+                                android:layout_height="40dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="10dp"
+                                android:text="发送" />
+
+                            <EditText
+                                android:id="@+id/et_sendmessage"
+                                android:layout_width="fill_parent"
+                                android:layout_height="40dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_toLeftOf="@id/btn_send"
+                                android:background="@drawable/edittext1"
+                                android:singleLine="true"
+                                android:textSize="18sp" />
+                        </RelativeLayout>
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <!--画板-->
+            <RelativeLayout
+                android:id="@+id/printwidget"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.382"
+                android:gravity="left"
+                android:weightSum="1">
+
+                <me.panavtec.drawableview.DrawableView
+                    android:id="@+id/paintView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp" />
+
+                <!--画板按钮-->
+                <ImageView
+                    android:id="@+id/scroller"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_above="@+id/imageView8"
+                    android:layout_alignStart="@+id/imageView8"
+                    android:layout_marginBottom="15dp"
+                    android:src="@drawable/hand_point" />
+
+                <ImageView
+                    android:id="@+id/imageView8"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/addeasyicon" />
+
+                <ImageView
+                    android:id="@+id/erasers"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_above="@+id/scroller"
+                    android:layout_alignStart="@+id/scroller"
+                    android:layout_marginBottom="15dp"
+                    android:src="@drawable/pen_btn" />
+
+                <ImageView
+                    android:id="@+id/color_colour"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_above="@+id/erasers"
+                    android:layout_alignStart="@+id/erasers"
+                    android:layout_marginBottom="15dp"
+                    android:src="@drawable/color_colour" />
+
+                <ImageView
+                    android:id="@+id/cuttool"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_above="@+id/color_colour"
+                    android:layout_alignStart="@+id/color_colour"
+                    android:layout_marginBottom="15dp"
+                    android:src="@drawable/cut_o" />
+
+                <ImageView
+                    android:id="@+id/next_page"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_above="@+id/cuttool"
+                    android:layout_alignStart="@+id/cuttool"
+                    android:layout_marginBottom="15dp"
+                    android:src="@drawable/nextpage_o" />
+
+                <ImageView
+                    android:id="@+id/pre_page"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_above="@+id/next_page"
+                    android:layout_alignStart="@+id/next_page"
+                    android:layout_marginBottom="15dp"
+                    android:src="@drawable/prepage_o" />
+
+
+                <ImageView
+                    android:id="@+id/canvas_resize"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_above="@+id/pre_page"
+                    android:layout_alignStart="@+id/pre_page"
+                    android:layout_marginBottom="15dp"
+                    android:src="@drawable/simple_player_icon_fullscreen_stretch_o" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/content_resize"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="76dp"
+        android:src="@drawable/simple_player_icon_fullscreen_stretch_o" />
+
+    <ImageView
+        android:id="@+id/kj_resize"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="70dp"
+        android:src="@drawable/simple_player_icon_fullscreen_stretch_o"
+        android:visibility="gone" />
+
+</RelativeLayout>

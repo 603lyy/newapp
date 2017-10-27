@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_online"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="1dp"
+    android:paddingLeft="1dp"
+    android:paddingRight="1dp"
+    android:paddingTop="1dp"
+    tools:context=".activity.OnlineActivity">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="179dp"
+            android:layout_height="wrap_content">
+
+
+            <cn.nodemedia.NodePlayerView
+                android:id="@+id/video_view"
+                android:layout_width="match_parent"
+                android:layout_height="129dp" />
+
+
+
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_weight="20"
+                android:layout_height="320dp">
+
+
+                <ListView
+                    android:id="@+id/msglistview"
+                    android:layout_width="166dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10.0dip"
+                    android:layout_marginRight="10.0dip"
+                    android:layout_marginTop="10.0dip"
+                    android:cacheColorHint="#00000000"
+                    android:divider="@null"
+                    android:dividerHeight="5dp"
+                    android:scrollbars="none" />
+
+                </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/layout_bg1">
+
+                <Button
+                    android:id="@+id/btn_send"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:text="发送" />
+
+                <EditText
+                    android:id="@+id/et_sendmessage"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@id/btn_send"
+                    android:background="@drawable/edittext1"
+                    android:singleLine="true"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="436dp"
+            android:layout_weight="1.0"
+            android:background="#000"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_x="85dp"
+                android:layout_y="-13dp"
+                android:background="#d8bdfb"
+
+                android:orientation="horizontal">
+
+
+                <Button
+                    android:id="@+id/pingfen"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:text="评分" />
+
+                <TextView
+
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.5"
+                    android:paddingLeft="20dp"
+                    android:text="是否同步"
+                    android:textColor="@color/pagecolor" />
+
+                <cn.yaheen.online.switchbutton.SwitchButton
+                    android:id="@+id/sync"
+                    style="@style/SwitchButtonStyle"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="50dp"
+                    android:layout_weight="0.3" />
+            </LinearLayout>
+
+
+            <cn.nodemedia.NodePlayerView
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="169dp"
+                android:layout_marginTop="90dp" />
+
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="441dp"
+            android:id="@+id/print"
+            android:layout_weight="1.0"
+            android:layout_height="match_parent" >
+
+
+            <RelativeLayout
+                android:id="@+id/prentwidget"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:gravity="left"
+                android:orientation="vertical"
+
+                android:weightSum="1">
+
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/widget"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/widget40"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/buttonsave_ID"
+                            android:layout_width="80px"
+                            android:layout_height="80px"
+                            android:background="@drawable/savex"></Button>
+
+                        <Button
+                            android:id="@+id/buttonnew_ID"
+                            android:layout_width="80px"
+                            android:layout_height="80px"
+                            android:background="@drawable/new3"></Button>
+
+                        <Button
+                            android:id="@+id/buttonpen_ID"
+                            android:layout_width="80px"
+                            android:layout_height="80px"
+                            android:background="@drawable/penx"></Button>
+
+                        <Button
+                            android:id="@+id/buttoneraser_ID"
+                            android:layout_width="80px"
+                            android:layout_height="80px"
+                            android:background="@drawable/eraserx"></Button>
+
+                        <Button
+                            android:id="@+id/buttonundo_ID"
+                            android:layout_width="80px"
+                            android:layout_height="80px"
+                            android:background="@drawable/undox"></Button>
+
+                        <Button
+                            android:id="@+id/buttonredo_ID"
+                            android:layout_width="80px"
+                            android:layout_height="80px"
+                            android:background="@drawable/redox"></Button>
+                        <Button
+                            android:id="@+id/buttonupload_ID"
+                            android:layout_width="80px"
+                            android:layout_height="80px"
+
+                            android:background="@drawable/uploadx"></Button>
+
+                        <Button
+                            android:id="@+id/prebtn"
+                            android:layout_width="80px"
+                            android:layout_height="80px"
+                            android:background="@drawable/prebtnpage"></Button>
+                        <Button
+                            android:id="@+id/nextbtn"
+                            android:layout_width="80px"
+                            android:layout_height="80px"
+
+                            android:background="@drawable/nextbtnpage"></Button>
+                        <Button
+                            android:id="@+id/cut"
+                            android:layout_width="80px"
+                            android:layout_height="80px"
+
+                            android:background="@drawable/cut"></Button>
+                    </LinearLayout>
+                </LinearLayout>
+
+
+
+                <cn.yaheen.online.view.SketchpadView
+                    android:id="@+id/SketchadView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/widget">"
+                </cn.yaheen.online.view.SketchpadView>
+
+
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_mezi"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="left"
+        android:layout_marginTop="11dp" />
+</RelativeLayout>

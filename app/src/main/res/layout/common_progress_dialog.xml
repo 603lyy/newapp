@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/progress_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"
+        android:text="正在上传"
+        android:textColor="#ff666666"
+        android:textSize="16dip" />
+
+    <TextView
+        android:id="@+id/progress_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textColor="#ffffa800"
+        android:textSize="14dip" />
+
+    <ProgressBar
+        android:id="@+id/progress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:max="100"
+        android:progress="0"
+        android:progressDrawable="@drawable/update_define_progress" />
+
+</LinearLayout>
+
+<!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--xmlns:tools="http://schemas.android.com/tools"-->
+<!--android:layout_width="wrap_content"-->
+<!--android:layout_height="wrap_content">-->
+<!--<LinearLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="253dp"-->
+    <!--android:orientation="vertical"-->
+    <!--android:background="@drawable/uploadbg">-->
+    <!--<TextView-->
+        <!--android:id="@+id/progress_message"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textSize="44px"-->
+        <!--android:layout_marginTop="113px"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:textColor="#ffffff"-->
+        <!--/>-->
+
+    <!--<ProgressBar-->
+        <!--android:id="@+id/progress"-->
+        <!--style="?android:attr/progressBarStyleHorizontal"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="30px"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginLeft="47px"-->
+        <!--android:layout_marginTop="100px"-->
+        <!--android:progressDrawable="@drawable/common_progressdialog_progressbar_background" />-->
+    <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal"-->
+        <!--&gt;-->
+        <!--<TextView-->
+            <!--android:id="@+id/progress_percent"-->
+            <!--android:layout_width="80px"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textSize="30px"-->
+            <!--android:layout_marginLeft="280px"-->
+            <!--android:gravity="center_horizontal"-->
+            <!--android:textColor="#ffffff"-->
+            <!--/>-->
+        <!--<TextView-->
+            <!--android:id="@+id/progress_number"-->
+            <!--android:visibility="gone"-->
+            <!--android:layout_width="250px"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="120px"-->
+            <!--android:textSize="30px"-->
+            <!--android:gravity="center_horizontal"-->
+            <!--android:textColor="#ffffff"-->
+            <!--/>-->
+    <!--</LinearLayout>-->
+<!--</LinearLayout>-->
+<!--</FrameLayout>-->

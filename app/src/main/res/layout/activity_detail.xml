@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/widge0"
+    >
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="33dp"
+        android:background="@drawable/online_bg">
+
+        <ImageView
+            android:id="@+id/backhome"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:src="@drawable/back" />
+        <TextView
+            android:layout_weight="30"
+
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="在线评教系统"
+            android:gravity="center"
+            android:textColor="#FFF" />
+        <TextView
+            android:layout_weight="2"
+
+            android:id="@+id/pagetv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text=""
+            android:gravity="center"
+            android:textColor="#FFF" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/widget4"
+        android:layout_width="fill_parent"
+        android:layout_height="120px"
+        android:background="@color/Grey_100"
+        android:gravity="right"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/layout"
+            android:layout_width="387dp"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_weight="0.37">
+            <LinearLayout
+                android:id="@+id/prepage"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="35dip"
+                    android:src="@drawable/prepage_o" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="上一页"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/nextpage"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/crop__bar_height"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="35dip"
+                    android:src="@drawable/nextpage_o" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="下一页" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/upload"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="35dip"
+                    android:src="@drawable/upload_o" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="上传"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/pingjiao"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <ImageView
+                    android:layout_width="54dp"
+                    android:layout_height="35dip"
+                    android:src="@drawable/ic_video_start" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="查看评分"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+        <!-- 修改截止点 -->
+        <ImageButton
+            android:id="@+id/buttonclose_ID"
+            android:layout_width="20px"
+            android:layout_height="20px"
+            android:background="@drawable/close"></ImageButton>
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal"
+        android:gravity="right"
+        android:id="@+id/prentwidget"
+
+        android:weightSum="1">
+
+        <me.panavtec.drawableview.DrawableView
+            android:id="@+id/paintView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/Grey_100" />
+
+
+    </RelativeLayout>
+</LinearLayout>

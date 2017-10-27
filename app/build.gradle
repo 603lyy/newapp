@@ -1,0 +1,82 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    aaptOptions {
+        cruncherEnabled = false
+        useNewCruncher = false
+
+    }
+    useLibrary 'org.apache.http.legacy'
+    defaultConfig {
+        applicationId "cn.yaheen.online"
+        minSdkVersion 21
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    task nativeLibsToJar(type: Zip, description: "create a jar archive of the native libs") {
+
+        destinationDir file("$projectDir/libs")
+        baseName "Native_Libs2"
+        extension "jar"
+        from fileTree(dir: "libs", include: "**/*.so")
+        into "lib"
+    }
+
+    tasks.withType(JavaCompile) {
+        compileTask -> compileTask.dependsOn(nativeLibsToJar)
+    }
+
+}
+
+repositories {
+    mavenCentral()
+    flatDir {
+        dirs 'libs' //this way we can find the .aar file in libs folder
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.3.0'
+
+    //阿里云直播播放器
+    compile(name: 'AliyunPlayer', ext: 'aar')
+    // compile 'me.panavtec:drawableview:0.6.0'
+    compile files('libs/gesture-imageview.jar')
+    compile files('libs/Native_Libs2.jar')
+    compile 'com.anthonycr.grant:permissions:1.0'
+    compile 'com.soundcloud.android:android-crop:1.0.1@aar'
+    compile 'com.android.support:design:25.3.0'
+    compile 'org.xutils:xutils:3.3.42'
+    compile 'com.dou361.ijkplayer:jjdxm-ijkplayer:1.0.6'
+    compile 'com.daimajia.swipelayout:library:1.2.0@aar'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.google.code.gson:gson:2.2.4'
+    compile 'com.android.support:recyclerview-v7:25.3.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'org.greenrobot:greendao:3.2.0'
+    testCompile 'junit:junit:4.12'
+    compile files('libs/NodeMediaClient-v1.2.12.jar')
+}
+//compile 'me.panavtec:drawableview:0.6.0'

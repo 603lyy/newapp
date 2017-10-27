@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/dialogbg"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="40.0dip"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:text="填写课程编号"
+        android:textColor="#fffffb"
+        android:textSize="20sp"
+        android:visibility="visible" />
+
+    <!--   <LinearLayout
+          android:id="@+id/contentView"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content" > -->
+
+    <EditText
+        android:id="@+id/number"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
+        android:gravity="left|center"
+        android:hint="课程编号" />
+    <!-- </LinearLayout> -->
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="60.0dip"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <Button
+            android:text="确定"
+            android:id="@+id/positiveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:paddingTop="8dp"
+            android:background="@drawable/btngreen"
+            android:layout_marginLeft="35dp"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentBottom="true"
+            android:gravity="center" />
+
+        <Button
+
+            android:text="取消"
+            android:id="@+id/negativeButton"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:paddingTop="8dp"
+            android:background="@drawable/button"
+            android:layout_marginLeft="46dp"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentBottom="true"
+            android:gravity="center" />
+    </LinearLayout>
+
+</LinearLayout>
