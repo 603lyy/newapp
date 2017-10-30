@@ -19,6 +19,7 @@ import android.hardware.display.VirtualDisplay;
 import android.media.ImageReader;
 import android.media.projection.MediaProjection;
 import android.media.projection.MediaProjectionManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -80,6 +81,8 @@ import cn.yaheen.online.bean.ResponseEntityResult;
 import cn.yaheen.online.bean.TbChatMsg;
 import cn.yaheen.online.chat.ChatMsgEntity;
 import cn.yaheen.online.chat.ChatMsgViewAdapter;
+import cn.yaheen.online.common.network.INetwordWatcherListener;
+import cn.yaheen.online.common.network.NetworkWatcher;
 import cn.yaheen.online.dao.UploadDAO;
 import cn.yaheen.online.interfaces.OnSaveCallBack;
 import cn.yaheen.online.interfaces.PageCallBack;
@@ -113,38 +116,55 @@ import me.panavtec.drawableview.utils.SerializeUtils;
 import static cn.yaheen.online.R.id.textView2;
 
 public class OnlineMainActivity extends Activity implements Receiver.Message, View.OnClickListener,
-        PopupMenu.OnItemClickListener {
-
-    AliVcMediaPlayer mPlayer;
+        PopupMenu.OnItemClickListener, INetwordWatcherListener {
 
     private final String TAG = "SosWebSocketClientService";
+
+    // 表示打开照相机
+    private final int IMAGE_RESULT_CODE = 2;
+    // 选择图片库
+    private final int PICK = 1;
+
+    private Receiver myReceiver;
+    private AliVcMediaPlayer mPlayer;
+    private Timer timer = new Timer();
+    private ChatMsgViewAdapter mAdapter;
+    private NetworkWatcher networkWatcher;
     private final WebSocketConnection mConnection = new WebSocketConnection();
 
-    private final int IMAGE_RESULT_CODE = 2;// 表示打开照相机
-    private final int PICK = 1;// 选择图片库
-    private Button mBtnSend;// 发送btn
-    private Context context; //当前上下文
-    private Button cut;  //截图btn
-    private EditText mEditTextContent;
+    private Button cut;
+    private Context context;
+    private Button mBtnSend;
     private ListView mListView;
-    private ChatMsgViewAdapter mAdapter;// 消息视图的Adapter
-    private List<ChatMsgEntity> mDataArrays = new ArrayList<ChatMsgEntity>();// 消息对象数组
-    private int page = 1;//Edit by xszyou in 20170610:总页数
-    private int curPage = 1; //当前页，用于翻页
-
-    private int curColor = Color.BLACK; //当前画笔颜色
-    private int curVal = 2; //当前画笔大小
+    private EditText mEditTextContent;
+    private CommonProgressDialog mDialog;
+    /**
+     * 消息对象数组
+     */
+    private List<ChatMsgEntity> mDataArrays = new ArrayList<ChatMsgEntity>();
 
     public static int i = 1;
-    CommonProgressDialog mDialog;
     public static int k = 0;
-    Receiver myReceiver;
-    Timer timer = new Timer();
+    /**
+     * 总页数
+     */
+    private int page = 1;
+    /**
+     * 当前画笔大小
+     */
+    private int curVal = 2;
+    /**
+     * 当前页，用于翻页
+     */
+    private int curPage = 1;
+    /**
+     * 当前画笔颜色
+     */
+    private int curColor = Color.BLACK;
 
     /**
      * 画板
      */
-
     private DrawableView m_view;//bin:画板
     SharedPreferencesUtils preferencesUtils = null;
     Constant constant = null;
@@ -306,20 +326,20 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
 
         preferencesUtils = SharedPreferencesUtils.createSharedPreferences("online", OnlineMainActivity.this);
         isPingJiaoOpen = this.getIntent().getBooleanExtra("isPingJiaoOpen", false);
+        networkWatcher = new NetworkWatcher(getApplicationContext(), this);
+        constant = Constant.createConstant(OnlineMainActivity.this);
         Boolean screen = DefaultPrefsUtil.getIsHorizontalScreen();
         String token = DefaultPrefsUtil.getToken();
+
         courseCode = DefaultPrefsUtil.getCourseCode();
         uuid = DefaultPrefsUtil.getUUID();
+        constant.setIsHeng(screen);
         isHeng = screen;
-
         if (token == null || "".equals(token.trim())) {
             isLogin = false;
         } else {
             isLogin = true;
         }
-
-        constant = Constant.createConstant(OnlineMainActivity.this);
-        constant.setIsHeng(screen);
 
         initScreen();
         contentResize = (ImageView) findViewById(R.id.content_resize);
@@ -1561,40 +1581,43 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         //注意连接和服务名称要一致
         /*final String wsuri = "ws://192.168.0.2：8080/st/sosWebSocketService?userCode="
                 + spu.getValue(LoginActivity.STR_USERNAME);*/
-        final String wsuri = Constant.getWsurl() + "/ws/chat.do?hardwareId="
+        String wsuri = Constant.getWsurl() + "/ws/chat.do?hardwareId="
                 + SysUtils.android_id(OnlineMainActivity.this) + "&courseCode=" + courseCode;
         try {
-            mConnection.connect(wsuri, new WebSocketHandler() {
-                @Override
-                public void onOpen() {
-                }
-
-                @Override
-                public void onTextMessage(String text) {
-                    Gson gson = new Gson();
-                    ChatMsgEntity entity = new ChatMsgEntity();
-                    TbChatMsg chatMsg = gson.fromJson(text, TbChatMsg.class);
-                    entity.setName(chatMsg.getFromUserName());
-                    entity.setMessage(chatMsg.getMsg());
-                    entity.setDate(getDate());
-                    send(0, true, entity);
-                }
-
-                @Override
-                public void onBinaryMessage(byte[] payload) {
-                    super.onBinaryMessage(payload);
-                }
-
-                @Override
-                public void onClose(int code, String reason) {
-                    if (connetCount < 5) {
-                        connetCount++;
-                        initWebSocket();
-                    }
-                }
-            });
+            mConnection.connect(wsuri, new mWebSocketHandler());
         } catch (WebSocketException e) {
             e.printStackTrace();
+        }
+    }
+
+    private class mWebSocketHandler extends WebSocketHandler {
+        @Override
+        public void onOpen() {
+            connetCount = 0;
+        }
+
+        @Override
+        public void onTextMessage(String text) {
+            Gson gson = new Gson();
+            ChatMsgEntity entity = new ChatMsgEntity();
+            TbChatMsg chatMsg = gson.fromJson(text, TbChatMsg.class);
+            entity.setName(chatMsg.getFromUserName());
+            entity.setMessage(chatMsg.getMsg());
+            entity.setDate(getDate());
+            send(0, true, entity);
+        }
+
+        @Override
+        public void onBinaryMessage(byte[] payload) {
+            super.onBinaryMessage(payload);
+        }
+
+        @Override
+        public void onClose(int code, String reason) {
+            if (connetCount < 5) {
+                connetCount++;
+                initWebSocket();
+            }
         }
     }
 
@@ -2167,7 +2190,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                 List<UploadModel> uploadModels = uploadDAO.findByStatusAndUID(1, uuid);
                 if (uploadModels != null && uploadModels.size() > 0) {
                     dialog.dismiss();
-                    mDialog = new CommonProgressDialog(OnlineMainActivity.this,new DialogListener());
+                    mDialog = new CommonProgressDialog(OnlineMainActivity.this, new DialogListener());
                     mDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                     mDialog.setCanceledOnTouchOutside(false);
                     mDialog.setMessage("正在上传");
@@ -2221,7 +2244,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         }
     }
 
-    private void cancelTimer(){
+    private void cancelTimer() {
         if (timer != null) {
             timer.cancel();
             timer = null;
@@ -2229,6 +2252,15 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         if (task != null) {
             task.cancel();
             task = null;
+        }
+    }
+
+    @Override
+    public void networdNotifyChange(NetworkInfo info) {
+        boolean isNeedConnect = mConnection != null && !mConnection.isConnected();
+        if (isNeedConnect) {
+            mConnection.disconnect();
+            initWebSocket();
         }
     }
 
@@ -2251,6 +2283,9 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         stopContentPlay(null);
         if (mImageReader != null) {
             mImageReader.close();
+        }
+        if (networkWatcher != null) {
+            networkWatcher.release();
         }
     }
 }
