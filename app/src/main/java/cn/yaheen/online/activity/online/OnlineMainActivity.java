@@ -351,9 +351,6 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
             findViewById(R.id.sptv).setVisibility(View.GONE);
             resizeBtnShow(false);
         }
-
-        //5分钟自动保存一次到本地
-        timer.schedule(task, 300000, 300000);
         uploadDAO = new UploadDAO();
 
         //Edit by xszyou on 20170611:初始化画板
@@ -2236,9 +2233,21 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        //5分钟自动保存一次到本地
+        timer.schedule(task, 300000, 300000);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        cancelTimer();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
-        cancelTimer();
         stopContentPlay(null);
         if (mImageReader != null) {
             mImageReader.close();

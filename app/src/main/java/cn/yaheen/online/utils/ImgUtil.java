@@ -230,7 +230,7 @@ public class ImgUtil {
     public static Bitmap startCapture(ImageReader mImageReader, String path, int bitmapX, int bitmapY, int bitmapWidth, int bitmapHeight) {
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            Image image = mImageReader.acquireLatestImage();
+            Image image = mImageReader.acquireNextImage();
             if (image == null) {
                 return null;
             }
