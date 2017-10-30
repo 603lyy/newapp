@@ -148,7 +148,8 @@
         <activity android:name=".activity.offline.OffMainActivity2" />
         <activity
             android:name=".activity.online.OnlineMainActivity"
-            android:configChanges="orientation|screenSize" />
+            android:configChanges="orientation|screenSize"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity android:name=".activity.online.SaveFileActivity" />
         <activity android:name=".activity.GradeActivity" />
         <!-- <activity android:name=".activity.cut.TestActivity"></activity> -->

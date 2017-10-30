@@ -332,10 +332,6 @@ public class MainActivity extends Activity {
         DefaultPrefsUtil.setUserName(username);
         DefaultPrefsUtil.setUUID(uuid);
 
-        if (mWeiboDialog != null) {
-            WeiboDialogUtils.closeDialog(mWeiboDialog);
-        }
-
         Intent intent = new Intent();
         intent.setClass(MainActivity.this, OnlineMainActivity.class);
         startActivity(intent);
@@ -444,8 +440,8 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (mHandler != null) {
-            mHandler.sendEmptyMessageDelayed(3, 1000);
+        if (mWeiboDialog != null) {
+            WeiboDialogUtils.closeDialog(mWeiboDialog);
         }
     }
 
