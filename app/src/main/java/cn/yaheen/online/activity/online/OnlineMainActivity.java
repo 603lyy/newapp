@@ -2121,15 +2121,6 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         }
     };
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        stopContentPlay(null);
-        if (mImageReader != null) {
-            mImageReader.close();
-        }
-    }
-
     /**
      * Create by xszyou on 20170617:画板加载数据
      */
@@ -2230,6 +2221,27 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         } else {
             setContentView(R.layout.activity_online_main_v);
             this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+    }
+
+    private void cancelTimer(){
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
+        if (task != null) {
+            task.cancel();
+            task = null;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        cancelTimer();
+        stopContentPlay(null);
+        if (mImageReader != null) {
+            mImageReader.close();
         }
     }
 }
