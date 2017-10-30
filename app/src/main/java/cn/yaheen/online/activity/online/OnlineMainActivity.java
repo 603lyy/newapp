@@ -319,6 +319,11 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
     };
 
     @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = OnlineMainActivity.this;
@@ -591,7 +596,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                         public void saveFail() {
                             ToastUtils.showMessage(OnlineMainActivity.this, "保存失败");
                         }
-                    }, true);
+                    }, false);
 
                 }
 
@@ -599,7 +604,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                 public void saveFail() {
                     ToastUtils.showMessage(OnlineMainActivity.this, "数据缓存失败，无法保存");
                 }
-            }, false, false);
+            }, true, false);
         } else if (item == PopupMenu.MENUITEM.ITEM2) {
             //上传按钮
             cacheData(new OnSaveCallBack() {
@@ -629,14 +634,14 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                         public void saveFail() {
                             ToastUtils.showMessage(OnlineMainActivity.this, "保存失败，终止上传");
                         }
-                    }, true);
+                    }, false);
                 }
 
                 @Override
                 public void saveFail() {
                     ToastUtils.showMessage(OnlineMainActivity.this, "数据缓存失败，终止上传");
                 }
-            }, false, false);
+            }, true, false);
             // OnUpload();
         } else if (item == PopupMenu.MENUITEM.ITEM3) {
             //删除
@@ -656,7 +661,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                                 public void saveFail() {
                                     ToastUtils.showMessage(OnlineMainActivity.this, "保存失败，终止操作");
                                 }
-                            }, true);
+                            }, false);
 
                         }
 
@@ -664,7 +669,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                         public void saveFail() {
                             ToastUtils.showMessage(OnlineMainActivity.this, "数据缓存失败，终于操作");
                         }
-                    }, false, false);
+                    }, true, false);
                 }
             }, new IDialogCancelCallback() {
                 @Override
@@ -694,7 +699,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                                     public void saveFail() {
                                         Toast.makeText(OnlineMainActivity.this, "保存失败，终止评分", Toast.LENGTH_SHORT).show();
                                     }
-                                }, true);
+                                }, false);
 
                             }
 
@@ -702,7 +707,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                             public void saveFail() {
                                 Toast.makeText(OnlineMainActivity.this, "数据缓存失败，终止评分", Toast.LENGTH_SHORT).show();
                             }
-                        }, false, false);
+                        }, true, false);
                     }
                 });
             } else {
@@ -747,7 +752,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                         public void saveFail() {
                             ToastUtils.showMessage(OnlineMainActivity.this, "保存失败，终止操作");
                         }
-                    }, true);
+                    }, false);
 
                 }
 
@@ -1142,7 +1147,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                                     public void saveFail() {
                                         ToastUtils.showMessage(OnlineMainActivity.this, "保存失败");
                                     }
-                                }, true);
+                                }, false);
                             }
 
                             @Override
@@ -1383,9 +1388,9 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         List<UploadModel> list = uploadDAO.findByUID(uuid);
         curPage = loadpage + 1;
         page = list.size();
-        loadData(curPage);
-        m_view.clear();
 
+        m_view.clear();
+        loadData(curPage);
         pagetv.setText("(" + curPage + "/" + page + ")");
     }
 
@@ -1808,9 +1813,9 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                     if (saveCallBack != null) {
                         saveCallBack.saveSuccess();
                     }
-                    if (showLoading) {
-                        closeDialog(); //发送消息通知主线程，只有主线程才能操作UI
-                    }
+//                    if (showLoading) {
+//                        closeDialog(); //发送消息通知主线程，只有主线程才能操作UI
+//                    }
                 } catch (Exception e) {
                     if (showLoading) {
                         closeDialog();
@@ -1884,9 +1889,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                     if (saveCallBack != null) {
                         saveCallBack.saveSuccess();
                     }
-                    if (showLoading) {
-                        closeDialog();
-                    }
+                    closeDialog();
                     uiHandler.sendEmptyMessage(1);
                     savingNative = false;//保存中
                 } catch (Exception e) {
