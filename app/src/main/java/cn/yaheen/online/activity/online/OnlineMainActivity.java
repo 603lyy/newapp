@@ -30,6 +30,7 @@ import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
 import android.support.v4.content.FileProvider;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -1562,6 +1563,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         mPlayer.setStopedListener(new MediaPlayer.MediaPlayerStopedListener() {
             @Override
             public void onStopped() {
+                Log.i("lin", "onStopped: stop");
             }
         });
         //缓冲信息更新事件
@@ -2261,6 +2263,9 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         if (isNeedConnect) {
             mConnection.disconnect();
             initWebSocket();
+            mPlayer.stop();
+//            mPlayer.prepareAndPlay("rtmp://live.hkstv.hk.lxdns.com/live/hks");
+            mPlayer.prepareAndPlay(Constant.getOnlineurl() + "screen_" + courseCode);
         }
     }
 
