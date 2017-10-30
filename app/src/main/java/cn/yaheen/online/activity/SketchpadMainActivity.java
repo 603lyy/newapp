@@ -940,7 +940,7 @@ public class SketchpadMainActivity extends Activity implements  View.OnClickList
 		String uuid = sp.getString("uid", null);
 		List<UploadModel> uploadModels=uploadDAO.findByStatusAndUID(0,uuid);
 		if (uploadModels!=null&&uploadModels.size()>0){
-			mDialog = new CommonProgressDialog(SketchpadMainActivity.this);
+			mDialog = new CommonProgressDialog(SketchpadMainActivity.this,null);
 			mDialog.setMessage("正在上传");
 			mDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 			mDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {

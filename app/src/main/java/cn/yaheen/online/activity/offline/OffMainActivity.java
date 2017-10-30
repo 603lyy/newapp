@@ -929,7 +929,7 @@ public class OffMainActivity extends Activity implements Receiver.Message {
                 List<UploadModel> uploadModels=uploadDAO.findByStatusAndUID(1,uuid);
                 if (uploadModels!=null&&uploadModels.size()>0){
                     dialog.dismiss();
-                    mDialog = new CommonProgressDialog(OffMainActivity.this);
+                    mDialog = new CommonProgressDialog(OffMainActivity.this,null);
                     mDialog.setMessage("正在上传");
                     mDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                     mDialog.show();
@@ -955,7 +955,7 @@ public class OffMainActivity extends Activity implements Receiver.Message {
         i=1;
         List<UploadModel> uploadModels=uploadDAO.findByStatusAndUID(1,uuid);
         if (uploadModels!=null&&uploadModels.size()>0){
-            mDialog = new CommonProgressDialog(OffMainActivity.this);
+            mDialog = new CommonProgressDialog(OffMainActivity.this,null);
             mDialog.setMessage("正在上传");
             mDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             mDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {

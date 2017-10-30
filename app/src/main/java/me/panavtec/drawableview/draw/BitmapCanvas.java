@@ -23,20 +23,21 @@ public class BitmapCanvas {
 
     /**
      * Edit by xszyou on 20170604:把图片调整大小再写入画板。
+     *
      * @param canvas
      * @param bitmap
      */
     public void onDraw(Canvas canvas, Bitmap bitmap) {
 
-     //   canvas.drawBitmap(bitmap,10,100,gesturePaint);
-        Log.d("test","原图大小：" + bitmap.getWidth() + "*" + bitmap.getHeight());
+        //   canvas.drawBitmap(bitmap,10,100,gesturePaint);
+//        Log.d("test","原图大小：" + bitmap.getWidth() + "*" + bitmap.getHeight());
         Constant constant = Constant.createConstant(null);
         Rect rSource = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
         Rect rDest = null;
-        if (constant.isHeng()){
-            rDest = new Rect(0, 0, 1320, (int)(bitmap.getHeight() * (1320f/bitmap.getWidth())));
-        }else {
-            rDest =  new Rect(0, 0, 1320, (int)(bitmap.getHeight() * (1320f/bitmap.getWidth())));
+        if (constant.isHeng()) {
+            rDest = new Rect(0, 0, 1320, (int) (bitmap.getHeight() * (1320f / bitmap.getWidth())));
+        } else {
+            rDest = new Rect(0, 0, 1320, (int) (bitmap.getHeight() * (1320f / bitmap.getWidth())));
         }
 
         canvas.drawBitmap(bitmap, rSource, rDest, gesturePaint);

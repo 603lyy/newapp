@@ -313,8 +313,8 @@ public class TakePhotoActivity extends Activity implements SurfaceHolder.Callbac
                     startActivity(intent);
                     Toast.makeText(TakePhotoActivity.this,photoPath,Toast.LENGTH_SHORT).show();
                     //有了照片路径，之后就是压缩图片，和之前没有什么区别
-
                     break;
+                default:
             }
         }
     }

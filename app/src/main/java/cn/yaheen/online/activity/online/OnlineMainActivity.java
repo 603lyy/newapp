@@ -13,6 +13,7 @@ import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.PixelFormat;
 import android.hardware.display.DisplayManager;
 import android.hardware.display.VirtualDisplay;
 import android.media.ImageReader;
@@ -27,7 +28,6 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
 import android.support.v4.content.FileProvider;
-import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -595,7 +595,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                             if (isLogin) {
                                 if (uploadModels != null && uploadModels.size() > 0) {
                                     i = 1;
-                                    mDialog = new CommonProgressDialog(OnlineMainActivity.this);
+                                    mDialog = new CommonProgressDialog(OnlineMainActivity.this, new DialogListener());
                                     mDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                                     mDialog.setCanceledOnTouchOutside(false);
                                     mDialog.setMessage("正在上传");
@@ -616,7 +616,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
 
                 @Override
                 public void saveFail() {
-                    ToastUtils.showMessage(OnlineMainActivity.this, "数据缓存失败，终于上传");
+                    ToastUtils.showMessage(OnlineMainActivity.this, "数据缓存失败，终止上传");
                 }
             }, false, false);
             // OnUpload();
@@ -741,6 +741,14 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         } else if (item == PopupMenu.MENUITEM.ITEM8) {
             //撤消
             m_view.undo();
+        }
+    }
+
+    private class DialogListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            mDialog.dismiss();
         }
     }
 
@@ -952,6 +960,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                 if (!isLogin || isFullScreen || isMsgFull) {
                     takePhoto();
                 } else {//离线时截图功能变成拍照
+                    contentResize.setVisibility(View.GONE);
                     cacheData(new OnSaveCallBack() {
                         @Override
                         public void saveSuccess() {
@@ -1264,7 +1273,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         windowHeight = wm.getDefaultDisplay().getHeight();
         windowWidth = wm.getDefaultDisplay().getWidth();
         screenDensity = displayMetrics.densityDpi;
-        mImageReader = ImageReader.newInstance(windowWidth, windowHeight, 0x1, 2);
+        mImageReader = ImageReader.newInstance(windowWidth, windowHeight, PixelFormat.RGBA_8888, 4);
 
         //申请截屏权限
         startActivityForResult(
@@ -1544,8 +1553,8 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
             public void onBufferingUpdateListener(int percent) {
             }
         });
-//        mPlayer.prepareAndPlay("rtmp://live.hkstv.hk.lxdns.com/live/hks");
-        mPlayer.prepareAndPlay(Constant.getOnlineurl() + "screen_" + courseCode);
+        mPlayer.prepareAndPlay("rtmp://live.hkstv.hk.lxdns.com/live/hks");
+//        mPlayer.prepareAndPlay(Constant.getOnlineurl() + "screen_" + courseCode);
         contentisPlaying = true;
     }
 
@@ -2116,6 +2125,9 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
     protected void onDestroy() {
         super.onDestroy();
         stopContentPlay(null);
+        if (mImageReader != null) {
+            mImageReader.close();
+        }
     }
 
     /**
@@ -2167,7 +2179,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                 List<UploadModel> uploadModels = uploadDAO.findByStatusAndUID(1, uuid);
                 if (uploadModels != null && uploadModels.size() > 0) {
                     dialog.dismiss();
-                    mDialog = new CommonProgressDialog(OnlineMainActivity.this);
+                    mDialog = new CommonProgressDialog(OnlineMainActivity.this,new DialogListener());
                     mDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                     mDialog.setCanceledOnTouchOutside(false);
                     mDialog.setMessage("正在上传");
@@ -2191,8 +2203,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
 
     private void doScreenCut() {
         WeiboDialogUtils.closeDialog(mWeiboDialog);
-        mHandler.sendEmptyMessageDelayed(6, 200);
-        contentResize.setVisibility(View.GONE);
+        mHandler.sendEmptyMessageDelayed(6, 300);
     }
 
     private void changeCurrentPage() {

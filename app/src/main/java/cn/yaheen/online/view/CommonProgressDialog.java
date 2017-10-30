@@ -8,6 +8,8 @@ import android.os.Message;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -23,9 +25,11 @@ import cn.yaheen.online.R;
 public class CommonProgressDialog extends AlertDialog {
 
     private ProgressBar mProgress;
-//    private TextView mProgressNumber;
+    //    private TextView mProgressNumber;
     private TextView mProgressPercent;
     private TextView mProgressMessage;
+    private Button closeBtn;
+
     private Handler mViewUpdateHandler;
     private int mMax;
     private CharSequence mMessage;
@@ -35,9 +39,12 @@ public class CommonProgressDialog extends AlertDialog {
     private String mProgressNumberFormat;
     private NumberFormat mProgressPercentFormat;
 
-    public CommonProgressDialog(Context context) {
+    private View.OnClickListener listener;
+
+    public CommonProgressDialog(Context context, View.OnClickListener listener) {
         super(context);
         initFormats();
+        this.listener = listener;
     }
 
     @Override
@@ -45,6 +52,7 @@ public class CommonProgressDialog extends AlertDialog {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.common_progress_dialog);
 
+        closeBtn = (Button) findViewById(R.id.progress_btn);
         mProgress = (ProgressBar) findViewById(R.id.progress);
 //        mProgressNumber = (TextView) findViewById(R.id.progress_number);
         mProgressPercent = (TextView) findViewById(R.id.progress_percent);
@@ -76,13 +84,9 @@ public class CommonProgressDialog extends AlertDialog {
                 }
             }
         };
-// View view = inflater.inflate(R.layout.common_progress_dialog, null);
-// mProgress = (ProgressBar) view.findViewById(R.id.progress);
-// mProgressNumber = (TextView) view.findViewById(R.id.progress_number);
-// mProgressPercent = (TextView) view.findViewById(R.id.progress_percent);
-// setView(view);
-//mProgress.setMax(100);
+
         onProgressChanged();
+
         if (mMessage != null) {
             setMessage(mMessage);
         }
@@ -92,6 +96,8 @@ public class CommonProgressDialog extends AlertDialog {
         if (mProgressVal > 0) {
             setProgress(mProgressVal);
         }
+
+        closeBtn.setOnClickListener(listener);
     }
 
     private void initFormats() {

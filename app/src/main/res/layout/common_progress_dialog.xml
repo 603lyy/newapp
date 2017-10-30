@@ -38,6 +38,14 @@
         android:progress="0"
         android:progressDrawable="@drawable/update_define_progress" />
 
+    <Button
+        android:id="@+id/progress_btn"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="关闭"/>
 </LinearLayout>
 
 <!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->

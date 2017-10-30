@@ -418,7 +418,7 @@ public class MainActivity extends Activity {
             });
 
 //            强制登录
-//            String courseUdi = preferencesUtils.get(courseName);
+//            String courseUdi = DefaultPrefsUtil.getCourseUid(courseName);
 //            LoginBean lb = new LoginBean();
 //            lb.setToken("xxxxx");
 //            goONlineActivity(courseUdi, lb);
