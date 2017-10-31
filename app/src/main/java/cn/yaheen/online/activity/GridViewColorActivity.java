@@ -36,6 +36,7 @@ public class GridViewColorActivity extends Activity {
     private int height = 0;
     //界面的宽度
     private int width = 0;
+    private int maxValue = 700;
     //界面宽度和高度之间的最小值
     private int minValue = 0;
     //判断是写字还是橡皮模式
@@ -53,13 +54,12 @@ public class GridViewColorActivity extends Activity {
                 /*取出Intent中附加的数据*/
         curval = intent.getIntExtra("curval", 2);
         isEraserMode = intent.getBooleanExtra("isEraser", false);
-        String state = intent.getStringExtra("state");
         android.view.WindowManager.LayoutParams layoutParams = this.getWindow().getAttributes();
 
         //取宽高的最小值作为界面的宽高
         height = SysUtils.getsWindowHeight(GridViewColorActivity.this) * 2 / 3;
         width = SysUtils.getsWindowWidth(GridViewColorActivity.this) * 2 / 3;
-        minValue = Math.min(height, width);
+        minValue = Math.min(Math.min(height, width), maxValue);
         layoutParams.width = minValue;
         layoutParams.height = minValue;
 //        layoutParams.width = SysUtils.getsWindowWidth(GridViewColorActivity.this) / 2;
@@ -67,82 +67,85 @@ public class GridViewColorActivity extends Activity {
         this.getWindow().setAttributes(layoutParams);
 
         initSeekBar();
-        if (!isEraserMode) {
-            my_gridview = (GridView) findViewById(R.id.grid);
+        my_gridview = (GridView) findViewById(R.id.grid);
             /* 新建�?��自定义的 ImageAdapter*/
-            myImageViewAdapter = new GridImageAdapter(GridViewColorActivity.this);
+        myImageViewAdapter = new GridImageAdapter(GridViewColorActivity.this);
             /* �?GridView 对象设置�?�� ImageAdapter*/
-            my_gridview.setAdapter(myImageViewAdapter);
+        my_gridview.setAdapter(myImageViewAdapter);
             /* �?GridView 添加图片 Items 点击事件监听�?*/
-            my_gridview.setOnItemClickListener(new OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> arg0,
-                                        View arg1, int arg2, long arg3) {
-                    //Intent intent=GridViewDemoActivity.this.getIntent();
-                    //Intent intent=new Intent(GridViewDemoActivity.this,PainterActivity.class);
-                    int color = 0;
-                    switch (arg2) {
-                        case 0:
-                            color = Color.RED;
-                            break;
-                        case 1:
-                            color = Color.BLUE;
-                            break;
-                        case 2:
-                            color = Color.BLACK;
-                            break;
-                        case 3:
-                            color = 0xff458B00;
-                            break;
-                        case 4:
-                            color = 0xff8B0000;
-                            break;
-                        case 5:
-                            color = 0xff7CFC00;
-                            break;
-                        case 6:
-                            color = 0xffFF00FF;
-                            break;
-                        case 7:
-                            color = 0xffEE1289;
-                            break;
-                        case 8:
-                            color = 0xffB23AEE;
-                            break;
-                        case 9:
-                            color = 0xff00FFFF;
-                            break;
-                        case 10:
-                            color = 0xff27408B;
-                            break;
-                        case 11:
-                            color = 0xffFF8247;
-                            break;
-                        case 12:
-                            color = 0xffFFFF00;
-                            break;
-                        case 13:
-                            color = 0xff458B74;
-                            break;
-                        case 14:
-                            color = 0xff8B7500;
-                            break;
-                        case 15:
-                            color = Color.WHITE;
-                            break;
-                        default:
-                    }
-
-                    msgBean.setColor(color);
-                    sendMsg(msgBean);
-                    finish();
-                    //设置当前的颜�?
-                    //OnlineMainActivity.setColor(color);
-                    //SketchpadView.setStrokeColor(color);
-
+        my_gridview.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0,
+                                    View arg1, int arg2, long arg3) {
+                //Intent intent=GridViewDemoActivity.this.getIntent();
+                //Intent intent=new Intent(GridViewDemoActivity.this,PainterActivity.class);
+                int color = 0;
+                switch (arg2) {
+                    case 0:
+                        color = Color.RED;
+                        break;
+                    case 1:
+                        color = Color.BLUE;
+                        break;
+                    case 2:
+                        color = Color.BLACK;
+                        break;
+                    case 3:
+                        color = 0xff458B00;
+                        break;
+                    case 4:
+                        color = 0xff8B0000;
+                        break;
+                    case 5:
+                        color = 0xff7CFC00;
+                        break;
+                    case 6:
+                        color = 0xffFF00FF;
+                        break;
+                    case 7:
+                        color = 0xffEE1289;
+                        break;
+                    case 8:
+                        color = 0xffB23AEE;
+                        break;
+                    case 9:
+                        color = 0xff00FFFF;
+                        break;
+                    case 10:
+                        color = 0xff27408B;
+                        break;
+                    case 11:
+                        color = 0xffFF8247;
+                        break;
+                    case 12:
+                        color = 0xffFFFF00;
+                        break;
+                    case 13:
+                        color = 0xff458B74;
+                        break;
+                    case 14:
+                        color = 0xff8B7500;
+                        break;
+                    case 15:
+                        color = Color.WHITE;
+                        break;
+                    default:
                 }
-            });
-        }
+
+                if (isEraserMode) {
+                    msgBean.setColor(Color.WHITE);
+                } else {
+                    msgBean.setColor(color);
+                }
+
+                sendMsg(msgBean);
+                finish();
+                //设置当前的颜�?
+                //OnlineMainActivity.setColor(color);
+                //SketchpadView.setStrokeColor(color);
+
+            }
+        });
     }
 
     private void initSeekBar() {
