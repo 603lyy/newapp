@@ -31,7 +31,7 @@ import cn.yaheen.online.model.UploadModel;
 public class GridViewAdapter extends BaseSwipeAdapter {
 
     private Context mContext;
-    UploadDAO uploadDAO=null;
+    UploadDAO uploadDAO = null;
     EvaluateDAO evaluateDAO;
 
     public List<UploadModel> getList() {
@@ -42,11 +42,11 @@ public class GridViewAdapter extends BaseSwipeAdapter {
         this.list = list;
     }
 
-    private List<UploadModel> list=new ArrayList<>();
+    private List<UploadModel> list = new ArrayList<>();
 
     public GridViewAdapter(Context mContext) {
         this.mContext = mContext;
-         uploadDAO=new UploadDAO();
+        uploadDAO = new UploadDAO();
 
         System.out.print("");
     }
@@ -63,32 +63,29 @@ public class GridViewAdapter extends BaseSwipeAdapter {
     }
 
     @Override
-    public void fillValues(int position, View convertView) {
-        LinearLayout linearLayout= (LinearLayout)convertView.findViewById(R.id.banner);
-        TextView course = (TextView)convertView.findViewById(R.id.course);
-        TextView teacher = (TextView)convertView.findViewById(R.id.teacher);
-        ImageView trash=(ImageView)convertView.findViewById(R.id.trash);
-        if (uploadDAO==null){
-            uploadDAO=new UploadDAO();
+    public void fillValues(final int position, View convertView) {
+        TextView course = (TextView) convertView.findViewById(R.id.course);
+        TextView teacher = (TextView) convertView.findViewById(R.id.teacher);
+        ImageView trash = (ImageView) convertView.findViewById(R.id.trash);
+        if (uploadDAO == null) {
+            uploadDAO = new UploadDAO();
 
         }
-        if (evaluateDAO==null){
-            evaluateDAO =new EvaluateDAO();
+        if (evaluateDAO == null) {
+            evaluateDAO = new EvaluateDAO();
         }
 
 
-        if (list!=null&&list.size()>0){
-            final String uuid=list.get(position).getUid();
-            List<EvaluateModel> evaluateModels=evaluateDAO.findByUID(uuid);
-             double  avg=0.0;
-            if (evaluateModels!=null&&evaluateModels.size()>0){
-                try{
-                    double Olactivity=  Double.parseDouble(evaluateModels.get(0).getOlactivity());
-                    double Preparation=  Double.parseDouble(   evaluateModels.get(0).getPreparation());
-                    double Psychosis=    Double.parseDouble( evaluateModels.get(0).getPsychosis());
-                    double Quality=     Double.parseDouble(evaluateModels.get(0).getQuality());
-                    avg=(Olactivity+Preparation+Psychosis+Quality)/4.0;
-                }catch (Exception e){
+        if (list != null && list.size() > 0) {
+            final String uuid = list.get(position).getUid();
+            List<EvaluateModel> evaluateModels = evaluateDAO.findByUID(uuid);
+            if (evaluateModels != null && evaluateModels.size() > 0) {
+                try {
+                    double Olactivity = Double.parseDouble(evaluateModels.get(0).getOlactivity());
+                    double Preparation = Double.parseDouble(evaluateModels.get(0).getPreparation());
+                    double Psychosis = Double.parseDouble(evaluateModels.get(0).getPsychosis());
+                    double Quality = Double.parseDouble(evaluateModels.get(0).getQuality());
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -104,9 +101,9 @@ public class GridViewAdapter extends BaseSwipeAdapter {
                     DialogUtils.showNormalDialog(mContext, "确定删除本课程吗？", new DialogCallback() {
                         @Override
                         public void callback() {
-                            try{
+                            try {
                                 List<UploadModel> uploadModelList = uploadDAO.findByUID(uuid);
-                                if (uploadModelList != null && !uploadModelList.isEmpty()){
+                                if (uploadModelList != null && !uploadModelList.isEmpty()) {
                                     for (UploadModel uploadModel : uploadModelList) {
                                         String bitmapFileName = uploadModel.getMixpic();
                                         if (bitmapFileName != null && !"".equals(bitmapFileName.trim())) {
@@ -141,8 +138,7 @@ public class GridViewAdapter extends BaseSwipeAdapter {
                                 intent.setAction("cn.yaheen.online");
                                 intent.putExtra("msg", "ok");
                                 mContext.sendBroadcast(intent); //发送广播更新界面
-
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 Intent intent = new Intent();
                                 intent.setAction("cn.yaheen.online");
                                 intent.putExtra("msg", "error");
@@ -156,7 +152,7 @@ public class GridViewAdapter extends BaseSwipeAdapter {
                         public void cancelCallback() {
 
                         }
-                    },"确定","取消");
+                    }, "确定", "取消");
                 }
             });
         }

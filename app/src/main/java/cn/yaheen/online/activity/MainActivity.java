@@ -296,11 +296,11 @@ public class MainActivity extends Activity {
 
         uploadModel.setPage(1);
         uploadModel.setUid(uuid);
-        uploadDAO.save(uploadModel);
         uploadModel.setTeacher(teacherName);
         uploadModel.setCoursename(courseName);
         uploadModel.setStatus(UploadModel.STATUS_NOT_SAVE);
-        mHandler.sendEmptyMessageDelayed(1, 2000);
+        //
+        uploadDAO.save(uploadModel);
 
         if (mWeiboDialog != null) {
             WeiboDialogUtils.closeDialog(mWeiboDialog);
