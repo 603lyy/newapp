@@ -97,7 +97,6 @@ public class PathDrawer {
 
 
   private void drawbg(Canvas canvas, Bitmap bitmap) {
-   ;
     canvas.drawBitmap(bitmap,0,0,gesturePaint);
     canvas.save();
     canvas.restore();

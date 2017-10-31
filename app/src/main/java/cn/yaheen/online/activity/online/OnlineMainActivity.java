@@ -14,9 +14,11 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
+import android.graphics.Rect;
 import android.hardware.display.DisplayManager;
 import android.hardware.display.VirtualDisplay;
 import android.media.ImageReader;
+import android.media.MediaActionSound;
 import android.media.projection.MediaProjection;
 import android.media.projection.MediaProjectionManager;
 import android.net.NetworkInfo;
@@ -31,6 +33,7 @@ import android.os.Bundle;
 import android.support.v4.content.FileProvider;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -1307,12 +1310,13 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
     private void intCanvas() {
         m_view = (DrawableView) this.findViewById(R.id.paintView);
         config.setStrokeColor(Color.BLACK);
-        config.setShowCanvasBounds(true);
+        //设置背景边框
+        config.setShowCanvasBounds(false);
         config.setStrokeWidth(2.0f);
         config.setMinZoom(1.0f);
         config.setMaxZoom(3.0f);
-        canvasheight = 2208;
-        canvaswidth = 2208;
+        canvasheight = 2400;
+        canvaswidth = 2400;
 
         config.setCanvasHeight(canvasheight);
         config.setCanvasWidth(canvaswidth);
@@ -2264,7 +2268,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
     @Override
     public void networdNotifyChange(NetworkInfo info) {
         boolean isNeedConnect = mConnection != null && !mConnection.isConnected();
-        if (isNeedConnect) {
+        if (isLogin && isNeedConnect) {
             mConnection.disconnect();
             initWebSocket();
             mPlayer.stop();
