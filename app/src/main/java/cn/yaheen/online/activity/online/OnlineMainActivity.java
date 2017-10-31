@@ -2108,6 +2108,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                     //调用拍照失败
                     Toast.makeText(OnlineMainActivity.this, "拍照失败", Toast.LENGTH_LONG).show();
                 }
+                closeDialog();
                 break;
             // 选择图片库的图片
             case PICK:
@@ -2141,17 +2142,6 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                     mImageReader.getSurface(), null, null);
         }
     }
-
-    TimerTask task = new TimerTask() {
-
-        @Override
-        public void run() {
-            // 需要做的事:发送消息
-            Message message = new Message();
-            message.what = 5;
-            mHandler.sendMessage(message);
-        }
-    };
 
     /**
      * Create by xszyou on 20170617:画板加载数据
@@ -2256,6 +2246,17 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         }
     }
 
+    TimerTask task = new TimerTask() {
+
+        @Override
+        public void run() {
+            // 需要做的事:发送消息
+            Message message = new Message();
+            message.what = 5;
+            mHandler.sendMessage(message);
+        }
+    };
+
     private void cancelTimer() {
         if (timer != null) {
             timer.cancel();
@@ -2283,7 +2284,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
     protected void onStart() {
         super.onStart();
         //5分钟自动保存一次到本地
-        timer.schedule(task, 300000, 300000);
+//        timer.schedule(task, 300000, 300000);
     }
 
     @Override
