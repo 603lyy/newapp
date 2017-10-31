@@ -1188,7 +1188,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                 bitmapY = findViewById(R.id.topPanel).getHeight() + toolsBar.getHeight() + 10;
             }
             mBitmap = ImgUtil.startCapture(mImageReader, imagePath, bitmapX, bitmapY,
-                    contentnpv.getWidth()-10, contentnpv.getHeight() - 15);
+                    contentnpv.getWidth() - 10, contentnpv.getHeight() - 15);
 
             if (mBitmap != null) {
                 m_view.setBitmap(mBitmap);
@@ -1407,10 +1407,10 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
      * @param delpage 从1开始
      */
     private void deletePage(int delpage) {
-        if (page <= 1) {
-            m_view.clear();
-            return;
-        }
+//        if (page <= 1) {
+//            m_view.clear();
+//            return;
+//        }
 
         UploadModel uploadModel = uploadDAO.findUploadByPageAndUID(delpage, uuid);
         String bitmapFileName = uploadModel.getMixpic();
@@ -1438,8 +1438,9 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         }
 
         uploadDAO.deleteByPageAndUID(delpage, uuid);
-        if (delpage == 1) {
-            this.loadPage(0);
+        if (delpage <= 1) {
+            page = 0;
+            doNewPage(false);
         } else {
             this.loadPage(page - 2);
         }
