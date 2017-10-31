@@ -764,7 +764,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                 public void saveFail() {
                     ToastUtils.showMessage(OnlineMainActivity.this, "数据缓存失败，终于操作");
                 }
-            }, false, false);
+            }, true, false);
         } else if (item == PopupMenu.MENUITEM.ITEM8) {
             //撤消
             m_view.undo();
@@ -1031,6 +1031,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
             @Override
             public void saveSuccess() {
                 new Handler().postDelayed(new Runnable() {
+                    @Override
                     public void run() {
                         //TODO 检查权限
                         ActivityCompat.requestPermissions(OnlineMainActivity.this, new String[]{android
@@ -1053,9 +1054,10 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                         }
                         //将File对象转换为Uri并启动照相程序
                         Uri imageUri = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", outputImage);
-                        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE); //照相
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri); //指定图片输出地址
-                        startActivityForResult(intent, IMAGE_RESULT_CODE); //启动照相
+                        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                        //指定图片输出地址
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                        startActivityForResult(intent, IMAGE_RESULT_CODE);
                     }
                 }, 300);
             }
@@ -2228,7 +2230,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
     }
 
     private void changeCurrentPage() {
-        mHandler.sendEmptyMessage(2);
+        mHandler.sendEmptyMessage(1);
     }
 
     private void initScreen() {
