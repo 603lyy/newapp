@@ -1188,7 +1188,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                 bitmapY = findViewById(R.id.topPanel).getHeight() + toolsBar.getHeight() + 10;
             }
             mBitmap = ImgUtil.startCapture(mImageReader, imagePath, bitmapX, bitmapY,
-                    contentnpv.getWidth(), contentnpv.getHeight() - 10);
+                    contentnpv.getWidth()-10, contentnpv.getHeight() - 15);
 
             if (mBitmap != null) {
                 m_view.setBitmap(mBitmap);
@@ -1524,7 +1524,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
          * 设置最大缓冲区时长,单位毫秒.此参数关系视频最大缓冲时长.
          * RTMP基于TCP协议不丢包,网络抖动且缓冲区播完,之后仍然会接受到抖动期的过期数据包.
          */
-        mPlayer.setMaxBufferDuration(2000);
+        mPlayer.setMaxBufferDuration(4000);
         mPlayer.setMediaType(MediaPlayer.MediaType.Live);
 //        mPlayer.setVideoSizeChangeListener(new VideoSizeChangelistener());    //画面大小变化事件
         //播放器就绪事件
@@ -1584,8 +1584,9 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
             public void onBufferingUpdateListener(int percent) {
             }
         });
-        mPlayer.prepareAndPlay("rtmp://live.hkstv.hk.lxdns.com/live/hks");
-//        mPlayer.prepareAndPlay(Constant.getOnlineurl() + "screen_" + courseCode);
+//        mPlayer.prepareAndPlay("rtmp://live.hkstv.hk.lxdns.com/live/hks");
+//        mPlayer.prepareAndPlay("http://flv15.quanmin.tv/live/177_L4.flv");
+        mPlayer.prepareAndPlay(Constant.getOnlineurl() + "screen_" + courseCode);
         contentisPlaying = true;
     }
 
