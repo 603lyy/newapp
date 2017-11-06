@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -169,6 +170,8 @@ public class MainActivity extends Activity {
                 login();
             }
         });
+
+        CrashReport.initCrashReport(this.getApplicationContext(), "e539b4d77d", false);
     }
 
 

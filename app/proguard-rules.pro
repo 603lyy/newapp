@@ -26,3 +26,7 @@
 
 -keep class com.alivc.player.** {*;}
 -keepclassmembers class com.alivc.player.** { *;}
+
+#bugly崩溃收集
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}

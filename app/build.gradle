@@ -78,5 +78,7 @@ dependencies {
     compile 'org.greenrobot:greendao:3.2.0'
     testCompile 'junit:junit:4.12'
     compile files('libs/NodeMediaClient-v1.2.12.jar')
+    //bugly崩溃收集
+    compile 'com.tencent.bugly:crashreport:latest.release'
 }
 //compile 'me.panavtec:drawableview:0.6.0'
