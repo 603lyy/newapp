@@ -59,6 +59,7 @@ import com.alivc.player.MediaPlayer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -1103,9 +1104,9 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         uploadModel.setStatus(UploadModel.STATUS_NOT_SAVE);
         uploadModel.setCoursename(coursecode);
         uploadModel.setTeacher(teacherName);
-        uploadDAO.save(uploadModel);
         uploadModel.setPage(page);
         uploadModel.setUid(uuid);
+        uploadDAO.save(uploadModel);
 
         pagetv.setText("(" + curPage + "/" + page + ")");
         m_view.setBitmap(bitmap);
@@ -1439,8 +1440,11 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
 
         uploadDAO.deleteByPageAndUID(delpage, uuid);
         if (delpage <= 1) {
-            page = 0;
-            doNewPage(false);
+            if (page <= 1) {
+                page = 0;
+                doNewPage(false);
+            }
+            this.loadPage(0);
         } else {
             this.loadPage(page - 2);
         }
@@ -2278,7 +2282,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         }
     }
 
-    private void closeConnention(){
+    private void closeConnention() {
         if (mConnection != null) {
             isClose = true;
             mConnection.disconnect();
