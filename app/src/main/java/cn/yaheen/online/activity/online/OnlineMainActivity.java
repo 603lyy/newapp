@@ -135,7 +135,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
     private Timer timer = new Timer();
     private ChatMsgViewAdapter mAdapter;
     private NetworkWatcher networkWatcher;
-    private final WebSocketConnection mConnection = new WebSocketConnection();
+    private WebSocketConnection mConnection = new WebSocketConnection();
 
     private Button cut;
     private Context context;
@@ -735,7 +735,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                             DefaultPrefsUtil.setIsHorizontalScreen(isHeng);
                             if (isLogin) {
                                 stopContentPlay(null);
-                                mConnection.disconnect();
+                                closeConnention();
                             }
                             Intent intent = new Intent();
                             //Edit by xszyou on 20170706:切换时传递消息列表
@@ -1144,7 +1144,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                                         ToastUtils.showMessage(OnlineMainActivity.this, "保存成功");
                                         if (isLogin) {
                                             stopContentPlay(null);
-                                            mConnection.disconnect();
+                                            closeConnention();
                                         }
                                         finish();
                                     }
@@ -1593,12 +1593,19 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
 
     private int connetCount = 0;
 
+    private boolean isClose = true;
+
     private void initWebSocket() {
         //注意连接和服务名称要一致
         /*final String wsuri = "ws://192.168.0.2：8080/st/sosWebSocketService?userCode="
                 + spu.getValue(LoginActivity.STR_USERNAME);*/
         String wsuri = Constant.getWsurl() + "/ws/chat.do?hardwareId="
                 + SysUtils.android_id(OnlineMainActivity.this) + "&courseCode=" + courseCode;
+
+        if (mConnection == null) {
+            mConnection = new WebSocketConnection();
+        }
+
         try {
             mConnection.connect(wsuri, new mWebSocketHandler());
         } catch (WebSocketException e) {
@@ -1610,6 +1617,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         @Override
         public void onOpen() {
             connetCount = 0;
+            isClose = false;
         }
 
         @Override
@@ -1630,7 +1638,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
 
         @Override
         public void onClose(int code, String reason) {
-            if (connetCount < 5) {
+            if (!isClose && connetCount < 5) {
                 connetCount++;
                 initWebSocket();
             }
@@ -2270,15 +2278,24 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         }
     }
 
+    private void closeConnention(){
+        if (mConnection != null) {
+            isClose = true;
+            mConnection.disconnect();
+            mConnection = null;
+        }
+    }
+
     @Override
     public void networdNotifyChange(NetworkInfo info) {
         boolean isNeedConnect = mConnection != null && !mConnection.isConnected();
         if (isLogin && isNeedConnect) {
-            mConnection.disconnect();
             initWebSocket();
-            mPlayer.stop();
+            if (mPlayer != null) {
+                mPlayer.stop();
 //            mPlayer.prepareAndPlay("rtmp://live.hkstv.hk.lxdns.com/live/hks");
-            mPlayer.prepareAndPlay(Constant.getOnlineurl() + "screen_" + courseCode);
+                mPlayer.prepareAndPlay(Constant.getOnlineurl() + "screen_" + courseCode);
+            }
         }
     }
 
