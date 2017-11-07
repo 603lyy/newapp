@@ -758,6 +758,9 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         } else if (item == PopupMenu.MENUITEM.ITEM8) {
             //撤消
             m_view.undo();
+        } else if (item == PopupMenu.MENUITEM.ITEM10) {
+            //清屏
+            m_view.clearPaths();
         }
     }
 

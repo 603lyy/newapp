@@ -2,177 +2,205 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:gravity="center_horizontal"
     android:background="@drawable/icon_popupwin_menu_bg"
-    android:orientation="vertical" >
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/ly_item1"
         android:layout_width="match_parent"
         android:layout_height="55dip"
-        android:background="@drawable/bg_default_button_selector"
         android:layout_margin="5dip"
+        android:background="@drawable/bg_default_button_selector"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:weightSum="1">
+        android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:layout_weight="1"
+            android:orientation="vertical">
+
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="35dp"
                 android:layout_height="35dip"
+                android:layout_gravity="center_horizontal"
                 android:src="@drawable/save_o" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="储存"
-                />
+                android:text="储存" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/upload"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:layout_weight="1"
+            android:orientation="vertical">
+
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="35dp"
                 android:layout_height="35dip"
+                android:layout_gravity="center_horizontal"
                 android:src="@drawable/upload_o" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="上传"
-                />
+                android:text="上传" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/delete"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:layout_weight="1"
+            android:orientation="vertical">
+
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="35dp"
                 android:layout_height="35dip"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center_horizontal"
                 android:src="@drawable/erasericon" />
+
             <TextView
                 android:id="@+id/toolstext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="删除"
-                />
+                android:text="删除" />
         </LinearLayout>
-
-
 
         <LinearLayout
             android:id="@+id/finish"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="vertical">
+
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="35dp"
                 android:layout_height="35dip"
+                android:layout_gravity="center_horizontal"
                 android:src="@drawable/exit_o" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="评分"
-                />
+                android:text="评分" />
         </LinearLayout>
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="20dip"
+        android:layout_height="10dip"
         android:background="#FFF" />
 
     <LinearLayout
         android:id="@+id/ly_item2"
         android:layout_width="match_parent"
         android:layout_height="55dip"
+        android:layout_margin="5dip"
         android:background="@drawable/bg_default_button_selector"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <LinearLayout
-
-
             android:id="@+id/cut"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="35dp"
                 android:layout_height="35dip"
+                android:layout_gravity="center_horizontal"
                 android:src="@drawable/ic_video_start" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="拍照"
-                />
+                android:text="拍照" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/langscape"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:layout_weight="1"
+            android:orientation="vertical">
+
             <ImageView
-                android:layout_width="wrap_content"
+                android:id="@+id/langscapeBtn"
+                android:layout_width="35dp"
                 android:layout_height="35dip"
-                android:src="@drawable/landscape_btn"
-                android:id="@+id/langscapeBtn"/>
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/landscape_btn" />
+
             <TextView
+                android:id="@+id/langscapeTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="横屏"
-                android:id="@+id/langscapeTxt"
-                />
+                android:text="横屏" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/prestep"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:layout_weight="1"
+            android:orientation="vertical">
+
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="35dp"
                 android:layout_height="35dip"
+                android:layout_gravity="center_horizontal"
                 android:src="@drawable/prestep_o" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="撤消"
-                />
+                android:text="撤消" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dip"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/prestep_o" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="清屏" />
         </LinearLayout>
 
 
