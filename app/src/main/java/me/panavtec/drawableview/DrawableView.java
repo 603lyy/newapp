@@ -50,6 +50,7 @@ public class DrawableView extends View
     public PathDrawer pathDrawer;
     private CanvasDrawer canvasDrawer;
     private SerializablePath currentDrawingPath;
+    private Bitmap creatBitmap;
 
     public boolean isOneFingerMode() {
         return OneFingerMode;
@@ -211,7 +212,11 @@ public class DrawableView extends View
             pictureModel.setSourse(bitmap);
         }
 
-        return pathDrawer.obtainBitmapByP(Bitmap.createBitmap(canvasWidth, canvasHeight, Bitmap.Config.ARGB_8888), paths, pictureModel);
+        if (creatBitmap == null) {
+            creatBitmap = Bitmap.createBitmap(canvasWidth, canvasHeight, Bitmap.Config.ARGB_8888);
+        }
+
+        return pathDrawer.obtainBitmapByP(creatBitmap, paths, pictureModel);
     }
 
 

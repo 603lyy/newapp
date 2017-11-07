@@ -141,6 +141,8 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
     private Button cut;
     private Context context;
     private Button mBtnSend;
+    private TextView pagetv;
+    private TextView titleTV;
     private ListView mListView;
     private EditText mEditTextContent;
     private CommonProgressDialog mDialog;
@@ -172,14 +174,12 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
      * 画板
      */
     private DrawableView m_view;//bin:画板
-    SharedPreferencesUtils preferencesUtils = null;
-    Constant constant = null;
+    private SharedPreferencesUtils preferencesUtils = null;
+    private Constant constant = null;
     private UploadDAO uploadDAO = null;
-    String courseCode = "";
-    String uuid = "";
+    private String courseCode = "";
+    private String uuid = "";
     private DrawableViewConfig config = new DrawableViewConfig();
-    private TextView pagetv;
-    private TextView titleTV;//title
 
     /**
      * 5.0系统截图
@@ -200,11 +200,11 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
     private int windowWidth;
     private String mImageName;
     private String mImagePath;
-
     private boolean savingNative = false;
     private boolean isLogin = true;//是否在线模式
     private boolean isPingJiaoOpen = false;
 
+    private Bitmap mBitmap, bigBitmap;
 
     /**
      * 移动图片
@@ -212,39 +212,28 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
      * @param savedInstanceState
      */
 
-    private RelativeLayout mRlMezi;
-    private DisplayMetrics dm;
-    private int lastX, lastY;
-    private long mLastTime = 0, mCurTime = 0; //双击记录点击时间
-    private boolean touchTwo = false, isFirstTouch = true;  //是否第二次点击
-    private int height = 0, width = 0;  //记录第一次点击时的框框大小
-    private int multiple = 2;  //放大倍数
-    private int multi = 2;  //缩小倍数
     boolean isHeng = true;
-    private PopupMenu popupMenu;  //右上角弹出框
-    private ImageView rightBtn = null;
-    SurfaceView npv = null;
-    LinearLayout leftLayout = null;  //左边部分
-    LinearLayout chatLayout = null;
-    private ImageView backhome; //返回按钮
-    private SurfaceView contentnpv;
+    private DisplayMetrics dm;
+    private int canvaswidth, canvasheight;
+    private boolean contentisPlaying = true; //内容区域是否在同屏
     private Map<Integer, Bitmap> pics = new HashMap<>();
     private Map<Integer, Bitmap> bigpicsCacheMap = new HashMap<Integer, Bitmap>();//Edit by xszyou on 20170617:临时保存画板最终效果图
-    private int canvaswidth, canvasheight;
-    private SwitchButton sbDefault;//课件视讯切换
-    private WebView webView = null;
-    private boolean contentisPlaying = true; //内容区域是否在同屏
+
     private ImageView newbtn; //新建按钮
     private ImageView scrollerbtn; //模式变化按钮
     private ImageView eraserBtn; //橡皮按钮
     private ImageView colorBtn; //画板色板按钮
     private ImageView cutBtn; //画板截图按钮
+    private PopupMenu popupMenu;  //右上角弹出框
+    private ImageView rightBtn;
+    private ImageView backhome; //返回按钮
+    private SurfaceView contentnpv;
+    private SwitchButton sbDefault;//课件视讯切换
+    private WebView webView = null;
 
 
     private LinearLayout toolsBar;
 
-    private boolean isnew = false; //截图是否新建
-    ArrayList<SerializablePath> paths = new ArrayList<SerializablePath>(); //当前画板轨迹
     Map<Integer, ArrayList<SerializablePath>> pathsMap = new HashMap<Integer, ArrayList<SerializablePath>>();//内存保存画板的轨迹
     private Dialog mWeiboDialog = null;
 
@@ -1775,8 +1764,8 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                 try {
                     UploadModel upload = uploadDAO.findUploadByPageAndUID(curPage, uuid);
                     //照相、图片
-                    Bitmap bmp = m_view.getBitmap();
-                    if (bmp != null) {
+                    mBitmap = m_view.getBitmap();
+                    if (mBitmap != null) {
                         String filename = null;
                         if (upload.getMixpic() != null) {
                             filename = upload.getMixpic();
@@ -1785,10 +1774,10 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                                     + "/mixpic/" + UUIDUtils.getUuid() + ".jpk";
                         }
                         if (isOutputToFile) {//要主动保存到本地
-                            BitmapUtil.saveBitmapToSDCard(bmp, filename);
+                            BitmapUtil.saveBitmapToSDCard(mBitmap, filename);
                         }
                         upload.setMixpic(filename);
-                        pics.put(curPage, bmp);
+                        pics.put(curPage, mBitmap);
                         upload.setStatus(UploadModel.STATUS_NOT_SAVE);//标记未保存到本地
                     }
 
@@ -1812,7 +1801,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                     }
 
                     //Edit by xszyou on 20170617:临时保存画板最终效果图
-                    Bitmap bigBitmap = m_view.obtainBitmapByP();
+                    bigBitmap = m_view.obtainBitmapByP();
                     if (bigBitmap != null) {
                         String repath = null;
                         if (upload.getBigpic() != null) {
@@ -2290,6 +2279,15 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         }
     }
 
+    private void clearData() {
+        if (mBitmap != null) {
+            mBitmap.recycle();
+        }
+        if (bigBitmap != null) {
+            bigBitmap.recycle();
+        }
+    }
+
     @Override
     public void networdNotifyChange(NetworkInfo info) {
         boolean isNeedConnect = mConnection != null && !mConnection.isConnected();
@@ -2320,11 +2318,15 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
     protected void onDestroy() {
         super.onDestroy();
         stopContentPlay(null);
+        clearData();
         if (mImageReader != null) {
             mImageReader.close();
         }
         if (networkWatcher != null) {
             networkWatcher.release();
+        }
+        if (mConnection != null) {
+            mConnection = null;
         }
     }
 }
