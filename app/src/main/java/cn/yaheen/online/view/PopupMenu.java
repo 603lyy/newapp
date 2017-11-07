@@ -56,8 +56,6 @@ public class PopupMenu extends PopupWindow implements OnClickListener {
 
         } else if (type == TYPE.OFFLINE) {
             popView = inflater.inflate(R.layout.popup_menu_o, null);// 加载菜单布局文件
-
-
         }
 
         this.setContentView(popView);// 把布局文件添加到popupwindow中
