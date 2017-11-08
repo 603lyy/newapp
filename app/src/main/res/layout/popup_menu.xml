@@ -193,7 +193,7 @@
                 android:layout_width="35dp"
                 android:layout_height="35dip"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/prestep_o" />
+                android:src="@drawable/clear" />
 
             <TextView
                 android:layout_width="wrap_content"
