@@ -1796,8 +1796,8 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                             SerializeUtils.serialization(repath, m_view.paths);
                         }
                         ArrayList<SerializablePath> pathsTmp = new ArrayList<SerializablePath>();
-                        pathsMap.put(curPage, pathsTmp);
                         pathsTmp.addAll(m_view.paths);
+                        pathsMap.put(curPage, pathsTmp);
                         //标记未保存到本地
                         upload.setStatus(UploadModel.STATUS_NOT_SAVE);
                         upload.setCanvaspic(repath);
@@ -1889,9 +1889,10 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                     if (bigpicsCacheMap != null && !bigpicsCacheMap.isEmpty()) {
                         Set<Map.Entry<Integer, Bitmap>> entrySet = bigpicsCacheMap.entrySet();
                         Iterator<Map.Entry<Integer, Bitmap>> iterator = entrySet.iterator();
+                        UploadModel upload = null;
                         while (iterator.hasNext()) {
                             Map.Entry<Integer, Bitmap> entry = iterator.next();
-                            UploadModel upload = uploadDAO.findUploadByPageAndUID(entry.getKey(), uuid);
+                            upload = uploadDAO.findUploadByPageAndUID(entry.getKey(), uuid);
                             if (upload != null) {
                                 BitmapUtil.saveBitmapToSDCard(entry.getValue(), upload.getBigpic());
                             }
@@ -1916,7 +1917,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                     savingNative = false;
                 }
             }
-        }, 300);
+        }, 100);
 
     }
 

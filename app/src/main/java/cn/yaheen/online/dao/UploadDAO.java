@@ -150,7 +150,6 @@ public class UploadDAO {
         List<UploadModel> list = null;
         try {
             uploadModel = db.selector(UploadModel.class).where("fx_uid", "=", uid).and("fx_page", "=", page).findFirst();
-
         } catch (DbException e) {
             e.printStackTrace();
         }
