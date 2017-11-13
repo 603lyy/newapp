@@ -673,7 +673,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         } else if (item == PopupMenu.MENUITEM.ITEM5) {
             //评分按钮
             UploadModel uploadModel = uploadDAO.findUploadByPageAndUID(curPage, uuid);
-            if (uploadModel.getStatus() == UploadModel.STATUS_UPLOADED) {
+            if (uploadModel != null && uploadModel.getStatus() == UploadModel.STATUS_UPLOADED) {
                 showNormalDialog("确定要结束课程进行评分吗？", new DialogCallback() {
                     @Override
                     public void callback() {
@@ -1581,9 +1581,9 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
             public void onBufferingUpdateListener(int percent) {
             }
         });
-//        mPlayer.prepareAndPlay("rtmp://live.hkstv.hk.lxdns.com/live/hks");
+        mPlayer.prepareAndPlay("rtmp://live.hkstv.hk.lxdns.com/live/hks");
 //        mPlayer.prepareAndPlay("http://flv15.quanmin.tv/live/177_L4.flv");
-        mPlayer.prepareAndPlay(Constant.getOnlineurl() + "screen_" + courseCode);
+//        mPlayer.prepareAndPlay(Constant.getOnlineurl() + "screen_" + courseCode);
         contentisPlaying = true;
     }
 
@@ -2299,8 +2299,8 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
             initWebSocket();
             if (mPlayer != null) {
                 mPlayer.stop();
-//            mPlayer.prepareAndPlay("rtmp://live.hkstv.hk.lxdns.com/live/hks");
-                mPlayer.prepareAndPlay(Constant.getOnlineurl() + "screen_" + courseCode);
+                mPlayer.prepareAndPlay("rtmp://live.hkstv.hk.lxdns.com/live/hks");
+//                mPlayer.prepareAndPlay(Constant.getOnlineurl() + "screen_" + courseCode);
             }
         }
     }
