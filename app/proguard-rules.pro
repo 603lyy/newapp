@@ -24,8 +24,13 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+#阿里云播放器
 -keep class com.alivc.player.** {*;}
 -keepclassmembers class com.alivc.player.** { *;}
+
+#七牛云播放器
+-keep class com.pili.pldroid.player.** { *; }
+-keep class com.qiniu.qplayer.mediaEngine.MediaPlayer{*;}
 
 #bugly崩溃收集
 -dontwarn com.tencent.bugly.**
