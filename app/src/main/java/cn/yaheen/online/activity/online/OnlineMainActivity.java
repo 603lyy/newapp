@@ -27,6 +27,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.os.PowerManager;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
@@ -59,6 +60,8 @@ import com.alivc.player.MediaPlayer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.pili.pldroid.player.AVOptions;
+import com.pili.pldroid.player.PLMediaPlayer;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import org.xutils.common.Callback;
@@ -133,6 +136,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
 
     private Receiver myReceiver;
     private AliVcMediaPlayer mPlayer;
+    private PLMediaPlayer plMediaPlayer;
     private Timer timer = new Timer();
     private ChatMsgViewAdapter mAdapter;
     private NetworkWatcher networkWatcher;
@@ -153,6 +157,8 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
 
     public static int i = 1;
     public static int k = 0;
+    private int surfacePortraitWidth;
+    private int surfacePortraitHeight;
     /**
      * 总页数
      */
@@ -1470,6 +1476,10 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                 if (mPlayer != null) {
                     mPlayer.setVideoSurface(contentnpv.getHolder().getSurface());
                 }
+
+                if (plMediaPlayer != null) {
+                    plMediaPlayer.setDisplay(contentnpv.getHolder());
+                }
             }
 
             @Override
@@ -1481,6 +1491,9 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
 
             @Override
             public void surfaceDestroyed(SurfaceHolder holder) {
+                if (plMediaPlayer != null) {
+                    plMediaPlayer.setDisplay(null);
+                }
             }
         });
     }
@@ -1497,95 +1510,167 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
             layoutParams.height = contentHeight;
         }
 
-        //创建player对象
-        mPlayer = new AliVcMediaPlayer(context, contentnpv);
+        if (plMediaPlayer != null) {
+            plMediaPlayer.setDisplay(contentnpv.getHolder());
+        }
 
-        // 设置图像适配屏幕，适配最长边
-        mPlayer.setVideoScalingMode(MediaPlayer.VideoScalingMode.VIDEO_SCALING_MODE_SCALE_TO_FIT);
-        // 设置图像适配屏幕，适配最短边，超出部分裁剪
-//        mPlayer.setVideoScalingMode(MediaPlayer.VideoScalingMode.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
+        try {
+            AVOptions avOptions = new AVOptions();
+            avOptions.setInteger(AVOptions.KEY_MEDIACODEC, 0);      //解码类型 1->硬解 0->软解
+            avOptions.setInteger(AVOptions.KEY_PREPARE_TIMEOUT, 10 * 1000);
+            avOptions.setInteger(AVOptions.KEY_CACHE_BUFFER_DURATION, 10 * 1000);
+            avOptions.setInteger(AVOptions.KEY_MAX_CACHE_BUFFER_DURATION, 15 * 1000);
 
-        //设置缺省编码类型：0表示硬解；1表示软解；
-        //如果缺省为硬解，在使用硬解时如果解码失败，会尝试使用软解
-        //如果缺省为软解，则一直使用软解，软解较为耗电
-        //由于android手机硬件适配性的问题，很多android手机的硬件解码会有问题，建议尽量使用软件解码。
-        mPlayer.setDefaultDecoder(1);
+            plMediaPlayer = new PLMediaPlayer(context, avOptions);
 
-        /**
-         * 设置连接超时时长,单位毫秒.默认一直等待.
-         * 连接部分RTMP服务器,握手并连接成功后,当播放一个不存在的流地址时,会一直等待下去.
-         */
-        mPlayer.setTimeout(30 * 1000);
-
-        /**
-         * 设置最大缓冲区时长,单位毫秒.此参数关系视频最大缓冲时长.
-         * RTMP基于TCP协议不丢包,网络抖动且缓冲区播完,之后仍然会接受到抖动期的过期数据包.
-         */
-        mPlayer.setMaxBufferDuration(4000);
-        mPlayer.setMediaType(MediaPlayer.MediaType.Live);
-//        mPlayer.setVideoSizeChangeListener(new VideoSizeChangelistener());    //画面大小变化事件
-        //播放器就绪事件
-        mPlayer.setPreparedListener(new MediaPlayer.MediaPlayerPreparedListener() {
-            @Override
-            public void onPrepared() {
-            }
-        });
-
-        //信息状态监听事件
-        mPlayer.setFrameInfoListener(new MediaPlayer.MediaPlayerFrameInfoListener() {
-            @Override
-            public void onFrameInfoListener() {
-                Map<String, String> debugInfo = mPlayer.getAllDebugInfo();
-                long createPts = 0;
-                if (debugInfo.get("create_player") != null) {
-                    String time = debugInfo.get("create_player");
-                    createPts = (long) Double.parseDouble(time);
+            plMediaPlayer.setOnPreparedListener(new PLMediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(PLMediaPlayer plMediaPlayer, int i) {
+                    plMediaPlayer.start();
                 }
-                if (debugInfo.get("open-url") != null) {
-                    String time = debugInfo.get("open-url");
-                    long openPts = (long) Double.parseDouble(time) + createPts;
-                }
-                if (debugInfo.get("find-stream") != null) {
-                    String time = debugInfo.get("find-stream");
-                    long findPts = (long) Double.parseDouble(time) + createPts;
-                }
-                if (debugInfo.get("open-stream") != null) {
-                    String time = debugInfo.get("open-stream");
-                    long openPts = (long) Double.parseDouble(time) + createPts;
-                }
-            }
-        });
+            });
 
-        //异常错误事件
-        mPlayer.setErrorListener(new MediaPlayer.MediaPlayerErrorListener() {
-            @Override
-            public void onError(int i, String msg) {
-            }
-        });
-        //播放结束事件
-        mPlayer.setCompletedListener(new MediaPlayer.MediaPlayerCompletedListener() {
-            @Override
-            public void onCompleted() {
-            }
-        });
-        //已经停止播放事件
-        mPlayer.setStopedListener(new MediaPlayer.MediaPlayerStopedListener() {
-            @Override
-            public void onStopped() {
-                Log.i("lin", "onStopped: stop");
-            }
-        });
-        //缓冲信息更新事件
-        mPlayer.setBufferingUpdateListener(new MediaPlayer.MediaPlayerBufferingUpdateListener() {
-            @Override
-            public void onBufferingUpdateListener(int percent) {
-            }
-        });
-        mPlayer.prepareAndPlay("rtmp://live.hkstv.hk.lxdns.com/live/hks");
-//        mPlayer.prepareAndPlay("http://flv15.quanmin.tv/live/177_L4.flv");
-//        mPlayer.prepareAndPlay(Constant.getOnlineurl() + "screen_" + courseCode);
+            plMediaPlayer.setOnVideoSizeChangedListener(new PLMediaPlayer.OnVideoSizeChangedListener() {
+                @Override
+                public void onVideoSizeChanged(PLMediaPlayer plMediaPlayer, int i, int i1) {
+
+                }
+            });
+
+            plMediaPlayer.setOnCompletionListener(new PLMediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(PLMediaPlayer plMediaPlayer) {
+
+                }
+            });
+
+            plMediaPlayer.setOnInfoListener(new PLMediaPlayer.OnInfoListener() {
+                @Override
+                public boolean onInfo(PLMediaPlayer plMediaPlayer, int i, int i1) {
+                    return false;
+                }
+            });
+
+            plMediaPlayer.setOnErrorListener(new PLMediaPlayer.OnErrorListener() {
+                @Override
+                public boolean onError(PLMediaPlayer plMediaPlayer, int i) {
+                    return false;
+                }
+            });
+
+            plMediaPlayer.setWakeMode(getApplicationContext(), PowerManager.PARTIAL_WAKE_LOCK);
+            plMediaPlayer.setDisplay(contentnpv.getHolder());
+            plMediaPlayer.setDataSource("rtmp://live.hkstv.hk.lxdns.com/live/hks");
+//            plMediaPlayer.setDataSource(Constant.getOnlineurl() + "screen_" + courseCode);
+            plMediaPlayer.prepareAsync();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         contentisPlaying = true;
     }
+
+//    private void initVodPlayer(ViewGroup layout, Integer contentWidth, Integer contentHeight) {
+//        if (layout != null) {
+//            layout.addView(contentnpv);
+//        }
+//        ViewGroup.LayoutParams layoutParams = contentnpv.getLayoutParams();
+//        if (contentWidth != null) {
+//            layoutParams.width = contentWidth;
+//        }
+//        if (contentHeight != null) {
+//            layoutParams.height = contentHeight;
+//        }
+//
+//        //创建player对象
+//        mPlayer = new AliVcMediaPlayer(context, contentnpv);
+//
+//        // 设置图像适配屏幕，适配最长边
+//        mPlayer.setVideoScalingMode(MediaPlayer.VideoScalingMode.VIDEO_SCALING_MODE_SCALE_TO_FIT);
+//        // 设置图像适配屏幕，适配最短边，超出部分裁剪
+////        mPlayer.setVideoScalingMode(MediaPlayer.VideoScalingMode.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
+//
+//        //设置缺省编码类型：0表示硬解；1表示软解；
+//        //如果缺省为硬解，在使用硬解时如果解码失败，会尝试使用软解
+//        //如果缺省为软解，则一直使用软解，软解较为耗电
+//        //由于android手机硬件适配性的问题，很多android手机的硬件解码会有问题，建议尽量使用软件解码。
+//        mPlayer.setDefaultDecoder(1);
+//
+//        /**
+//         * 设置连接超时时长,单位毫秒.默认一直等待.
+//         * 连接部分RTMP服务器,握手并连接成功后,当播放一个不存在的流地址时,会一直等待下去.
+//         */
+//        mPlayer.setTimeout(30 * 1000);
+//
+//        /**
+//         * 设置最大缓冲区时长,单位毫秒.此参数关系视频最大缓冲时长.
+//         * RTMP基于TCP协议不丢包,网络抖动且缓冲区播完,之后仍然会接受到抖动期的过期数据包.
+//         */
+//        mPlayer.setMaxBufferDuration(4000);
+//        mPlayer.setMediaType(MediaPlayer.MediaType.Live);
+////        mPlayer.setVideoSizeChangeListener(new VideoSizeChangelistener());    //画面大小变化事件
+//        //播放器就绪事件
+//        mPlayer.setPreparedListener(new MediaPlayer.MediaPlayerPreparedListener() {
+//            @Override
+//            public void onPrepared() {
+//            }
+//        });
+//
+//        //信息状态监听事件
+//        mPlayer.setFrameInfoListener(new MediaPlayer.MediaPlayerFrameInfoListener() {
+//            @Override
+//            public void onFrameInfoListener() {
+//                Map<String, String> debugInfo = mPlayer.getAllDebugInfo();
+//                long createPts = 0;
+//                if (debugInfo.get("create_player") != null) {
+//                    String time = debugInfo.get("create_player");
+//                    createPts = (long) Double.parseDouble(time);
+//                }
+//                if (debugInfo.get("open-url") != null) {
+//                    String time = debugInfo.get("open-url");
+//                    long openPts = (long) Double.parseDouble(time) + createPts;
+//                }
+//                if (debugInfo.get("find-stream") != null) {
+//                    String time = debugInfo.get("find-stream");
+//                    long findPts = (long) Double.parseDouble(time) + createPts;
+//                }
+//                if (debugInfo.get("open-stream") != null) {
+//                    String time = debugInfo.get("open-stream");
+//                    long openPts = (long) Double.parseDouble(time) + createPts;
+//                }
+//            }
+//        });
+//
+//        //异常错误事件
+//        mPlayer.setErrorListener(new MediaPlayer.MediaPlayerErrorListener() {
+//            @Override
+//            public void onError(int i, String msg) {
+//            }
+//        });
+//        //播放结束事件
+//        mPlayer.setCompletedListener(new MediaPlayer.MediaPlayerCompletedListener() {
+//            @Override
+//            public void onCompleted() {
+//            }
+//        });
+//        //已经停止播放事件
+//        mPlayer.setStopedListener(new MediaPlayer.MediaPlayerStopedListener() {
+//            @Override
+//            public void onStopped() {
+//                Log.i("lin", "onStopped: stop");
+//            }
+//        });
+//        //缓冲信息更新事件
+//        mPlayer.setBufferingUpdateListener(new MediaPlayer.MediaPlayerBufferingUpdateListener() {
+//            @Override
+//            public void onBufferingUpdateListener(int percent) {
+//            }
+//        });
+//        mPlayer.prepareAndPlay("rtmp://live.hkstv.hk.lxdns.com/live/hks");
+////        mPlayer.prepareAndPlay("http://flv15.quanmin.tv/live/177_L4.flv");
+////        mPlayer.prepareAndPlay(Constant.getOnlineurl() + "screen_" + courseCode);
+//        contentisPlaying = true;
+//    }
 
     private int connetCount = 0;
 
@@ -2302,6 +2387,11 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                 mPlayer.prepareAndPlay("rtmp://live.hkstv.hk.lxdns.com/live/hks");
 //                mPlayer.prepareAndPlay(Constant.getOnlineurl() + "screen_" + courseCode);
             }
+            if (plMediaPlayer != null) {
+                plMediaPlayer.setDisplay(null);
+                plMediaPlayer.setDisplay(contentnpv.getHolder());
+                plMediaPlayer.prepareAsync();
+            }
         }
     }
 
@@ -2310,12 +2400,19 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         super.onStart();
         //5分钟自动保存一次到本地
 //        timer.schedule(task, 300000, 300000);
+        if (plMediaPlayer != null) {
+            plMediaPlayer.prepareAsync();
+        }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         cancelTimer();
+        if (plMediaPlayer != null) {
+            plMediaPlayer.pause();
+            plMediaPlayer.stop();
+        }
     }
 
     @Override
@@ -2331,6 +2428,10 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         }
         if (mConnection != null) {
             mConnection = null;
+        }
+        if (plMediaPlayer != null) {
+            plMediaPlayer.release();
+            plMediaPlayer = null;
         }
     }
 }
