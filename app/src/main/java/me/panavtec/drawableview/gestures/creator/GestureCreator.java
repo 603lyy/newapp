@@ -60,7 +60,7 @@ public class GestureCreator {
         if (insideCanvas(touchX, touchY)) {
             downAndUpGesture = false;
             if (currentDrawingPath != null) {
-                if (currentDrawingPath.getPathPoints().size() < 200)
+                if (currentDrawingPath.getPathPoints().size() < 150)
                     currentDrawingPath.saveLineTo(touchX, touchY);
                 else
                     actionUp();

@@ -129,7 +129,6 @@ public class DrawableView extends View
         gestureCreator.setConfig(config);
         gestureScaler.setZooms(config.getMinZoom(), config.getMaxZoom());
         gestureScroller.setCanvasBounds(canvasWidth, canvasHeight);
-
         canvasDrawer.setConfig(config);
 
     }
@@ -173,14 +172,12 @@ public class DrawableView extends View
         pathDrawer.onDraw(canvas, currentDrawingPath, paths);
     }
 
-
     public void clear() {
         paths.clear();
         bitmap = null;
         bitMode = false;
         invalidate();
     }
-
 
     public void clearPaths() {
         paths.clear();
@@ -195,11 +192,9 @@ public class DrawableView extends View
         return pathDrawer.obtainBitmap(createdBitmap);
     }
 
-
     public Bitmap obtainBitmap() {
         return obtainBitmap(Bitmap.createBitmap(canvasWidth, canvasHeight, Bitmap.Config.ARGB_8888));
     }
-
 
     //Edit by xszyou on 20170617:获取最终效果图？
     public Bitmap obtainBitmapByP() {
@@ -252,10 +247,6 @@ public class DrawableView extends View
 
     @Override
     public void onGestureCreated(SerializablePath serializablePath) {
-//       Random random = new Random();
-//
-//    serializablePath.setColor(Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256)));
-
         if (!OneFingerMode) {
             paths.add(serializablePath);
         }
@@ -271,8 +262,6 @@ public class DrawableView extends View
     @Override
     public void onScaleChange(float scaleFactor) {
         gestureScroller.onScaleChange(scaleFactor);
-
-
         gestureCreator.onScaleChange(scaleFactor);
         canvasDrawer.onScaleChange(scaleFactor);
     }

@@ -83,16 +83,13 @@ public class PathDrawer {
 
     gesturePaint.setColor(path.getColor());
 
-    if (path.getColor()==Color.WHITE){
-               System.out.print(""+path.getColor());
-
-    }else if (path.getColor()==Color.BLACK){
-      System.out.print(""+path.getColor());
-
-    }
+//    if (path.getColor()==Color.WHITE){
+//               System.out.print(""+path.getColor());
+//
+//    }else if (path.getColor()==Color.BLACK){
+//      System.out.print(""+path.getColor());
+//    }
     canvas.drawPath(path, gesturePaint);
-
-
   }
 
 
@@ -101,12 +98,12 @@ public class PathDrawer {
     canvas.save();
     canvas.restore();
   }
+
   private void initGesturePaint() {
     gesturePaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG | Paint.FILTER_BITMAP_FLAG);
     gesturePaint.setStyle(Paint.Style.STROKE);
     gesturePaint.setStrokeJoin(Paint.Join.ROUND);
     gesturePaint.setStrokeCap(Paint.Cap.ROUND);
   }
-
 
 }
