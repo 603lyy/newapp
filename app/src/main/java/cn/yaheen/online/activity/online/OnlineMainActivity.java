@@ -1581,9 +1581,9 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
             public void onBufferingUpdateListener(int percent) {
             }
         });
-        mPlayer.prepareAndPlay("rtmp://live.hkstv.hk.lxdns.com/live/hks");
+//        mPlayer.prepareAndPlay("rtmp://live.hkstv.hk.lxdns.com/live/hks");
 //        mPlayer.prepareAndPlay("http://flv15.quanmin.tv/live/177_L4.flv");
-//        mPlayer.prepareAndPlay(Constant.getOnlineurl() + "screen_" + courseCode);
+        mPlayer.prepareAndPlay(Constant.getOnlineurl() + "screen_" + courseCode);
         contentisPlaying = true;
     }
 
@@ -2299,8 +2299,8 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
             initWebSocket();
             if (mPlayer != null) {
                 mPlayer.stop();
-                mPlayer.prepareAndPlay("rtmp://live.hkstv.hk.lxdns.com/live/hks");
-//                mPlayer.prepareAndPlay(Constant.getOnlineurl() + "screen_" + courseCode);
+//                mPlayer.prepareAndPlay("rtmp://live.hkstv.hk.lxdns.com/live/hks");
+                mPlayer.prepareAndPlay(Constant.getOnlineurl() + "screen_" + courseCode);
             }
         }
     }
