@@ -1,47 +1,38 @@
 package cn.yaheen.online.bean;
 
-import android.util.Log;
-
-import com.google.gson.Gson;
-
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
-import org.xutils.x;
-
-/**
- * Created by wun on 2017/11/17.
- */
 public class JBean {
 
-    private  String firstName;
+    private int version;
 
-    private String lastName;
+    private String url;
 
-    public String getFirstName() {
-        return firstName;
+    public int getVersion() {
+        return version;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setVersion(int version) {
+        this.version = version;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getUrl() {
+        return url;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setUrl(String url) {
+        this.url = url;
     }
-
-
-//    RequestParams pa = new RequestParams("http://192.168.1.6/aa.json");
-//    x.http().get(pa, new Callback.CommonCallback<String>() {
+//    RequestParams pa = new RequestParams("http://192.168.250.102:8180/aa.json");
+//                x.http().get(pa, new Callback.CommonCallback<String>() {
 //        @Override
 //        public void onSuccess(String result) {
-//            Log.i("lin", "onSuccess: "+result);
 //            Gson g = new Gson();
 //            JBean bean = g.fromJson(result, JBean.class);
-//            Log.i("lin", "onSuccess: "+bean.getFirstName()+"-----"+bean.getLastName());
+//            Log.i("lin", "onSuccess: " + bean.getVersion() + "-----" + bean.getUrl());
+//            Intent intent = new Intent();
+//            intent.setAction(Intent.ACTION_VIEW);
+//            intent.addCategory(Intent.CATEGORY_BROWSABLE);
+//            intent.setData(Uri.parse("http://192.168.250.102:8180/aa.apk"));
+//            startActivity(intent);
 //        }
 //
 //        @Override

@@ -93,4 +93,12 @@ public class DefaultPrefsUtil {
     public static String getIpUrl() {
         return DefaultPrefs.getInstance().getIpUrl();
     }
+
+    public static void setVersion(int version) {
+        DefaultPrefs.getInstance().setVersion(version);
+    }
+
+    public static int getVersion() {
+        return DefaultPrefs.getInstance().getVersion();
+    }
 }

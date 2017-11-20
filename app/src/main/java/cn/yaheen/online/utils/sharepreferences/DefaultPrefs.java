@@ -77,6 +77,11 @@ final class DefaultPrefs extends AbstractSharePreference {
          * ip_url
          */
         String IP_URL = "ipurl";
+
+        /**
+         * 项目版本号
+         */
+        String APP_VERSION = "version";
     }
 
     /**
@@ -88,6 +93,17 @@ final class DefaultPrefs extends AbstractSharePreference {
 
     void setIsHeng(boolean isHeng) {
         putBoolean(Keys.IS_HENG, isHeng);
+    }
+
+    /**
+     * 项目版本号
+     */
+    int getVersion() {
+        return getInt(Keys.APP_VERSION, 0);
+    }
+
+    void setVersion(int version) {
+        putInt(Keys.APP_VERSION, version);
     }
 
     /**
@@ -174,7 +190,7 @@ final class DefaultPrefs extends AbstractSharePreference {
         return getString(courseName, "");
     }
 
-    void setCourseUid(String courseName,String courseUid) {
+    void setCourseUid(String courseName, String courseUid) {
         putString(courseName, courseUid);
     }
 
