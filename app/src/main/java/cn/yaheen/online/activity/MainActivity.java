@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -50,6 +51,7 @@ import cn.yaheen.online.utils.SysUtils;
 import cn.yaheen.online.utils.ToastUtils;
 import cn.yaheen.online.utils.UUIDUtils;
 import cn.yaheen.online.utils.WeiboDialogUtils;
+import cn.yaheen.online.utils.version.VersionUtils;
 
 
 public class MainActivity extends Activity {
@@ -107,6 +109,7 @@ public class MainActivity extends Activity {
         login = (Button) findViewById(R.id.button);
         code = (TextView) findViewById(R.id.code);
 
+        checkVersion();
         initPermission();
         if (uploadDAO == null) {
             uploadDAO = new UploadDAO();
@@ -174,6 +177,9 @@ public class MainActivity extends Activity {
         CrashReport.initCrashReport(this.getApplicationContext(), "e539b4d77d", false);
     }
 
+    private void checkVersion() {
+        VersionUtils.checkVersion(this, null);
+    }
 
     private void gotoschool() {
         String courseName = courseNameEdit.getText().toString().trim();
