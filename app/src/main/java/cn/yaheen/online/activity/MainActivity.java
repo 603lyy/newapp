@@ -36,6 +36,7 @@ import java.util.List;
 import cn.yaheen.online.R;
 import cn.yaheen.online.activity.offline.OffMainActivity;
 import cn.yaheen.online.activity.online.OnlineMainActivity;
+import cn.yaheen.online.app.*;
 import cn.yaheen.online.bean.LoginBean;
 import cn.yaheen.online.dao.UploadDAO;
 import cn.yaheen.online.model.UploadModel;
@@ -178,7 +179,7 @@ public class MainActivity extends Activity {
     }
 
     private void checkVersion() {
-        VersionUtils.checkVersion(this, null);
+        VersionUtils.checkVersion(getApplicationContext(), null);
     }
 
     private void gotoschool() {

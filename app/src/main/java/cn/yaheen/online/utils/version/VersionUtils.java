@@ -2,6 +2,8 @@ package cn.yaheen.online.utils.version;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 
 import com.google.gson.Gson;
@@ -26,7 +28,7 @@ public class VersionUtils {
 
     public static void checkVersion(final Context context, DialogCallback dialogCallback) {
 
-        version = DefaultPrefsUtil.getVersion();
+        version = getVersionCode(context);
 
         RequestParams pa = new RequestParams("http://192.168.250.102:8180/aa.json");
         x.http().get(pa, new Callback.CommonCallback<String>() {
@@ -68,5 +70,21 @@ public class VersionUtils {
 //                Log.i("lin", "onFinished: ");
             }
         });
+    }
+
+    /**
+     * 获取软件版本号
+     *
+     * @return
+     */
+    public static int getVersionCode(Context context) {
+        final String packageName = context.getPackageName();
+        int version = 1;
+        try {
+            PackageInfo info = context.getPackageManager().getPackageInfo(packageName, 0);
+            version = info.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+        }
+        return version;
     }
 }
