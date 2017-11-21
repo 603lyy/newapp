@@ -16,7 +16,6 @@ import cn.yaheen.online.bean.JBean;
 import cn.yaheen.online.utils.DialogCallback;
 import cn.yaheen.online.utils.DialogUtils;
 import cn.yaheen.online.utils.IDialogCancelCallback;
-import cn.yaheen.online.utils.sharepreferences.DefaultPrefsUtil;
 
 /**
  * Created by Administrator on 2017/11/20.
@@ -26,7 +25,7 @@ public class VersionUtils {
 
     private static int version;
 
-    public static void checkVersion(final Context context, DialogCallback dialogCallback) {
+    public static void checkVersion(final Context context) {
 
         version = getVersionCode(context);
 
@@ -49,7 +48,6 @@ public class VersionUtils {
                     }, new IDialogCancelCallback() {
                         @Override
                         public void cancelCallback() {
-
                         }
                     });
                 }
@@ -57,33 +55,29 @@ public class VersionUtils {
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-//                Log.i("lin", "onError: ");
             }
 
             @Override
             public void onCancelled(Callback.CancelledException cex) {
-//                Log.i("lin", "onCancelled: ");
             }
 
             @Override
             public void onFinished() {
-//                Log.i("lin", "onFinished: ");
             }
         });
     }
 
     /**
      * 获取软件版本号
-     *
-     * @return
      */
-    public static int getVersionCode(Context context) {
+    private static int getVersionCode(Context context) {
         final String packageName = context.getPackageName();
         int version = 1;
         try {
             PackageInfo info = context.getPackageManager().getPackageInfo(packageName, 0);
             version = info.versionCode;
         } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
         }
         return version;
     }
