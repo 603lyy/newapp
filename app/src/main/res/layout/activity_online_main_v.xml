@@ -206,7 +206,8 @@
                             <ListView
                                 android:id="@+id/msglistview"
                                 android:layout_width="match_parent"
-                                android:layout_height="248dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="80dp"
                                 android:layout_marginLeft="10.0dip"
                                 android:layout_marginRight="10.0dip"
                                 android:layout_marginTop="10.0dip"
@@ -214,13 +215,11 @@
                                 android:divider="@null"
                                 android:dividerHeight="5dp"
                                 android:scrollbars="none" />
-
                         </LinearLayout>
-
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="70dp"
                             android:layout_alignParentBottom="true"
                             android:background="@drawable/layout_bg1">
 
