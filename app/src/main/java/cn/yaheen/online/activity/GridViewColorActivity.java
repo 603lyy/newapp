@@ -36,7 +36,7 @@ public class GridViewColorActivity extends Activity {
     private int height = 0;
     //界面的宽度
     private int width = 0;
-    private int maxValue = 700;
+    private int maxValue = 800;
     //界面宽度和高度之间的最小值
     private int minValue = 0;
     //判断是写字还是橡皮模式
@@ -57,8 +57,8 @@ public class GridViewColorActivity extends Activity {
         android.view.WindowManager.LayoutParams layoutParams = this.getWindow().getAttributes();
 
         //取宽高的最小值作为界面的宽高
-        height = SysUtils.getsWindowHeight(GridViewColorActivity.this) * 2 / 3;
-        width = SysUtils.getsWindowWidth(GridViewColorActivity.this) * 2 / 3;
+        height = SysUtils.getsWindowHeight(GridViewColorActivity.this) * 3 / 4;
+        width = SysUtils.getsWindowWidth(GridViewColorActivity.this) * 3 / 4;
         minValue = Math.min(Math.min(height, width), maxValue);
         layoutParams.width = minValue;
         layoutParams.height = minValue;

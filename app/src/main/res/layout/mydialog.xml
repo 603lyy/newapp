@@ -10,39 +10,60 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="35dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:orientation="horizontal">
+
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_marginLeft="20dp"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:gravity="center"-->
+        <!--android:maxLines="1"-->
+        <!--android:text="笔/橡" />-->
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/color_pen" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="0.2"
-            android:maxLines="1"
-            android:text="笔/橡皮大小" />
+            android:layout_gravity="center"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:text="—"
+            android:textSize="20dp" />
 
         <cn.yaheen.online.view.MSeekBar
             android:id="@+id/seekBar"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_above="@+id/tv_main2"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="3dp"
-            android:layout_weight="1.5"
+            android:layout_marginTop="2dp"
+            android:layout_weight="1"
             android:max="100"
             android:progress="0"
-            android:thumbOffset="0dp"
             android:progressDrawable="@drawable/bg_seekbar_progress_drawable"
-            android:thumb="@drawable/bg_seekbar_thumb" />
+            android:thumb="@drawable/bg_seekbar_thumb"
+            android:thumbOffset="0dp" />
 
-        <!--<SeekBar-->
-        <!--android:id="@+id/seekBar"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="13dip"-->
-        <!--android:layout_marginRight="20dp"-->
-        <!--android:layout_marginTop="13dp"-->
-        <!--android:layout_weight="0.7"/>-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center"
+            android:text="+"
+            android:textSize="28dp" />
 
     </LinearLayout>
 
@@ -53,8 +74,8 @@
         android:columnWidth="40px"
         android:numColumns="4"
         android:paddingBottom="10dip"
-        android:paddingLeft="10dip"
-        android:paddingRight="10dip">
+        android:paddingLeft="20dip"
+        android:paddingRight="20dip">
         <!-- GridView 设置为4列 边距为 20pid-->
     </GridView>
 
