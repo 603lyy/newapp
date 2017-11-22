@@ -66,18 +66,32 @@
 
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:layout_weight="0.51"
-            android:orientation="vertical">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/login_bg_2"
+            android:orientation="vertical"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="教师评教系统登录"
+                android:textColor="@color/white"
+                android:textSize="30dp" />
 
             <LinearLayout
                 android:id="@+id/teacherLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal"
+                android:padding="10dp"
                 android:visibility="gone">
 
                 <TextView
@@ -87,7 +101,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_below="@+id/textView"
                     android:text="评教老师"
-                    android:textColor="#000000"
+                    android:textColor="@color/white"
                     android:textSize="24sp" />
 
                 <EditText
@@ -95,7 +109,7 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/teacher"
-                    android:layout_marginLeft="39dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@+id/teacher"
                     android:ems="10"
                     android:inputType="textPersonName"
@@ -107,12 +121,11 @@
             <LinearLayout
                 android:id="@+id/courseCodeLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal"
+                android:padding="10dp"
                 android:weightSum="1">
-
 
                 <TextView
                     android:id="@+id/code"
@@ -120,16 +133,15 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_below="@+id/editText"
-
-                    android:layout_weight="0.11"
                     android:text="课程编码"
-                    android:textColor="#000000"
+                    android:textColor="@color/white"
                     android:textSize="24sp" />
 
                 <EditText
                     android:id="@+id/editText2"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:text=""
@@ -140,10 +152,10 @@
             <LinearLayout
                 android:id="@+id/usernameLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="10dp">
 
                 <TextView
                     android:id="@+id/username"
@@ -151,14 +163,14 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:text="老师账号"
-                    android:textColor="#000000"
+                    android:textColor="@color/white"
                     android:textSize="24sp" />
 
                 <EditText
                     android:id="@+id/usernameText"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="39dp"
+                    android:layout_marginLeft="10dp"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:text=""
@@ -169,10 +181,10 @@
             <LinearLayout
                 android:id="@+id/passwordLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="10dp">
 
                 <TextView
                     android:id="@+id/password"
@@ -180,50 +192,57 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:text="老师密码"
-                    android:textColor="#000000"
+                    android:textColor="@color/white"
                     android:textSize="24sp" />
 
                 <EditText
                     android:id="@+id/passwordText"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="39dp"
+                    android:layout_marginLeft="10dp"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:text=""
                     android:textColor="#000000"
                     android:theme="@style/MyEditText" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="40dp"
+                android:layout_marginTop="30dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_login"
+                    android:text="登录"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_login"
+                    android:text="查看评教"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/button"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/btngreen"
-                android:text="登录"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp" />
-
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="150dp"
-                android:background="@drawable/button"
-                android:text="查看评教"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp" />
-
-
-        </LinearLayout>
-
 
     </LinearLayout>
 </ScrollView>

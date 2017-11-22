@@ -179,7 +179,7 @@ public class MainActivity extends Activity {
     }
 
     private void checkVersion() {
-        VersionUtils.checkVersion(getApplicationContext(), null);
+        VersionUtils.checkVersion(this);
     }
 
     private void gotoschool() {
