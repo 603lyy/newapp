@@ -22,7 +22,7 @@ public class DialogActivity extends Activity implements OnClickListener{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_dialog);
+//		setContentView(R.layout.activity_dialog);
 		OnlineApp.getInstance().addActivity(this);
 		initView();
 	}
@@ -32,10 +32,10 @@ public class DialogActivity extends Activity implements OnClickListener{
 	 */
 	private void initView(){
 		//�õ���������������ü����¼�
-		layout01 = (LinearLayout)findViewById(R.id.llayout01);
-		layout02 = (LinearLayout)findViewById(R.id.llayout02);
-		layout03 = (LinearLayout)findViewById(R.id.llayout03);
-		layout04 = (LinearLayout)findViewById(R.id.llayout04);
+//		layout01 = (LinearLayout)findViewById(R.id.llayout01);
+//		layout02 = (LinearLayout)findViewById(R.id.llayout02);
+//		layout03 = (LinearLayout)findViewById(R.id.llayout03);
+//		layout04 = (LinearLayout)findViewById(R.id.llayout04);
 
 		layout01.setOnClickListener(this);
 		layout02.setOnClickListener(this);

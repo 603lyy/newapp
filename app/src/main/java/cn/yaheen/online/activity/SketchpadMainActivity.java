@@ -123,13 +123,13 @@ public class SketchpadMainActivity extends Activity implements  View.OnClickList
 	  
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+//        setContentView(R.layout.main);
 
 //		mTakePhoto = (Button) findViewById(R.id.take_photo);
 //		mTakePhoto.setOnClickListener(this); // ���հ�ť������
 
 		startOrientationChangeListener(); // �����豸���������
-		mSurfaceView = (SurfaceView) findViewById(R.id.surfaceView);
+//		mSurfaceView = (SurfaceView) findViewById(R.id.surfaceView);
 		SurfaceHolder holder = mSurfaceView.getHolder();
 		holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 		holder.addCallback(this); // �ص��ӿ�
@@ -139,29 +139,29 @@ public class SketchpadMainActivity extends Activity implements  View.OnClickList
 		String course = sp.getString("courseName", "");
 		uploadDAO=new UploadDAO();
 
-		courseName=(TextView)findViewById(R.id.course);
+//		courseName=(TextView)findViewById(R.id.course);
 		courseName.setText(course);
 		m_view=null;
-        m_view=(SketchpadView)this.findViewById(R.id.SketchadView);
+//        m_view=(SketchpadView)this.findViewById(R.id.SketchadView);
 
 		m_view.clearAllStrokes();
-        m_undo=(Button)this.findViewById(R.id.buttonundo_ID);
-        m_redo=(Button)this.findViewById(R.id.buttonredo_ID);
-        m_eraser=(Button)this.findViewById(R.id.buttoneraser_ID);
-		upload=(Button)this.findViewById(R.id.upload);
-        m_pen=(Button)this.findViewById(R.id.buttonpen_ID);
-        m_save=(Button)this.findViewById(R.id.buttonsave_ID);
+//        m_undo=(Button)this.findViewById(R.id.buttonundo_ID);
+//        m_redo=(Button)this.findViewById(R.id.buttonredo_ID);
+//        m_eraser=(Button)this.findViewById(R.id.buttoneraser_ID);
+//		upload=(Button)this.findViewById(R.id.upload);
+//        m_pen=(Button)this.findViewById(R.id.buttonpen_ID);
+//        m_save=(Button)this.findViewById(R.id.buttonsave_ID);
 
         m_undo.setOnClickListener(this);
         m_redo.setOnClickListener(this);
         m_eraser.setOnClickListener(this);
-		m_new=(Button)this.findViewById(R.id.buttonnew_ID);
+//		m_new=(Button)this.findViewById(R.id.buttonnew_ID);
 
         m_new.setOnClickListener(this);
         m_pen.setOnClickListener(this);
         m_save.setOnClickListener(this);
 		upload.setOnClickListener(this);
-        seekBar=(SeekBar) findViewById(R.id.seekBar);
+//        seekBar=(SeekBar) findViewById(R.id.seekBar);
         seekBar.setMax(100);
 
 
@@ -184,7 +184,7 @@ public class SketchpadMainActivity extends Activity implements  View.OnClickList
         });
 
 
-		m_open=(Spinner)findViewById(R.id.buttonopen_ID);
+//		m_open=(Spinner)findViewById(R.id.buttonopen_ID);
 		loadPage();
 //		m_open.setOnClickListener(new View.OnClickListener() {
 //			@Override
@@ -385,45 +385,45 @@ public class SketchpadMainActivity extends Activity implements  View.OnClickList
 //	}
 	
 	public void onClick(View v) {
-		switch(v.getId())
-		{
-		case R.id.buttonpen_ID:
-			OnPenClick(v);
-			break;
-		case  R.id.buttonnew_ID:
-				OnNewClick(v);
-				break;
-		case R.id.buttonundo_ID:
-			OnUndoClick(v);
-			break;
-			case R.id.buttonopen_ID:
-				OnOpenClick(v);
-		case R.id.buttoneraser_ID:
-			OnEraserClick(v);
-			break;
-		case R.id.buttonredo_ID:
-			onRedoClick(v);
-			break;
+//		switch(v.getId())
+//		{
+//		case R.id.buttonpen_ID:
+//			OnPenClick(v);
+//			break;
+//		case  R.id.buttonnew_ID:
+//				OnNewClick(v);
+//				break;
+//		case R.id.buttonundo_ID:
+//			OnUndoClick(v);
+//			break;
+//			case R.id.buttonopen_ID:
+//				OnOpenClick(v);
+//		case R.id.buttoneraser_ID:
+//			OnEraserClick(v);
+//			break;
+//		case R.id.buttonredo_ID:
+//			onRedoClick(v);
+//			break;
 
 
-		case R.id.buttonsave_ID:
-			OnSaveClick(v);
-			break;
-
-			case R.id.upload:
-				OnUploadClick(v);
-				break;
-
-			case R.id.surfaceView:
-                if (!ispaizhao) {
-					mCamera.takePicture(mShutter, null, mJpeg);
-					ispaizhao=true;
-					mWeiboDialog = WeiboDialogUtils.createLoadingDialog(SketchpadMainActivity.this, "保存中...");
-				}
-				break;
-			default:
-				break;
-		}
+//		case R.id.buttonsave_ID:
+//			OnSaveClick(v);
+//			break;
+//
+//			case R.id.upload:
+//				OnUploadClick(v);
+//				break;
+//
+//			case R.id.surfaceView:
+//                if (!ispaizhao) {
+//					mCamera.takePicture(mShutter, null, mJpeg);
+//					ispaizhao=true;
+//					mWeiboDialog = WeiboDialogUtils.createLoadingDialog(SketchpadMainActivity.this, "保存中...");
+//				}
+//				break;
+//			default:
+//				break;
+//		}
 
 
 	}
