@@ -2054,7 +2054,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
             curColor = msgBean.getColor();
             config.setStrokeColor(msgBean.getColor());
         } else {
-            config.setStrokeColor(curColor);
+//            config.setStrokeColor(curColor);
         }
         if (msgBean.getSeekBarVal() != 0) {
             curVal = msgBean.getSeekBarVal();

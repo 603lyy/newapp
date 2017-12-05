@@ -4,107 +4,110 @@ import java.io.Serializable;
 
 public class DrawableViewConfig implements Serializable {
 
-  private float strokeWidth;
-  private int strokeColor;
-  private int canvasWidth;
-  private int canvasHeight;
-  private float minZoom;
-  private float maxZoom;
-  private boolean showCanvasBounds;
-  private int textStrokeWidth;
-  private int textStrokeColor;
+    private float strokeWidth;
+    private int strokeColor;
+    private int canvasWidth;
+    private int canvasHeight;
+    private float minZoom;
+    private float maxZoom;
+    private boolean showCanvasBounds;
+    private int textStrokeWidth;
+    private int textStrokeColor;
 
-  public boolean isTextMode() {
-    return textMode;
-  }
+    public boolean isTextMode() {
+        return textMode;
+    }
 
-  public void setTextMode(boolean textMode) {
-    this.textMode = textMode;
-  }
+    public void setTextMode(boolean textMode) {
+        this.textMode = textMode;
+    }
 
-  private boolean textMode; //是否为文字模式
+    private boolean textMode; //是否为文字模式
 
-  public void setEraserMode(boolean eraserMode) {
-    this.eraserMode = eraserMode;
-  }
+    public void setEraserMode(boolean eraserMode) {
+        this.eraserMode = eraserMode;
+    }
 
-  public boolean isEraserMode() {
-    return eraserMode;
-  }
+    public boolean isEraserMode() {
+        return eraserMode;
+    }
 
-  private  boolean eraserMode;//是否橡皮擦模式
-  public int getTextStrokeWidth() {
-    return textStrokeWidth;
-  }
+    private boolean eraserMode;//是否橡皮擦模式
 
-  public int getTextStrokeColor() {
-    return textStrokeColor;
-  }
+    public int getTextStrokeWidth() {
+        return textStrokeWidth;
+    }
 
-  public void setTextStrokeWidth(int textStrokeWidth) {
-    this.textStrokeWidth = textStrokeWidth;
-  }
+    public int getTextStrokeColor() {
+        return textStrokeColor;
+    }
 
-  public void setTextStrokeColor(int textStrokeColor) {
-    this.textStrokeColor = textStrokeColor;
-  }
+    public void setTextStrokeWidth(int textStrokeWidth) {
+        this.textStrokeWidth = textStrokeWidth;
+    }
+
+    public void setTextStrokeColor(int textStrokeColor) {
+        this.textStrokeColor = textStrokeColor;
+    }
 
 
+    public float getMaxZoom() {
+        return maxZoom;
+    }
 
+    public void setMaxZoom(float maxZoom) {
+        this.maxZoom = maxZoom;
+    }
 
-  public float getMaxZoom() {
-    return maxZoom;
-  }
+    public float getMinZoom() {
+        return minZoom;
+    }
 
-  public void setMaxZoom(float maxZoom) {
-    this.maxZoom = maxZoom;
-  }
+    public void setMinZoom(float minZoom) {
+        this.minZoom = minZoom;
+    }
 
-  public float getMinZoom() {
-    return minZoom;
-  }
+    public int getCanvasHeight() {
+        return canvasHeight;
+    }
 
-  public void setMinZoom(float minZoom) {
-    this.minZoom = minZoom;
-  }
+    public void setCanvasHeight(int canvasHeight) {
+        this.canvasHeight = canvasHeight;
+    }
 
-  public int getCanvasHeight() {
-    return canvasHeight;
-  }
+    public int getCanvasWidth() {
+        return canvasWidth;
+    }
 
-  public void setCanvasHeight(int canvasHeight) {
-    this.canvasHeight = canvasHeight;
-  }
+    public void setCanvasWidth(int canvasWidth) {
+        this.canvasWidth = canvasWidth;
+    }
 
-  public int getCanvasWidth() {
-    return canvasWidth;
-  }
+    public float getStrokeWidth() {
+        if (isEraserMode()) {
+            return strokeWidth * 3;
+        } else {
+            return strokeWidth;
+        }
+    }
 
-  public void setCanvasWidth(int canvasWidth) {
-    this.canvasWidth = canvasWidth;
-  }
+    public void setStrokeWidth(float strokeWidth) {
+        this.strokeWidth = strokeWidth;
+    }
 
-  public float getStrokeWidth() {
-    return strokeWidth;
-  }
+    public int getStrokeColor() {
+        return strokeColor;
+    }
 
-  public void setStrokeWidth(float strokeWidth) {
-    this.strokeWidth = strokeWidth;
-  }
+    public void setStrokeColor(int strokeColor) {
+        this.strokeColor = strokeColor;
+    }
 
-  public int getStrokeColor() {
-    return strokeColor;
-  }
+    public boolean isShowCanvasBounds() {
+        return showCanvasBounds;
+    }
 
-  public void setStrokeColor(int strokeColor) {
-    this.strokeColor = strokeColor;
-  }
-
-  public boolean isShowCanvasBounds() {
-    return showCanvasBounds;
-  }
-
-  public void setShowCanvasBounds(boolean showCanvasBounds) {
-    this.showCanvasBounds = showCanvasBounds;
-  }
+    public void setShowCanvasBounds(boolean showCanvasBounds) {
+        this.showCanvasBounds = showCanvasBounds;
+    }
 }

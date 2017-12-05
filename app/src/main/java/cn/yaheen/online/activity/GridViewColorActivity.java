@@ -133,12 +133,11 @@ public class GridViewColorActivity extends Activity {
                 }
 
                 if (isEraserMode) {
-                    msgBean.setColor(Color.WHITE);
+//                    msgBean.setColor(Color.WHITE);
                 } else {
                     msgBean.setColor(color);
+                    sendMsg(msgBean);
                 }
-
-                sendMsg(msgBean);
                 finish();
                 //设置当前的颜�?
                 //OnlineMainActivity.setColor(color);
@@ -157,15 +156,10 @@ public class GridViewColorActivity extends Activity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress,
                                           boolean fromUser) {
-
 //                int value = (seekBar.getProgress() / 40) * 5 + 5;
                 int value = (seekBar.getProgress() / 10) + 5;
                 msgBean.setSeekBarVal(value);
-                if (isEraserMode) {
-                    msgBean.setColor(Color.WHITE);
-                } else {
-                    msgBean.setColor(0);
-                }
+                msgBean.setColor(0);
             }
 
             @Override
