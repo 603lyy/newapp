@@ -151,7 +151,9 @@
             android:configChanges="orientation|screenSize"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity android:name=".activity.online.SaveFileActivity" />
-        <activity android:name=".activity.GradeActivity" />
+        <activity
+            android:name=".activity.GradeActivity"
+            android:windowSoftInputMode="adjustResize" />
         <!-- <activity android:name=".activity.cut.TestActivity"></activity> -->
         <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
         <activity android:name=".activity.offline.EvaluationActivity" />

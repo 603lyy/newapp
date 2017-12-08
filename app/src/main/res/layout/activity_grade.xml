@@ -22,15 +22,12 @@
             android:src="@drawable/close" />
     </LinearLayout>
 
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
         <WebView
-
             android:id="@+id/grade"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
