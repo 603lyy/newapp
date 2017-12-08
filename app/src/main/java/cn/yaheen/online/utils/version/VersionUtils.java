@@ -16,6 +16,7 @@ import cn.yaheen.online.bean.JBean;
 import cn.yaheen.online.utils.DialogCallback;
 import cn.yaheen.online.utils.DialogUtils;
 import cn.yaheen.online.utils.IDialogCancelCallback;
+import cn.yaheen.online.utils.sharepreferences.DefaultPrefsUtil;
 
 /**
  * Created by Administrator on 2017/11/20.
@@ -29,7 +30,8 @@ public class VersionUtils {
 
         version = getVersionCode(context);
 
-        RequestParams pa = new RequestParams("http://192.168.250.102:8180/aa.json");
+//        RequestParams pa = new RequestParams("http://192.168.250.103:8080/aa.json");
+        RequestParams pa = new RequestParams("http://" + DefaultPrefsUtil.getIpUrl()+":8080/loles/apk/version.json");
         x.http().get(pa, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

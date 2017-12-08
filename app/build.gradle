@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        release {
+            keyAlias 'online'
+            keyPassword 'yaheen'
+            storeFile file('C:/Users/Administrator.PC-201207261041/Desktop/online_key/online.jks')
+            storePassword 'yaheen'
+        }
+    }
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     aaptOptions {
@@ -21,13 +29,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 
@@ -39,11 +41,9 @@ android {
         from fileTree(dir: "libs", include: "**/*.so")
         into "lib"
     }
-
     tasks.withType(JavaCompile) {
         compileTask -> compileTask.dependsOn(nativeLibsToJar)
     }
-
 }
 
 repositories {
