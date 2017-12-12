@@ -65,8 +65,8 @@ public class GradeActivity extends Activity {
 
         });
 
-        webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setAppCacheEnabled(true);
+        webView.getSettings().setJavaScriptEnabled(true);
         //设置 缓存模式
         webView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
         // 开启 DOM storage API 功能
@@ -80,5 +80,10 @@ public class GradeActivity extends Activity {
         });
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
+        OnlineApp.getRefWatcher().watch(this);
+    }
 }

@@ -21,7 +21,7 @@ android {
         applicationId "cn.yaheen.online"
         minSdkVersion 21
         targetSdkVersion 25
-        versionCode 20
+        versionCode 10
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -81,5 +81,9 @@ dependencies {
     compile 'com.tencent.bugly:crashreport:latest.release'
     //七牛云播放器
     compile files('libs/pldroid-player-2.0.2.jar')
+    //内存检测
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 }
 //compile 'me.panavtec:drawableview:0.6.0'

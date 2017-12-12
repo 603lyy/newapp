@@ -17,6 +17,7 @@ import java.util.List;
 
 import cn.yaheen.online.R;
 import cn.yaheen.online.activity.online.OnlineMainActivity;
+import cn.yaheen.online.app.*;
 import cn.yaheen.online.dao.UploadDAO;
 import cn.yaheen.online.model.UploadModel;
 import cn.yaheen.online.receiver.Receiver;
@@ -137,5 +138,12 @@ public class PingJiaoActivity extends Activity implements Receiver.Message {
         } else {
             ToastUtils.showMessage(PingJiaoActivity.this, "删除失败");
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        cn.yaheen.online.app.OnlineApp.getRefWatcher().watch(this);
     }
 }

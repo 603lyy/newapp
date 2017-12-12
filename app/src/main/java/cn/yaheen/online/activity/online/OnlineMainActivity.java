@@ -2327,5 +2327,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         if (mConnection != null) {
             mConnection = null;
         }
+
+        OnlineApp.getRefWatcher().watch(this);
     }
 }

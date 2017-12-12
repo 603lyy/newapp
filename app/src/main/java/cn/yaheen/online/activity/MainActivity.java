@@ -37,6 +37,7 @@ import cn.yaheen.online.R;
 import cn.yaheen.online.activity.offline.OffMainActivity;
 import cn.yaheen.online.activity.online.OnlineMainActivity;
 import cn.yaheen.online.app.*;
+import cn.yaheen.online.app.OnlineApp;
 import cn.yaheen.online.bean.LoginBean;
 import cn.yaheen.online.dao.UploadDAO;
 import cn.yaheen.online.model.UploadModel;
@@ -453,6 +454,12 @@ public class MainActivity extends Activity {
         if (mWeiboDialog != null) {
             WeiboDialogUtils.closeDialog(mWeiboDialog);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        OnlineApp.getRefWatcher().watch(this);
     }
 
     @Override

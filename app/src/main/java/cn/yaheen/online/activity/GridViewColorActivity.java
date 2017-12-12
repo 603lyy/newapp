@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import cn.yaheen.online.R;
 import cn.yaheen.online.activity.online.OnlineMainActivity;
 import cn.yaheen.online.app.*;
+import cn.yaheen.online.app.OnlineApp;
 import cn.yaheen.online.bean.MsgBean;
 import cn.yaheen.online.data.GridImageAdapter;
 import cn.yaheen.online.utils.SysUtils;
@@ -184,5 +185,11 @@ public class GridViewColorActivity extends Activity {
         intt.putExtra("msg", msg);
         GridViewColorActivity.this.sendBroadcast(intt); //发送广播更新界面
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        OnlineApp.getRefWatcher().watch(this);
     }
 }
