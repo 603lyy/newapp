@@ -14,7 +14,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -53,6 +55,8 @@ import cn.yaheen.online.utils.SysUtils;
 import cn.yaheen.online.utils.ToastUtils;
 import cn.yaheen.online.utils.UUIDUtils;
 import cn.yaheen.online.utils.WeiboDialogUtils;
+import cn.yaheen.online.utils.version.DownloadListener;
+import cn.yaheen.online.utils.version.RXVersionUtils;
 import cn.yaheen.online.utils.version.VersionUtils;
 
 
@@ -68,7 +72,8 @@ public class MainActivity extends Activity {
     private TextView textView;
     private Button setingBtn;
     private boolean isLogin = true;
-    UploadDAO uploadDAO = null;
+    private UploadDAO uploadDAO = null;
+    private String dirBaseUrl = Environment.getExternalStorageDirectory() + "/online/";
 
     public Handler getmHandler() {
         return mHandler;
@@ -111,8 +116,8 @@ public class MainActivity extends Activity {
         login = (Button) findViewById(R.id.button);
         code = (TextView) findViewById(R.id.code);
 
-        checkVersion();
         initPermission();
+        checkVersion();
         if (uploadDAO == null) {
             uploadDAO = new UploadDAO();
         }
@@ -180,7 +185,52 @@ public class MainActivity extends Activity {
     }
 
     private void checkVersion() {
-        VersionUtils.checkVersion(this);
+//        VersionUtils.checkVersion(this);
+        if (TextUtils.isEmpty(DefaultPrefsUtil.getIpUrl()))
+            return;
+
+        String baseUrl = "http://" + DefaultPrefsUtil.getIpUrl() + ":8080/";
+        RXVersionUtils versionUtils = new RXVersionUtils(baseUrl, new DownloadListener() {
+            @Override
+            public void onStartDownload() {
+            }
+
+            @Override
+            public void onProgress(int progress) {
+//                Log.i("lin", "onProgress: " + progress);
+            }
+
+            @Override
+            public void onFinishDownload(String filePath) {
+                installApk(new File(filePath));
+            }
+
+            @Override
+            public void onFail(String errorInfo) {
+            }
+        });
+        versionUtils.download("loles/apk/online.apk", dirBaseUrl + "online.apk");
+    }
+
+
+    /**
+     * @param file
+     * @return
+     * @Description 安装apk
+     */
+    protected void installApk(File file) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        // 7.0+以上版本
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            //包名.fileprovider
+            Uri apkUri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".provider", file);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+        } else {
+            intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+        }
+        startActivity(intent);
     }
 
     private void gotoschool() {
@@ -242,10 +292,10 @@ public class MainActivity extends Activity {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //创建文件夹
                     if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-                        File canvas = new File(Environment.getExternalStorageDirectory() + "/canvas/");
-                        File pic = new File(Environment.getExternalStorageDirectory() + "/pic/");
-                        File mixpic = new File(Environment.getExternalStorageDirectory() + "/mixpic/");
-                        File screenshort = new File(Environment.getExternalStorageDirectory() + "/screenshort/");
+                        File pic = new File(dirBaseUrl + "pic/");
+                        File canvas = new File(dirBaseUrl + "canvas/");
+                        File mixpic = new File(dirBaseUrl + "mixpic/");
+                        File screenshort = new File(dirBaseUrl + "screenshort/");
                         if (!canvas.exists()) {
                             canvas.mkdirs();
                         }
@@ -267,9 +317,9 @@ public class MainActivity extends Activity {
 
     private void createDir() {
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            File canvas = new File(Environment.getExternalStorageDirectory() + "/canvas/");
-            File mixpic = new File(Environment.getExternalStorageDirectory() + "/mixpic/");
-            File bigpic = new File(Environment.getExternalStorageDirectory() + "/bigpic/");
+            File canvas = new File(dirBaseUrl + "canvas/");
+            File mixpic = new File(dirBaseUrl + "mixpic/");
+            File bigpic = new File(dirBaseUrl + "bigpic/");
             if (!canvas.exists()) {
                 canvas.mkdirs();
             }
