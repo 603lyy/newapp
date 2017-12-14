@@ -69,12 +69,13 @@ public class BaseApiImpl implements BaseApi {
         //日志显示级别
         HttpLoggingInterceptor.Level level = HttpLoggingInterceptor.Level.HEADERS;
         //新建log拦截器
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-            @Override
-            public void log(String message) {
-                Log.d("ApiUrl", "--->" + message);
-            }
-        });
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(
+                new HttpLoggingInterceptor.Logger() {
+                    @Override
+                    public void log(String message) {
+                        Log.d("ApiUrl", "--->" + message);
+                    }
+                });
         loggingInterceptor.setLevel(level);
         return loggingInterceptor;
     }

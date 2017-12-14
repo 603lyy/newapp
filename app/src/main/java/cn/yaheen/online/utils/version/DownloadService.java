@@ -16,7 +16,10 @@ public interface DownloadService {
 
     String BASE_URL = "http://192.168.250.103:8080/";
 
+    @GET
+    Observable<JBean> getVersion(@Url String url);
+
     @Streaming
     @GET
-    Observable<JBean> download(@Url String url);
+    Observable<ResponseBody> download(@Url String url);
 }

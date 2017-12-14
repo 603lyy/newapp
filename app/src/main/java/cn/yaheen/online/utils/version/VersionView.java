@@ -15,4 +15,9 @@ public interface VersionView  extends BaseView{
      * @param url
      */
     void showVersionDialog(String url);
+
+    /**
+     * 最新版apk下载完成
+     */
+    void finishDownload(String fileParh);
 }

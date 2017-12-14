@@ -16,6 +16,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -53,6 +54,7 @@ import cn.yaheen.online.utils.SysUtils;
 import cn.yaheen.online.utils.ToastUtils;
 import cn.yaheen.online.utils.UUIDUtils;
 import cn.yaheen.online.utils.WeiboDialogUtils;
+import cn.yaheen.online.utils.version.DownloadListener;
 import cn.yaheen.online.utils.version.VersionPresent;
 import cn.yaheen.online.utils.version.VersionPresentImpl;
 import cn.yaheen.online.utils.version.VersionView;
@@ -183,7 +185,6 @@ public class MainActivity extends BaseActivity<VersionPresent> implements Versio
     }
 
     private void checkVersion() {
-//        VersionUtils.checkVersion(this);
         if (TextUtils.isEmpty(DefaultPrefsUtil.getIpUrl()))
             return;
 
@@ -207,30 +208,9 @@ public class MainActivity extends BaseActivity<VersionPresent> implements Versio
 //            public void onFail(String errorInfo) {
 //            }
 //        });
-//        versionUtils.download("loles/apk/online.apk", dirBaseUrl + "online.apk");
+//        versionUtils.getVersion("loles/apk/online.apk", dirBaseUrl + "online.apk");
 
         presenter.getVersion(getVersionCode(this));
-    }
-
-
-    /**
-     * @param file
-     * @return
-     * @Description 安装apk
-     */
-    protected void installApk(File file) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        // 7.0+以上版本
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            //包名.fileprovider
-            Uri apkUri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".provider", file);
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
-        } else {
-            intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
-        }
-        startActivity(intent);
     }
 
     private void gotoschool() {
@@ -499,20 +479,6 @@ public class MainActivity extends BaseActivity<VersionPresent> implements Versio
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        if (mWeiboDialog != null) {
-            WeiboDialogUtils.closeDialog(mWeiboDialog);
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        OnlineApp.getRefWatcher().watch(this);
-    }
-
-    @Override
     public VersionPresent initPresenter() {
         return new VersionPresentImpl(this);
     }
@@ -522,17 +488,86 @@ public class MainActivity extends BaseActivity<VersionPresent> implements Versio
         DialogUtils.showDialog(context, "有新版本更新，请点击确定跳转至浏览器下载最新安装包", new DialogCallback() {
             @Override
             public void callback() {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse(url));
-                context.startActivity(intent);
+//                Intent intent = new Intent();
+//                intent.setAction(Intent.ACTION_VIEW);
+//                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+//                intent.setData(Uri.parse(url));
+//                context.startActivity(intent);
+                presenter.download(url, dirBaseUrl + "online.apk", new DownloadListener() {
+                    @Override
+                    public void onStartDownload() {
+
+                    }
+
+                    @Override
+                    public void onProgress(int progress) {
+                        Log.i("lin", "onProgress: " + progress);
+                    }
+
+                    @Override
+                    public void onFinishDownload(String filePath) {
+
+                    }
+
+                    @Override
+                    public void onFail(String errorInfo) {
+
+                    }
+                });
             }
         }, new IDialogCancelCallback() {
             @Override
             public void cancelCallback() {
             }
         });
+    }
+
+    @Override
+    public void finishDownload(String fileParh) {
+        installApk(new File(fileParh));
+    }
+
+    /**
+     * 获取软件版本号
+     */
+    private static int getVersionCode(Context context) {
+        final String packageName = context.getPackageName();
+        int version = 1;
+        try {
+            PackageInfo info = context.getPackageManager().getPackageInfo(packageName, 0);
+            version = info.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return version;
+    }
+
+    /**
+     * @param file
+     * @return
+     * @Description 安装apk
+     */
+    protected void installApk(File file) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        // 7.0+以上版本
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            //包名.fileprovider
+            Uri apkUri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".provider", file);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+        } else {
+            intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+        }
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mWeiboDialog != null) {
+            WeiboDialogUtils.closeDialog(mWeiboDialog);
+        }
     }
 
     @Override
@@ -549,18 +584,9 @@ public class MainActivity extends BaseActivity<VersionPresent> implements Versio
         });
     }
 
-    /**
-     * 获取软件版本号
-     */
-    private static int getVersionCode(Context context) {
-        final String packageName = context.getPackageName();
-        int version = 1;
-        try {
-            PackageInfo info = context.getPackageManager().getPackageInfo(packageName, 0);
-            version = info.versionCode;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        return version;
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        OnlineApp.getRefWatcher().watch(this);
     }
 }

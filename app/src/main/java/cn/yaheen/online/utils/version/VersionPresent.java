@@ -11,4 +11,9 @@ public interface VersionPresent extends BasePresenter {
      * 获取最新版本号
      */
     void getVersion(int currentVersion);
+
+    /**
+     * 下载最新版apk
+     */
+    void download(String url, String filePath, DownloadListener listener);
 }

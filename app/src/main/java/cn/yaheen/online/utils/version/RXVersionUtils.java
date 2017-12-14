@@ -65,7 +65,7 @@
 //     * @param url
 //     * @param filePath
 //     */
-//    public void download(@NonNull String url, final String filePath) {
+//    public void getVersion(@NonNull String url, final String filePath) {
 //
 //        listener.onStartDownload();
 //        this.filePath = filePath;
@@ -73,7 +73,7 @@
 //        // subscribeOn()改变调用它之前代码的线程
 //        // observeOn()改变调用它之后代码的线程
 //        retrofit.create(DownloadService.class)
-//                .download(url)
+//                .getVersion(url)
 //                .subscribeOn(Schedulers.io())
 //                .unsubscribeOn(Schedulers.io())
 //                .map(new Func1<ResponseBody, InputStream>() {
