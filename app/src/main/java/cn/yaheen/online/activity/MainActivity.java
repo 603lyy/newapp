@@ -1,10 +1,10 @@
 package cn.yaheen.online.activity;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
@@ -16,7 +16,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -38,8 +37,8 @@ import java.util.List;
 import cn.yaheen.online.R;
 import cn.yaheen.online.activity.offline.OffMainActivity;
 import cn.yaheen.online.activity.online.OnlineMainActivity;
-import cn.yaheen.online.app.*;
 import cn.yaheen.online.app.OnlineApp;
+import cn.yaheen.online.bean.JBean;
 import cn.yaheen.online.bean.LoginBean;
 import cn.yaheen.online.dao.UploadDAO;
 import cn.yaheen.online.model.UploadModel;
@@ -50,17 +49,16 @@ import cn.yaheen.online.utils.DialogUtils;
 import cn.yaheen.online.utils.IDialogCancelCallback;
 import cn.yaheen.online.utils.SettingDialog;
 import cn.yaheen.online.utils.sharepreferences.DefaultPrefsUtil;
-import cn.yaheen.online.utils.sharepreferences.SharedPreferencesUtils;
 import cn.yaheen.online.utils.SysUtils;
 import cn.yaheen.online.utils.ToastUtils;
 import cn.yaheen.online.utils.UUIDUtils;
 import cn.yaheen.online.utils.WeiboDialogUtils;
-import cn.yaheen.online.utils.version.DownloadListener;
-import cn.yaheen.online.utils.version.RXVersionUtils;
-import cn.yaheen.online.utils.version.VersionUtils;
+import cn.yaheen.online.utils.version.VersionPresent;
+import cn.yaheen.online.utils.version.VersionPresentImpl;
+import cn.yaheen.online.utils.version.VersionView;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends BaseActivity<VersionPresent> implements VersionView {
 
     private SwitchButton sbDefault;
     private Button pingJiao;
@@ -189,27 +187,29 @@ public class MainActivity extends Activity {
         if (TextUtils.isEmpty(DefaultPrefsUtil.getIpUrl()))
             return;
 
-        String baseUrl = "http://" + DefaultPrefsUtil.getIpUrl() + ":8080/";
-        RXVersionUtils versionUtils = new RXVersionUtils(baseUrl, new DownloadListener() {
-            @Override
-            public void onStartDownload() {
-            }
+//        String baseUrl = "http://" + DefaultPrefsUtil.getIpUrl() + ":8080/";
+//        RXVersionUtils versionUtils = new RXVersionUtils(baseUrl, new DownloadListener() {
+//            @Override
+//            public void onStartDownload() {
+//            }
+//
+//            @Override
+//            public void onProgress(int progress) {
+////                Log.i("lin", "onProgress: " + progress);
+//            }
+//
+//            @Override
+//            public void onFinishDownload(String filePath) {
+//                installApk(new File(filePath));
+//            }
+//
+//            @Override
+//            public void onFail(String errorInfo) {
+//            }
+//        });
+//        versionUtils.download("loles/apk/online.apk", dirBaseUrl + "online.apk");
 
-            @Override
-            public void onProgress(int progress) {
-//                Log.i("lin", "onProgress: " + progress);
-            }
-
-            @Override
-            public void onFinishDownload(String filePath) {
-                installApk(new File(filePath));
-            }
-
-            @Override
-            public void onFail(String errorInfo) {
-            }
-        });
-        versionUtils.download("loles/apk/online.apk", dirBaseUrl + "online.apk");
+        presenter.getVersion(getVersionCode(this));
     }
 
 
@@ -513,6 +513,29 @@ public class MainActivity extends Activity {
     }
 
     @Override
+    public VersionPresent initPresenter() {
+        return new VersionPresentImpl(this);
+    }
+
+    @Override
+    public void showVersionDialog(final String url) {
+        DialogUtils.showDialog(context, "有新版本更新，请点击确定跳转至浏览器下载最新安装包", new DialogCallback() {
+            @Override
+            public void callback() {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse(url));
+                context.startActivity(intent);
+            }
+        }, new IDialogCancelCallback() {
+            @Override
+            public void cancelCallback() {
+            }
+        });
+    }
+
+    @Override
     public void onBackPressed() {
         DialogUtils.showDialog(MainActivity.this, "确定要退出该APP吗？", new DialogCallback() {
             @Override
@@ -526,4 +549,18 @@ public class MainActivity extends Activity {
         });
     }
 
+    /**
+     * 获取软件版本号
+     */
+    private static int getVersionCode(Context context) {
+        final String packageName = context.getPackageName();
+        int version = 1;
+        try {
+            PackageInfo info = context.getPackageManager().getPackageInfo(packageName, 0);
+            version = info.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return version;
+    }
 }

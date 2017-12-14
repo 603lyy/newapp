@@ -767,7 +767,7 @@ public class OffMainActivity extends Activity implements Receiver.Message {
             // 选择图片库的图片
             case PICK:
 //                if (resultCode == RESULT_OK) {
-//                    Uri uri = data.getData();
+//                    Uri uri = data.getVersion();
 //                    imageView1.setImageURI(uri);
 //                }
                 break;

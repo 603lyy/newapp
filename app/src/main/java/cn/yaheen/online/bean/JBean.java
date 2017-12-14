@@ -31,7 +31,7 @@ public class JBean {
 //            Intent intent = new Intent();
 //            intent.setAction(Intent.ACTION_VIEW);
 //            intent.addCategory(Intent.CATEGORY_BROWSABLE);
-//            intent.setData(Uri.parse("http://192.168.250.102:8180/aa.apk"));
+//            intent.showVersionDialog(Uri.parse("http://192.168.250.102:8180/aa.apk"));
 //            startActivity(intent);
 //        }
 //
