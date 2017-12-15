@@ -1,7 +1,5 @@
 package cn.yaheen.online.utils.version;
 
-import android.util.Log;
-
 import java.io.IOException;
 
 import okhttp3.MediaType;

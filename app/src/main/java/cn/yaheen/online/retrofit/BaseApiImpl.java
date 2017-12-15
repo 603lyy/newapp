@@ -55,6 +55,11 @@ public class BaseApiImpl implements BaseApi {
     }
 
     @Override
+    public OkHttpClient.Builder setNetworkInterceptor(Interceptor interceptor) {
+        return httpBuilder.addNetworkInterceptor(interceptor);
+    }
+
+    @Override
     public Retrofit.Builder setConverterFactory(Converter.Factory factory) {
         return retrofitBuilder.addConverterFactory(factory);
     }

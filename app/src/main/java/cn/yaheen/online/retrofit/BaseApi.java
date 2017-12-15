@@ -11,6 +11,8 @@ public interface BaseApi {
 
     OkHttpClient.Builder setInterceptor(Interceptor interceptor);
 
+    OkHttpClient.Builder setNetworkInterceptor(Interceptor interceptor);
+
     Retrofit.Builder setConverterFactory(Converter.Factory factory);
 
 }

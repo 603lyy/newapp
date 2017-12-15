@@ -22,6 +22,6 @@ public class DownImpl extends BaseApiImpl {
     public static DownloadService getInstance(DownloadListener listener) {
         api.setInterceptor(new DownloadInterceptor(listener));
         api.retrofitBuilder.client(api.httpBuilder.build());
-        return api.getRetrofit().create(DownloadService.class);
+        return api.retrofitBuilder.build().create(DownloadService.class);
     }
 }
