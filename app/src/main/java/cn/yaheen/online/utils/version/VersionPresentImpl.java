@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.v4.content.FileProvider;
 
+import org.reactivestreams.Subscription;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -13,6 +15,8 @@ import java.io.InputStream;
 
 import cn.yaheen.online.bean.JBean;
 import cn.yaheen.online.retrofit.BasePresenterImpl;
+import cn.yaheen.online.retrofit.RxActionManager;
+import cn.yaheen.online.retrofit.RxApiManager;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
@@ -33,7 +37,7 @@ public class VersionPresentImpl extends BasePresenterImpl<VersionView> implement
 
     @Override
     public void getVersion(final int currentVersion) {
-        ApiImpl.getInstance().getVersion("loles/apk/version.json")
+        Disposable disposable = ApiImpl.getInstance().getVersion("loles/apk/version.json")
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
@@ -59,11 +63,12 @@ public class VersionPresentImpl extends BasePresenterImpl<VersionView> implement
                         //toast...
                     }
                 });
+        RxApiManager.get().add("loles/apk/version.json",disposable);
     }
 
     @Override
     public void download(String url, final String filePath, final DownloadListener listener) {
-        DownImpl.getInstance(listener).download(url)
+        Disposable disposable = DownImpl.getInstance(listener).download(url)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .map(new Function<ResponseBody, InputStream>() {
@@ -83,9 +88,11 @@ public class VersionPresentImpl extends BasePresenterImpl<VersionView> implement
                 .subscribe(new Consumer<InputStream>() {
                     @Override
                     public void accept(InputStream inputStream) throws Exception {
+                        listener.onFinishDownload(filePath);
                         view.finishDownload(filePath);
                     }
                 });
+        RxApiManager.get().add(url, disposable);
     }
 
     /**

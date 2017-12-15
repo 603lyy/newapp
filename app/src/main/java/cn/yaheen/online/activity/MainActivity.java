@@ -16,7 +16,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -39,10 +38,10 @@ import cn.yaheen.online.R;
 import cn.yaheen.online.activity.offline.OffMainActivity;
 import cn.yaheen.online.activity.online.OnlineMainActivity;
 import cn.yaheen.online.app.OnlineApp;
-import cn.yaheen.online.bean.JBean;
 import cn.yaheen.online.bean.LoginBean;
 import cn.yaheen.online.dao.UploadDAO;
 import cn.yaheen.online.model.UploadModel;
+import cn.yaheen.online.retrofit.RxApiManager;
 import cn.yaheen.online.switchbutton.SwitchButton;
 import cn.yaheen.online.utils.Constant;
 import cn.yaheen.online.utils.DialogCallback;
@@ -55,6 +54,7 @@ import cn.yaheen.online.utils.ToastUtils;
 import cn.yaheen.online.utils.UUIDUtils;
 import cn.yaheen.online.utils.WeiboDialogUtils;
 import cn.yaheen.online.utils.version.DownloadListener;
+import cn.yaheen.online.utils.version.UpdateDownLoadDialog;
 import cn.yaheen.online.utils.version.VersionPresent;
 import cn.yaheen.online.utils.version.VersionPresentImpl;
 import cn.yaheen.online.utils.version.VersionView;
@@ -485,39 +485,53 @@ public class MainActivity extends BaseActivity<VersionPresent> implements Versio
 
     @Override
     public void showVersionDialog(final String url) {
+        final UpdateDownLoadDialog downLoadDialog = new UpdateDownLoadDialog(this);
+        downLoadDialog.setOnCancelClickListener(new UpdateDownLoadDialog.OnCancelClickListener() {
+            @Override
+            public void onInstallClick(View v) {
+                RxApiManager.get().cancel(url);
+            }
+        });
         DialogUtils.showDialog(context, "有新版本更新，请点击确定跳转至浏览器下载最新安装包", new DialogCallback() {
             @Override
             public void callback() {
-//                Intent intent = new Intent();
-//                intent.setAction(Intent.ACTION_VIEW);
-//                intent.addCategory(Intent.CATEGORY_BROWSABLE);
-//                intent.setData(Uri.parse(url));
-//                context.startActivity(intent);
+                if (downLoadDialog != null) {
+                    downLoadDialog.setProgressMax(100);
+                    downLoadDialog.show();
+                }
                 presenter.download(url, dirBaseUrl + "online.apk", new DownloadListener() {
                     @Override
                     public void onStartDownload() {
-
                     }
 
                     @Override
                     public void onProgress(int progress) {
-                        Log.i("lin", "onProgress: " + progress);
+                        if (downLoadDialog != null) {
+                            downLoadDialog.setProgress(progress);
+                        }
                     }
 
                     @Override
                     public void onFinishDownload(String filePath) {
-
+                        if (downLoadDialog != null) {
+                            downLoadDialog.dismiss();
+                        }
                     }
 
                     @Override
                     public void onFail(String errorInfo) {
-
+                        if (downLoadDialog != null) {
+                            downLoadDialog.dismiss();
+                        }
                     }
                 });
             }
         }, new IDialogCancelCallback() {
             @Override
             public void cancelCallback() {
+                if (downLoadDialog != null) {
+                    downLoadDialog.dismiss();
+                }
             }
         });
     }
@@ -587,6 +601,7 @@ public class MainActivity extends BaseActivity<VersionPresent> implements Versio
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        RxApiManager.get().removeAll();
         OnlineApp.getRefWatcher().watch(this);
     }
 }
