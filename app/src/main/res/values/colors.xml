@@ -146,4 +146,5 @@
     <color name="transparent_background">#ffffff</color>
 
     <color name="edittext_hint_text_color">#BAB9C8</color>
+    <color name="normal">#0487EF</color>
 </resources>

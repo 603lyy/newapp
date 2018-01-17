@@ -50,7 +50,7 @@ public class SettingDialog {
         }
 
         AlertDialog.Builder ad1 = new AlertDialog.Builder(context);
-        ad1.setIcon(android.R.drawable.ic_dialog_info);
+        ad1.setIcon(R.drawable.setting_dialog);
         ad1.setTitle("设置ip地址:");
         ad1.setView(textEntryView);
 
@@ -95,6 +95,10 @@ public class SettingDialog {
                 }
             }
         });
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                .setTextColor(context.getResources().getColor(R.color.normal));
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+                .setTextColor(context.getResources().getColor(R.color.normal));
 
     }
 }
