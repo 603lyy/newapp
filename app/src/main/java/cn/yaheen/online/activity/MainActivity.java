@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,16 +59,16 @@ import cn.yaheen.online.utils.version.VersionUtils;
 
 public class MainActivity extends Activity {
 
+    private EditText courseNameEdit, teacher, usernameEdit, passwordEdit;
     private SwitchButton sbDefault;
+    private ImageView setingBtn;
+    private TextView textView;
     private Button pingJiao;
     private Button login;
-    private TextView code;
-    private EditText courseNameEdit, teacher, usernameEdit, passwordEdit;
-    private Dialog mWeiboDialog = null;
 
-    private TextView textView;
-    private Button setingBtn;
     private boolean isLogin = true;
+
+    private Dialog mWeiboDialog = null;
     UploadDAO uploadDAO = null;
 
     public Handler getmHandler() {
@@ -99,17 +100,15 @@ public class MainActivity extends Activity {
         cn.yaheen.online.app.OnlineApp.getInstance().addActivity(this);
         setContentView(R.layout.activity_main);
 
-        LinearLayout layout = (LinearLayout) findViewById(R.id.activity_main);
         usernameEdit = (EditText) findViewById(R.id.usernameText);
         passwordEdit = (EditText) findViewById(R.id.passwordText);
         courseNameEdit = (EditText) findViewById(R.id.editText2);
         sbDefault = (SwitchButton) findViewById(R.id.sb_default);
+        setingBtn = (ImageView) findViewById(R.id.setting);
         textView = (TextView) findViewById(R.id.textView);
         teacher = (EditText) findViewById(R.id.editText);
-        setingBtn = (Button) findViewById(R.id.setting);
         pingJiao = (Button) findViewById(R.id.button2);
         login = (Button) findViewById(R.id.button);
-        code = (TextView) findViewById(R.id.code);
 
         checkVersion();
         initPermission();
@@ -117,7 +116,6 @@ public class MainActivity extends Activity {
             uploadDAO = new UploadDAO();
         }
         sbDefault.setChecked(true);
-        layout.getBackground().setAlpha(200);
         teacher.setText(DefaultPrefsUtil.getTeacherName());
         usernameEdit.setText(DefaultPrefsUtil.getUserName());
         passwordEdit.setText(DefaultPrefsUtil.getUserPassword());
@@ -132,21 +130,17 @@ public class MainActivity extends Activity {
                 if (isChecked) {
                     isLogin = true;
                     login.setText("登录");
-                    code.setText("课程编码");
                     textView.setText("在线模式");
-                    findViewById(R.id.teacherLayout).setVisibility(View.GONE);
-                    findViewById(R.id.passwordLayout).setVisibility(View.VISIBLE);
-                    findViewById(R.id.usernameLayout).setVisibility(View.VISIBLE);
-                    findViewById(R.id.courseCodeLayout).setVisibility(View.VISIBLE);
+                    teacher.setVisibility(View.GONE);
+                    passwordEdit.setVisibility(View.VISIBLE);
+                    usernameEdit.setVisibility(View.VISIBLE);
                 } else {
                     isLogin = false;
-                    code.setText("课程名称");
                     login.setText("开始上课");
                     textView.setText("离线模式");
-                    findViewById(R.id.usernameLayout).setVisibility(View.GONE);
-                    findViewById(R.id.passwordLayout).setVisibility(View.GONE);
-                    findViewById(R.id.teacherLayout).setVisibility(View.VISIBLE);
-                    findViewById(R.id.courseCodeLayout).setVisibility(View.VISIBLE);
+                    teacher.setVisibility(View.VISIBLE);
+                    passwordEdit.setVisibility(View.GONE);
+                    usernameEdit.setVisibility(View.GONE);
                 }
             }
         });

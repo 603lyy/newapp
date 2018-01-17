@@ -144,4 +144,6 @@
     <color name="transparentGray">#e6e0e0e0</color>
     <color name="transparent_background_button">#11000000</color>
     <color name="transparent_background">#ffffff</color>
+
+    <color name="edittext_hint_text_color">#BAB9C8</color>
 </resources>

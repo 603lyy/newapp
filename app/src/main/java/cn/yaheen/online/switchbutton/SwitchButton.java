@@ -84,6 +84,10 @@ public class SwitchButton extends CompoundButton {
 		mConf.setInsetBounds(ta.getDimensionPixelSize(R.styleable.SwitchButton_insetLeft, 0), ta.getDimensionPixelSize(R.styleable.SwitchButton_insetTop, 0),
 				ta.getDimensionPixelSize(R.styleable.SwitchButton_insetRight, 0), ta.getDimensionPixelSize(R.styleable.SwitchButton_insetBottom, 0));
 
+		mConf.setOffColor(ta.getColor(R.styleable.SwitchButton_offColor,0));
+
+		mConf.setOnColor(ta.getColor(R.styleable.SwitchButton_onColor,0));
+
 		int velocity = ta.getInteger(R.styleable.SwitchButton_animationVelocity, -1);
 		mAnimationController.setVelocity(velocity);
 

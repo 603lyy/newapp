@@ -4,16 +4,16 @@
     <item android:state_pressed="true">
         <shape>
             <!--色值-->
-            <solid android:color="#ccC8EBFB" />
+            <solid android:color="#990186EF" />
             <!--圆角-->
-            <corners android:radius="5dp" />
+            <corners android:radius="20dp" />
         </shape>
     </item>
     <!--默认背景-->
     <item>
         <shape>
-            <solid android:color="#44C8EBFB" />
-            <corners android:radius="5dp" />
+            <solid android:color="#0186EF" />
+            <corners android:radius="20dp" />
         </shape>
     </item>
 </selector>

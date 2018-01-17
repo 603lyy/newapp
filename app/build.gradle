@@ -21,8 +21,8 @@ android {
         applicationId "cn.yaheen.online"
         minSdkVersion 21
         targetSdkVersion 25
-        versionCode 10
-        versionName "1.0"
+        versionCode 21
+        versionName "2.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -30,6 +30,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
+            debuggable true
         }
     }
 

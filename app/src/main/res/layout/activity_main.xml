@@ -1,40 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sbtn="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:alpha="200"
+    android:background="@drawable/login_bg_3"
+    android:fillViewport="true">
 
     <LinearLayout
         android:id="@+id/activity_main"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:background="@drawable/login_bg"
-        android:orientation="vertical"
-        android:weightSum="1">
-
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="88dp"
+            android:layout_height="60dp"
             android:orientation="horizontal">
 
-            <Button
+            <ImageView
                 android:id="@+id/setting"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/teacher"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_gravity="center"
-                android:layout_margin="8dp"
-                android:layout_weight="0.2"
-                android:padding="8dp"
-                android:text="设置" />
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/setting"
+                android:layout_gravity="center"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="88dp"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_weight="0.8"
                 android:gravity="right"
@@ -45,32 +40,31 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/sb_default"
-                    android:layout_gravity="right"
+                    android:layout_gravity="center_vertical"
                     android:layout_toLeftOf="@+id/sb_default"
-
-                    android:paddingTop="30dp"
                     android:text="在线模式"
                     android:textColor="#FFF"
-                    android:textSize="24sp" />
+                    android:textSize="16sp" />
 
                 <cn.yaheen.online.switchbutton.SwitchButton
                     android:id="@+id/sb_default"
                     style="@style/SwitchButtonStyle"
                     android:layout_alignParentRight="true"
-                    android:layout_gravity="right"
-                    android:layout_marginRight="20dp"
-                    android:paddingTop="30dp" />
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="15dp"
+                    sbtn:measureFactor="2.2"
+                    sbtn:thumb_height="18dp"
+                    sbtn:thumb_width="18dp" />
             </LinearLayout>
 
         </LinearLayout>
 
-
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="380dp"
             android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="30dp"
             android:layout_marginTop="30dp"
-            android:background="@drawable/login_bg_2"
             android:orientation="vertical"
             android:paddingLeft="30dp"
             android:paddingRight="30dp">
@@ -82,136 +76,56 @@
                 android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:text="教师评教系统登录"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="30dp" />
 
-            <LinearLayout
-                android:id="@+id/teacherLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="10dp"
-                android:visibility="gone">
 
-                <TextView
-                    android:id="@+id/teacher"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_below="@+id/textView"
-                    android:text="评教老师"
-                    android:textColor="@color/white"
-                    android:textSize="24sp" />
+            <EditText
+                android:id="@+id/editText"
+                style="@style/MainEditText"
+                android:layout_marginTop="25dp"
+                android:ems="10"
+                android:hint="评教老师"
+                android:inputType="textPersonName"
+                android:paddingLeft="20dp"
+                android:visibility="gone"
+                android:paddingRight="20dp" />
 
-                <EditText
-                    android:id="@+id/editText"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/teacher"
-                    android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@+id/teacher"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text=""
-                    android:textColor="#000000"
-                    android:theme="@style/MyEditText" />
-            </LinearLayout>
+            <EditText
+                android:id="@+id/editText2"
+                style="@style/MainEditText"
+                android:layout_marginTop="25dp"
+                android:ems="10"
+                android:hint="课程编码"
+                android:inputType="textPersonName"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp" />
 
-            <LinearLayout
-                android:id="@+id/courseCodeLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="10dp"
-                android:weightSum="1">
+            <EditText
+                android:id="@+id/usernameText"
+                style="@style/MainEditText"
+                android:layout_marginTop="25dp"
+                android:ems="10"
+                android:hint="老师账号"
+                android:inputType="textPersonName"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp" />
 
-                <TextView
-                    android:id="@+id/code"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_below="@+id/editText"
-                    android:text="课程编码"
-                    android:textColor="@color/white"
-                    android:textSize="24sp" />
-
-                <EditText
-                    android:id="@+id/editText2"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text=""
-                    android:textColor="#000000"
-                    android:theme="@style/MyEditText" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/usernameLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <TextView
-                    android:id="@+id/username"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:text="老师账号"
-                    android:textColor="@color/white"
-                    android:textSize="24sp" />
-
-                <EditText
-                    android:id="@+id/usernameText"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text=""
-                    android:textColor="#000000"
-                    android:theme="@style/MyEditText" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/passwordLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <TextView
-                    android:id="@+id/password"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:text="老师密码"
-                    android:textColor="@color/white"
-                    android:textSize="24sp" />
-
-                <EditText
-                    android:id="@+id/passwordText"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text=""
-                    android:textColor="#000000"
-                    android:theme="@style/MyEditText" />
-            </LinearLayout>
+            <EditText
+                android:id="@+id/passwordText"
+                style="@style/MainEditText"
+                android:layout_marginTop="25dp"
+                android:ems="10"
+                android:hint="老师密码"
+                android:inputType="textPersonName"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="40dp"
-                android:layout_marginTop="30dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="40dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="10dp"
@@ -219,12 +133,12 @@
 
                 <Button
                     android:id="@+id/button"
-                    android:layout_width="110dp"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/btn_login"
                     android:text="登录"
                     android:textColor="#FFFFFF"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -233,12 +147,12 @@
 
                 <Button
                     android:id="@+id/button2"
-                    android:layout_width="110dp"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/btn_login"
                     android:text="查看评教"
                     android:textColor="#FFFFFF"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
