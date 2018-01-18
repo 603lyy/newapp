@@ -191,7 +191,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_marginTop="50dp"
-                            android:src="@drawable/simple_player_icon_fullscreen_stretch_o"
+                            android:src="@drawable/ic_fullscreen_white"
                             android:visibility="gone" />
 
                         <LinearLayout
@@ -336,7 +336,7 @@
                     android:layout_above="@+id/pre_page"
                     android:layout_alignStart="@+id/pre_page"
                     android:layout_marginBottom="15dp"
-                    android:src="@drawable/simple_player_icon_fullscreen_stretch_o" />
+                    android:src="@drawable/ic_fullscreen_white" />
             </RelativeLayout>
 
 
@@ -352,7 +352,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginLeft="3dp"
         android:layout_marginTop="76dp"
-        android:src="@drawable/simple_player_icon_fullscreen_stretch_o" />
+        android:src="@drawable/ic_fullscreen_white" />
 
     <ImageView
         android:id="@+id/kj_resize"
@@ -361,7 +361,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="70dp"
-        android:src="@drawable/simple_player_icon_fullscreen_stretch_o"
+        android:src="@drawable/ic_fullscreen_white"
         android:visibility="gone" />
 
 </RelativeLayout>

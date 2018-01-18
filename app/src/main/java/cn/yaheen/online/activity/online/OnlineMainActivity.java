@@ -237,6 +237,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
     /**
      * Edit by xszyou on 20170625:组件全屏及还原按钮
      */
+    private ImageView contentResizeFull;
     private ImageView contentResize;
     private ImageView canvasResize;
     private ImageView msgResize;
@@ -337,6 +338,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         }
 
         initScreen();
+        contentResizeFull = (ImageView) findViewById(R.id.content_resize_full);
         contentResize = (ImageView) findViewById(R.id.content_resize);
         canvasResize = (ImageView) findViewById(R.id.canvas_resize);
         msgResize = (ImageView) findViewById(R.id.msg_resize);
@@ -388,6 +390,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
             titleTV.setText(titleTV.getText().toString() + courseCode);
         }
 
+        contentResizeFull.setOnClickListener(this);
         contentResize.setOnClickListener(this);
         canvasResize.setOnClickListener(this);
         msgResize.setOnClickListener(this);
@@ -414,7 +417,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                     }
                     resizeBtnShow(false, view);
                     view.bringToFront();
-                    kjResize.setImageResource(R.drawable.simple_player_icon_fullscreen_shrink_o);
+                    kjResize.setImageResource(R.drawable.ic_normalscreen_white);
                 } else {
                     if (isHeng) {
                         findViewById(R.id.topPanel).setVisibility(View.VISIBLE);
@@ -428,7 +431,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                         mainMain.addView(showView, 0);
                     }
                     resizeBtnShow(true, contentResize, msgResize);
-                    kjResize.setImageResource(R.drawable.simple_player_icon_fullscreen_stretch_o);
+                    kjResize.setImageResource(R.drawable.ic_fullscreen_white);
                 }
                 isFullScreen = !isFullScreen;
                 break;
@@ -456,7 +459,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                         stopContentPlay((LinearLayout) findViewById(R.id.showview));
                     }
                     resizeBtnShow(false, view);
-                    canvasResize.setImageResource(R.drawable.simple_player_icon_fullscreen_shrink_o);
+                    canvasResize.setImageResource(R.drawable.ic_normalscreen_white);
                 } else {
                     //Edit by xszyou on 20170626:播放共享桌面
                     LinearLayout layout = (LinearLayout) findViewById(R.id.showview);
@@ -473,7 +476,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                     if (!sbDefault.isChecked()) {
                         initVodPlayer(layout, layout.getLayoutParams().width, layout.getLayoutParams().height);
                     }
-                    canvasResize.setImageResource(R.drawable.simple_player_icon_fullscreen_stretch_o);
+                    canvasResize.setImageResource(R.drawable.ic_fullscreen_white);
                 }
                 isFullScreen = !isFullScreen;
                 break;
@@ -482,33 +485,49 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                     if (isHeng) {
                         //Edit by xszyou on 20170626:停止播放共享桌面
                         LinearLayout layout = (LinearLayout) findViewById(R.id.showview);
+                        findViewById(R.id.fl_show_view).setVisibility(View.GONE);
                         stopContentPlay(layout);
-                        layout.setVisibility(View.GONE);
-                        //IM的高度顶满
-                        LinearLayout rl = (LinearLayout) findViewById(R.id.msg_layout);
-                        ViewGroup.LayoutParams lp = rl.getLayoutParams();
-                        lp.height = constant.getDmWidth() - DensityUtils.dip2px(context, 30);
                         resizeBtnShow(false, view, canvasResize);
-                        msgResize.setImageResource(R.drawable.simple_player_icon_fullscreen_shrink_o);
+                        msgResize.setImageResource(R.drawable.ic_normalscreen_white);
                     }
                 } else {
                     if (isHeng) {
                         //Edit by xszyou on 20170626:播放共享桌面
                         LinearLayout layout = (LinearLayout) findViewById(R.id.showview);
-                        int height = (int) ((constant.getDmWidth() - DensityUtils.dip2px(context, 30)) / 2);//top 30 dp
+                        findViewById(R.id.fl_show_view).setVisibility(View.VISIBLE);
 
+                        int height = (int) ((constant.getDmWidth() - DensityUtils.dip2px(context, 30)) / 2);//top 30 dp
                         initVodPlayer(layout, (int) (constant.getDmHeight() * 0.382), height);
                         layout.getLayoutParams().height = height;
-                        layout.setVisibility(View.VISIBLE);
-
-                        LinearLayout rl = (LinearLayout) findViewById(R.id.msg_layout);
-                        ViewGroup.LayoutParams lp = rl.getLayoutParams();
-                        lp.height = height;
                         resizeBtnShow(true, kjResize);
-                        msgResize.setImageResource(R.drawable.simple_player_icon_fullscreen_stretch_o);
+                        msgResize.setImageResource(R.drawable.ic_fullscreen_white);
                     }
                 }
                 isMsgFull = !isMsgFull;
+                break;
+            case R.id.content_resize_full:
+                if (isFullScreen) {
+                    RelativeLayout rl = null;
+                    int width = 0, height = 0;
+                    if (isHeng) {
+                        contentResizeFull.setVisibility(View.GONE);
+                        findViewById(R.id.linearLayout).setVisibility(View.VISIBLE);
+                        rl = (RelativeLayout) findViewById(R.id.activity_online);
+                        width = (int) (constant.getDmHeight() * 0.382);
+                        height = (int) ((constant.getDmWidth() - DensityUtils.dip2px(context, 30)) / 2);
+                        resizeBtnShow(true, kjResize);
+                        isFullScreen = !isFullScreen;
+                    } else {
+                        rl = (RelativeLayout) findViewById(R.id.main);
+                        width = constant.getDmWidth() / 2;
+                        height = rl.getLayoutParams().height;
+                        resizeBtnShow(true, kjResize, msgResize);
+                        isContentFull = !isContentFull;
+                    }
+                    stopContentPlay(rl);
+                    initVodPlayer((LinearLayout) findViewById(R.id.showview), width, height);
+                    contentResize.setImageResource(R.drawable.ic_fullscreen_white);
+                }
                 break;
             case R.id.content_resize:
                 //竖屏时视频不会完全全屏
@@ -519,6 +538,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                     RelativeLayout rl = null;
                     int width = 0, height = 0;
                     if (isHeng) {
+                        contentResizeFull.setVisibility(View.VISIBLE);
                         findViewById(R.id.linearLayout).setVisibility(View.GONE);
                         rl = (RelativeLayout) findViewById(R.id.activity_online);
                         width = constant.getDmHeight();
@@ -534,8 +554,8 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                     }
 
                     initVodPlayer(rl, width, height);
-                    rl.bringChildToFront(view);
-                    contentResize.setImageResource(R.drawable.simple_player_icon_fullscreen_shrink_o);
+                    rl.bringChildToFront(contentResizeFull);
+                    contentResize.setImageResource(R.drawable.ic_normalscreen_white);
                 } else {//还原
                     RelativeLayout rl = null;
                     int width = 0, height = 0;
@@ -555,7 +575,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                     }
                     stopContentPlay(rl);
                     initVodPlayer((LinearLayout) findViewById(R.id.showview), width, height);
-                    contentResize.setImageResource(R.drawable.simple_player_icon_fullscreen_stretch_o);
+                    contentResize.setImageResource(R.drawable.ic_fullscreen_white);
                 }
                 break;
             case R.id.rightbtn:
@@ -1226,6 +1246,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                  * Edit by xszyou on 20170618:视讯和课件模式切换
                  */
                 if (isChecked) {
+                    //展示课件
                     webView.setVisibility(View.VISIBLE);
                     toolsBar.setVisibility(View.VISIBLE);
                     initToolsBar(webView);
@@ -1244,6 +1265,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                     //Edit by xszyou on 20170626:停止播放共享桌面
                     stopContentPlay(layout);
                 } else {
+                    //展示视频
                     toolsBar.setVisibility(View.GONE);
                     webView.setVisibility(View.GONE);
                     //Edity by xszyou on 20170612:横屏显示IM

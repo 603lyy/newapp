@@ -72,7 +72,7 @@
                 android:id="@+id/pagetv"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
+                android:layout_marginRight="10dp"
                 android:gravity="center"
                 android:text=""
                 android:textColor="#FFF" />
@@ -132,29 +132,52 @@
                     android:background="@color/Grey_100"
                     android:orientation="vertical">
 
-                    <LinearLayout
-                        android:id="@+id/showview"
-                        android:layout_width="fill_parent"
+                    <FrameLayout
+                        android:id="@+id/fl_show_view"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="0.5"
                         android:orientation="vertical"
                         android:padding="1dp">
 
-                        <SurfaceView
-                            android:id="@+id/content"
+                        <LinearLayout
+                            android:id="@+id/showview"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true" />
+                            android:orientation="vertical">
 
-                        <WebView
-                            android:id="@+id/loadwebview"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
+                            <SurfaceView
+                                android:id="@+id/content"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+
+                            <WebView
+                                android:id="@+id/loadwebview"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:visibility="gone" />
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/content_resize"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="bottom"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:src="@drawable/ic_fullscreen_blue" />
+
+                        <ImageView
+                            android:id="@+id/kj_resize"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="bottom"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:src="@drawable/ic_fullscreen_white"
                             android:visibility="gone" />
-                    </LinearLayout>
+                    </FrameLayout>
 
                     <!--IM START-->
                     <LinearLayout
@@ -188,7 +211,7 @@
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_gravity="center"
-                                android:src="@drawable/simple_player_icon_fullscreen_stretch_o" />
+                                android:src="@drawable/ic_fullscreen_white" />
 
                             <EditText
                                 android:id="@+id/et_sendmessage"
@@ -197,10 +220,10 @@
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="1"
+                                android:background="@drawable/bg_edittext_white_round"
+                                android:paddingBottom="2dp"
                                 android:paddingLeft="10dp"
                                 android:paddingTop="2dp"
-                                android:paddingBottom="2dp"
-                                android:background="@drawable/bg_edittext_white_round"
                                 android:singleLine="true"
                                 android:textSize="12dp" />
 
@@ -211,13 +234,13 @@
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="10dp"
                                 android:background="@drawable/bg_textview_white_round"
+                                android:paddingBottom="3dp"
                                 android:paddingLeft="5dp"
                                 android:paddingRight="5dp"
                                 android:paddingTop="3dp"
-                                android:paddingBottom="3dp"
                                 android:text="发送"
-                                android:textSize="12dp"
-                                android:textColor="@color/normal" />
+                                android:textColor="@color/normal"
+                                android:textSize="12dp" />
 
                         </LinearLayout>
 
@@ -285,7 +308,7 @@
                                 android:layout_height="20dp"
                                 android:layout_gravity="center"
                                 android:layout_marginTop="15dp"
-                                android:src="@drawable/simple_player_icon_fullscreen_stretch_o" />
+                                android:src="@drawable/ic_fullscreen_white" />
 
                             <ImageView
                                 android:id="@+id/pre_page"
@@ -362,30 +385,18 @@
 
             </LinearLayout>
 
-
         </LinearLayout>
     </LinearLayout>
 
-
     <ImageView
-        android:id="@+id/content_resize"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:id="@+id/content_resize_full"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="3dp"
-        android:layout_marginTop="38dp"
-        android:src="@drawable/simple_player_icon_fullscreen_stretch_o" />
-
-    <ImageView
-        android:id="@+id/kj_resize"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="70dp"
-        android:src="@drawable/simple_player_icon_fullscreen_stretch_o"
-        android:visibility="gone" /><!--simple_player_icon_fullscreen_stretch-->
-
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:src="@drawable/ic_normalscreen_blue"
+        android:visibility="gone" />
 
 </RelativeLayout>
