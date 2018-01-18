@@ -2,43 +2,36 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:name="wis.com.ztl.GridViewDemo"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="#FFFFFF"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_dialog_background"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="35dp"
-        android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
-        <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="match_parent"-->
+        <!--<ImageView-->
+        <!--android:layout_width="20dp"-->
+        <!--android:layout_height="20dp"-->
+        <!--android:layout_gravity="center"-->
         <!--android:layout_marginLeft="20dp"-->
+        <!--android:layout_marginTop="2dp"-->
         <!--android:layout_marginRight="10dp"-->
-        <!--android:gravity="center"-->
-        <!--android:maxLines="1"-->
-        <!--android:text="笔/橡" />-->
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/color_pen" />
+        <!--android:background="@drawable/color_pen" />-->
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginRight="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
             android:gravity="center"
             android:text="—"
+            android:textColor="@color/normal"
             android:textSize="20dp" />
 
         <cn.yaheen.online.view.MSeekBar
@@ -60,23 +53,27 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginRight="20dp"
             android:gravity="center"
             android:text="+"
+            android:textColor="@color/normal"
             android:textSize="28dp" />
 
     </LinearLayout>
 
     <GridView
         android:id="@+id/grid"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:columnWidth="40px"
         android:numColumns="4"
         android:paddingBottom="10dip"
         android:paddingLeft="20dip"
-        android:paddingRight="20dip">
+        android:paddingRight="20dip"
+        android:scrollbars="none">
         <!-- GridView 设置为4列 边距为 20pid-->
     </GridView>
 

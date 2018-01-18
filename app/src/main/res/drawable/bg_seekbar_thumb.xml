@@ -4,5 +4,5 @@
     <size
         android:width="20dp"
         android:height="20dp" />
-    <solid android:color="#DEDEDE" />
+    <solid android:color="@color/progress_background" />
 </shape>

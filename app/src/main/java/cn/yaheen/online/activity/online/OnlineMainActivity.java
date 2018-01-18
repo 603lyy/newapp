@@ -135,7 +135,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
 
     private Button cut;
     private Context context;
-    private Button mBtnSend;
+    private TextView mBtnSend;
     private TextView pagetv;
     private TextView titleTV;
     private ListView mListView;
@@ -251,16 +251,16 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
             super.handleMessage(msg);
             switch (msg.what) {
                 case 1:
-                    pagetv.setText("(" + curPage + "/" + page + ")");
+                    pagetv.setText(curPage + "/" + page);
                     WeiboDialogUtils.closeDialog(mWeiboDialog);
                     break;
                 case 2:
-                    pagetv.setText("(" + curPage + "/" + page + ")");
+                    pagetv.setText(curPage + "/" + page);
                     break;
                 //截屏
                 case 6:
                     doNewPage(true);
-                    pagetv.setText("(" + curPage + "/" + page + ")");
+                    pagetv.setText(curPage + "/" + page);
                     break;
                 case 5://Edit by xszyou on 20170611：定时调用保存操作
                     cacheData(new OnSaveCallBack() {
@@ -383,7 +383,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         initSelectPage();
         initReceiverBost();
 
-        pagetv.setText("(" + curPage + "/" + page + ")");
+        pagetv.setText(curPage + "/" + page);
         if (isPingJiaoOpen || !isLogin) {
             titleTV.setText(titleTV.getText().toString() + courseCode);
         }
@@ -485,7 +485,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                         stopContentPlay(layout);
                         layout.setVisibility(View.GONE);
                         //IM的高度顶满
-                        RelativeLayout rl = (RelativeLayout) findViewById(R.id.msg_layout);
+                        LinearLayout rl = (LinearLayout) findViewById(R.id.msg_layout);
                         ViewGroup.LayoutParams lp = rl.getLayoutParams();
                         lp.height = constant.getDmWidth() - DensityUtils.dip2px(context, 30);
                         resizeBtnShow(false, view, canvasResize);
@@ -501,7 +501,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                         layout.getLayoutParams().height = height;
                         layout.setVisibility(View.VISIBLE);
 
-                        RelativeLayout rl = (RelativeLayout) findViewById(R.id.msg_layout);
+                        LinearLayout rl = (LinearLayout) findViewById(R.id.msg_layout);
                         ViewGroup.LayoutParams lp = rl.getLayoutParams();
                         lp.height = height;
                         resizeBtnShow(true, kjResize);
@@ -1095,7 +1095,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         uploadModel.setUid(uuid);
         uploadDAO.save(uploadModel);
 
-        pagetv.setText("(" + curPage + "/" + page + ")");
+        pagetv.setText(curPage + "/" + page);
         m_view.setBitmap(bitmap);
         m_view.initff();
     }
@@ -1361,7 +1361,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
             m_view.clear();
         }
         this.loadData(curPage);
-        pagetv.setText("(" + curPage + "/" + page + ")");
+        pagetv.setText(curPage + "/" + page);
     }
 
     /**
@@ -1376,7 +1376,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
             m_view.clear();
         }
         this.loadData(curPage);
-        pagetv.setText("(" + curPage + "/" + page + ")");
+        pagetv.setText(curPage + "/" + page);
     }
 
     private void loadPage(int loadpage) {
@@ -1386,7 +1386,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
 
         m_view.clear();
         loadData(curPage);
-        pagetv.setText("(" + curPage + "/" + page + ")");
+        pagetv.setText(curPage + "/" + page);
     }
 
     /**
@@ -1679,7 +1679,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
     public void initView() {
         mEditTextContent = (EditText) findViewById(R.id.et_sendmessage);
         mListView = (ListView) findViewById(R.id.msglistview);
-        mBtnSend = (Button) findViewById(R.id.btn_send);
+        mBtnSend = (TextView) findViewById(R.id.btn_send);
         try {
             mBtnSend.setOnClickListener(new View.OnClickListener() {
                 @Override
