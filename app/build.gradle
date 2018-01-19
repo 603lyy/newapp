@@ -21,8 +21,8 @@ android {
         applicationId "cn.yaheen.online"
         minSdkVersion 21
         targetSdkVersion 25
-        versionCode 2100
-        versionName "2.1.00"
+        versionCode 2200
+        versionName "2.2.00"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
