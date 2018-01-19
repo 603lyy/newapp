@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/icon_popupwin_menu_bg"
-    android:gravity="center_horizontal"
-    android:orientation="vertical">
+    android:background="@color/white"
+    android:gravity="center_horizontal">
 
     <LinearLayout
         android:id="@+id/ly_item1"
         android:layout_width="match_parent"
-        android:layout_height="55dip"
-        android:layout_margin="5dip"
-        android:background="@drawable/bg_default_button_selector"
+        android:layout_height="60dp"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="5dp">
 
         <LinearLayout
             android:id="@+id/save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -40,6 +39,7 @@
             android:id="@+id/upload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -61,14 +61,15 @@
             android:id="@+id/delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <ImageView
                 android:layout_width="35dp"
                 android:layout_height="35dip"
-                android:scaleType="fitCenter"
                 android:layout_gravity="center_horizontal"
+                android:scaleType="fitCenter"
                 android:src="@drawable/erasericon" />
 
             <TextView
@@ -84,6 +85,7 @@
             android:id="@+id/finish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -101,26 +103,11 @@
                 android:text="评分" />
         </LinearLayout>
 
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dip"
-        android:background="#FFF" />
-
-    <LinearLayout
-        android:id="@+id/ly_item2"
-        android:layout_width="match_parent"
-        android:layout_height="55dip"
-        android:layout_margin="5dip"
-        android:background="@drawable/bg_default_button_selector"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
         <LinearLayout
             android:id="@+id/cut"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -142,6 +129,7 @@
             android:id="@+id/langscape"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -162,30 +150,11 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/prestep"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dip"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/prestep_o" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="撤消" />
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/clear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:orientation="vertical">
 

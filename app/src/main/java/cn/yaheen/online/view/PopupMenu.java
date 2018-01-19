@@ -24,7 +24,6 @@ public class PopupMenu extends PopupWindow implements OnClickListener {
     private View finish;
     private View cut;
     private View langscape;
-    private View prestep;
     private View clear;
     private TextView colorText; //颜色对应的文字
     private TextView toolsText; //橡皮对应的文字
@@ -84,7 +83,6 @@ public class PopupMenu extends PopupWindow implements OnClickListener {
         }
         toolsText = (TextView) popView.findViewById(R.id.toolstext);
         langscape = popView.findViewById(R.id.langscape);
-        prestep = popView.findViewById(R.id.prestep);
         clear = popView.findViewById(R.id.clear);
         cut = popView.findViewById(R.id.cut);
 
@@ -94,7 +92,6 @@ public class PopupMenu extends PopupWindow implements OnClickListener {
         clear.setOnClickListener(this);
         upload.setOnClickListener(this);
         delete.setOnClickListener(this);
-        prestep.setOnClickListener(this);
         langscape.setOnClickListener(this);
 
 

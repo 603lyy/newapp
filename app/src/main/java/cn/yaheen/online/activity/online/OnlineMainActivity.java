@@ -43,6 +43,7 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -224,6 +225,10 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
     private ImageView backhome; //返回按钮
     private SurfaceView contentnpv;
     private SwitchButton sbDefault;//课件视讯切换
+    private HorizontalScrollView menuScrollView;
+    private LinearLayout saveLinearLayout, uploadLinearLayout, finishLinearLayout,
+            cutLinearLayout, deleteLinearLayout, clearLinearLayout, langscapeLinearLayout;
+    private LinearLayout menuLinearLayout;
     private WebView webView = null;
 
 
@@ -307,11 +312,6 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
             }
         }
     };
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -526,7 +526,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                     }
                     stopContentPlay(rl);
                     initVodPlayer((LinearLayout) findViewById(R.id.showview), width, height);
-                    contentResize.setImageResource(R.drawable.ic_fullscreen_white);
+                    contentResize.setImageResource(R.drawable.ic_fullscreen_blue);
                 }
                 break;
             case R.id.content_resize:
@@ -578,118 +578,123 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                     contentResize.setImageResource(R.drawable.ic_fullscreen_white);
                 }
                 break;
-            case R.id.rightbtn:
-                // 设置弹出菜单弹出的位置
-                popupMenu.showLocation(R.id.rightbtn);
-                // 设置回调监听，获取点击事件
-                popupMenu.setOnItemClickListener(this);
+            case R.id.ll_menu:
+                showMenu(menuScrollView.getVisibility() == View.VISIBLE);
                 break;
-            default:
-        }
-    }
-
-    @Override
-    public void onClick(PopupMenu.MENUITEM item) {
-        //保存按钮
-        if (item == PopupMenu.MENUITEM.ITEM1) {
-            cacheData(new OnSaveCallBack() {
-                @Override
-                public void saveSuccess() {
-                    saveAllToNative(new OnSaveCallBack() {
-                        @Override
-                        public void saveSuccess() {
-                            ToastUtils.showMessage(OnlineMainActivity.this, "保存成功");
-                        }
-
-                        @Override
-                        public void saveFail() {
-                            ToastUtils.showMessage(OnlineMainActivity.this, "保存失败");
-                        }
-                    }, false);
-
-                }
-
-                @Override
-                public void saveFail() {
-                    ToastUtils.showMessage(OnlineMainActivity.this, "数据缓存失败，无法保存");
-                }
-            }, true, false);
-        } else if (item == PopupMenu.MENUITEM.ITEM2) {
-            //上传按钮
-            cacheData(new OnSaveCallBack() {
-                @Override
-                public void saveSuccess() {
-                    saveAllToNative(new OnSaveCallBack() {
-                        @Override
-                        public void saveSuccess() {
-                            ToastUtils.showMessage(OnlineMainActivity.this, "保存成功");
-                            List<UploadModel> uploadModels = uploadDAO.findByStatusAndUID(UploadModel.STATUS_SAVED, uuid);
-                            if (isLogin) {
-                                if (uploadModels != null && uploadModels.size() > 0) {
-                                    i = 1;
-                                    mDialog = new CommonProgressDialog(OnlineMainActivity.this, new DialogListener());
-                                    mDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-                                    mDialog.setCanceledOnTouchOutside(false);
-                                    mDialog.setMessage("正在上传");
-                                    mDialog.show();
-                                    upload(uploadModels, 0);
-                                }
-                            } else {
-                                dialog(uploadModels);
+            case R.id.save:
+                //保存按钮
+                cacheData(new OnSaveCallBack() {
+                    @Override
+                    public void saveSuccess() {
+                        saveAllToNative(new OnSaveCallBack() {
+                            @Override
+                            public void saveSuccess() {
+                                ToastUtils.showMessage(OnlineMainActivity.this, "保存成功");
                             }
-                        }
 
-                        @Override
-                        public void saveFail() {
-                            ToastUtils.showMessage(OnlineMainActivity.this, "保存失败，终止上传");
-                        }
-                    }, false);
-                }
+                            @Override
+                            public void saveFail() {
+                                ToastUtils.showMessage(OnlineMainActivity.this, "保存失败");
+                            }
+                        }, false);
 
-                @Override
-                public void saveFail() {
-                    ToastUtils.showMessage(OnlineMainActivity.this, "数据缓存失败，终止上传");
-                }
-            }, true, false);
-            // OnUpload();
-        } else if (item == PopupMenu.MENUITEM.ITEM3) {
-            //删除
-            DialogUtils.showDialog(OnlineMainActivity.this, "你确定要删除本页吗？", new DialogCallback() {
-                @Override
-                public void callback() {
-                    cacheData(new OnSaveCallBack() {
+                    }
+
+                    @Override
+                    public void saveFail() {
+                        ToastUtils.showMessage(OnlineMainActivity.this, "数据缓存失败，无法保存");
+                    }
+                }, true, false);
+                showMenu(true);
+                break;
+            case R.id.upload:
+                //上传按钮
+                cacheData(new OnSaveCallBack() {
+                    @Override
+                    public void saveSuccess() {
+                        saveAllToNative(new OnSaveCallBack() {
+                            @Override
+                            public void saveSuccess() {
+                                ToastUtils.showMessage(OnlineMainActivity.this, "保存成功");
+                                List<UploadModel> uploadModels = uploadDAO.findByStatusAndUID(UploadModel.STATUS_SAVED, uuid);
+                                if (isLogin) {
+                                    if (uploadModels != null && uploadModels.size() > 0) {
+                                        i = 1;
+                                        mDialog = new CommonProgressDialog(OnlineMainActivity.this, new DialogListener());
+                                        mDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                                        mDialog.setCanceledOnTouchOutside(false);
+                                        mDialog.setMessage("正在上传");
+                                        mDialog.show();
+                                        upload(uploadModels, 0);
+                                    }
+                                } else {
+                                    dialog(uploadModels);
+                                }
+                            }
+
+                            @Override
+                            public void saveFail() {
+                                ToastUtils.showMessage(OnlineMainActivity.this, "保存失败，终止上传");
+                            }
+                        }, false);
+                    }
+
+                    @Override
+                    public void saveFail() {
+                        ToastUtils.showMessage(OnlineMainActivity.this, "数据缓存失败，终止上传");
+                    }
+                }, true, false);
+                showMenu(true);
+                break;
+            case R.id.finish:
+                //评分按钮
+                UploadModel uploadModel = uploadDAO.findUploadByPageAndUID(curPage, uuid);
+                if (uploadModel != null && uploadModel.getStatus() == UploadModel.STATUS_UPLOADED) {
+                    showNormalDialog("确定要结束课程进行评分吗？", new DialogCallback() {
                         @Override
-                        public void saveSuccess() {
-                            saveAllToNative(new OnSaveCallBack() {
+                        public void callback() {
+                            cacheData(new OnSaveCallBack() {
                                 @Override
                                 public void saveSuccess() {
-                                    deletePage(curPage);
+                                    saveAllToNative(new OnSaveCallBack() {
+                                        @Override
+                                        public void saveSuccess() {
+                                            Toast.makeText(OnlineMainActivity.this, "保存成功，马上开始评分", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent();
+                                            intent.setClass(OnlineMainActivity.this, GradeActivity.class);
+                                            startActivity(intent);
+                                        }
+
+                                        @Override
+                                        public void saveFail() {
+                                            Toast.makeText(OnlineMainActivity.this, "保存失败，终止评分", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }, false);
+
                                 }
 
                                 @Override
                                 public void saveFail() {
-                                    ToastUtils.showMessage(OnlineMainActivity.this, "保存失败，终止操作");
+                                    Toast.makeText(OnlineMainActivity.this, "数据缓存失败，终止评分", Toast.LENGTH_SHORT).show();
                                 }
-                            }, false);
-
+                            }, true, false);
                         }
-
-                        @Override
-                        public void saveFail() {
-                            ToastUtils.showMessage(OnlineMainActivity.this, "数据缓存失败，终于操作");
-                        }
-                    }, true, false);
+                    });
+                } else {
+                    Intent intent = new Intent();
+                    intent.setClass(OnlineMainActivity.this, GradeActivity.class);
+                    startActivity(intent);
                 }
-            }, new IDialogCancelCallback() {
-                @Override
-                public void cancelCallback() {
-                }
-            });
-        } else if (item == PopupMenu.MENUITEM.ITEM5) {
-            //评分按钮
-            UploadModel uploadModel = uploadDAO.findUploadByPageAndUID(curPage, uuid);
-            if (uploadModel != null && uploadModel.getStatus() == UploadModel.STATUS_UPLOADED) {
-                showNormalDialog("确定要结束课程进行评分吗？", new DialogCallback() {
+                showMenu(true);
+                break;
+            case R.id.cut:
+                //拍照按钮
+                takePhoto();
+                showMenu(true);
+                break;
+            case R.id.delete:
+                //删除
+                DialogUtils.showDialog(OnlineMainActivity.this, "你确定要删除本页吗？", new DialogCallback() {
                     @Override
                     public void callback() {
                         cacheData(new OnSaveCallBack() {
@@ -698,15 +703,12 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                                 saveAllToNative(new OnSaveCallBack() {
                                     @Override
                                     public void saveSuccess() {
-                                        Toast.makeText(OnlineMainActivity.this, "保存成功，马上开始评分", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent();
-                                        intent.setClass(OnlineMainActivity.this, GradeActivity.class);
-                                        startActivity(intent);
+                                        deletePage(curPage);
                                     }
 
                                     @Override
                                     public void saveFail() {
-                                        Toast.makeText(OnlineMainActivity.this, "保存失败，终止评分", Toast.LENGTH_SHORT).show();
+                                        ToastUtils.showMessage(OnlineMainActivity.this, "保存失败，终止操作");
                                     }
                                 }, false);
 
@@ -714,68 +716,83 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
 
                             @Override
                             public void saveFail() {
-                                Toast.makeText(OnlineMainActivity.this, "数据缓存失败，终止评分", Toast.LENGTH_SHORT).show();
+                                ToastUtils.showMessage(OnlineMainActivity.this, "数据缓存失败，终于操作");
                             }
                         }, true, false);
                     }
+                }, new IDialogCancelCallback() {
+                    @Override
+                    public void cancelCallback() {
+                    }
                 });
-            } else {
-                Intent intent = new Intent();
-                intent.setClass(OnlineMainActivity.this, GradeActivity.class);
-                startActivity(intent);
-            }
+                showMenu(true);
+                break;
+            case R.id.clear:
+                //清屏
+                m_view.clearPaths();
+                showMenu(true);
+                break;
+            case R.id.langscape:
+                //横竖屏
+                cacheData(new OnSaveCallBack() {
+                    @Override
+                    public void saveSuccess() {
+                        saveAllToNative(new OnSaveCallBack() {
+                            @Override
+                            public void saveSuccess() {
+                                isHeng = !isHeng;
+//                                popupMenu.setHeng(isHeng);
+                                DefaultPrefsUtil.setIsHorizontalScreen(isHeng);
+                                if (isLogin) {
+                                    stopContentPlay(null);
+                                    closeConnention();
+                                }
+                                Intent intent = new Intent();
+                                //Edit by xszyou on 20170706:切换时传递消息列表
+                                if (mDataArrays != null && !mDataArrays.isEmpty()) {
+                                    Bundle bundle = new Bundle();
+                                    GsonBuilder setedBuilder = new GsonBuilder();
+                                    Gson requestConfig = setedBuilder.create();
+                                    requestConfig.toJsonTree(mDataArrays);
+                                    bundle.putSerializable("msgs", requestConfig.toJsonTree(mDataArrays).toString());
+                                    intent.putExtras(bundle);
+                                }
+                                intent.setClass(OnlineMainActivity.this, OnlineMainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+
+                            @Override
+                            public void saveFail() {
+                                ToastUtils.showMessage(OnlineMainActivity.this, "保存失败，终止操作");
+                            }
+                        }, false);
+                    }
+
+                    @Override
+                    public void saveFail() {
+                        ToastUtils.showMessage(OnlineMainActivity.this, "数据缓存失败，终于操作");
+                    }
+                }, true, false);
+                showMenu(true);
+                break;
+            default:
+        }
+    }
+
+    @Override
+    public void onClick(PopupMenu.MENUITEM item) {
+        if (item == PopupMenu.MENUITEM.ITEM1) {
+        } else if (item == PopupMenu.MENUITEM.ITEM2) {
+            // OnUpload();
+        } else if (item == PopupMenu.MENUITEM.ITEM3) {
+        } else if (item == PopupMenu.MENUITEM.ITEM5) {
         } else if (item == PopupMenu.MENUITEM.ITEM6) {
-            //拍照按钮
-            takePhoto();
         } else if (item == PopupMenu.MENUITEM.ITEM7) {
-            //横竖屏
-            cacheData(new OnSaveCallBack() {
-                @Override
-                public void saveSuccess() {
-                    saveAllToNative(new OnSaveCallBack() {
-                        @Override
-                        public void saveSuccess() {
-                            isHeng = !isHeng;
-                            popupMenu.setHeng(isHeng);
-                            DefaultPrefsUtil.setIsHorizontalScreen(isHeng);
-                            if (isLogin) {
-                                stopContentPlay(null);
-                                closeConnention();
-                            }
-                            Intent intent = new Intent();
-                            //Edit by xszyou on 20170706:切换时传递消息列表
-                            if (mDataArrays != null && !mDataArrays.isEmpty()) {
-                                Bundle bundle = new Bundle();
-                                GsonBuilder setedBuilder = new GsonBuilder();
-                                Gson requestConfig = setedBuilder.create();
-                                requestConfig.toJsonTree(mDataArrays);
-                                bundle.putSerializable("msgs", requestConfig.toJsonTree(mDataArrays).toString());
-                                intent.putExtras(bundle);
-                            }
-                            intent.setClass(OnlineMainActivity.this, OnlineMainActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-
-                        @Override
-                        public void saveFail() {
-                            ToastUtils.showMessage(OnlineMainActivity.this, "保存失败，终止操作");
-                        }
-                    }, false);
-
-                }
-
-                @Override
-                public void saveFail() {
-                    ToastUtils.showMessage(OnlineMainActivity.this, "数据缓存失败，终于操作");
-                }
-            }, true, false);
         } else if (item == PopupMenu.MENUITEM.ITEM8) {
             //撤消
             m_view.undo();
         } else if (item == PopupMenu.MENUITEM.ITEM10) {
-            //清屏
-            m_view.clearPaths();
         }
     }
 
@@ -978,12 +995,6 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                 Intent intent = new Intent(OnlineMainActivity.this, GridViewColorActivity.class);
                 intent.putExtra("curval", curVal);
                 intent.putExtra("isEraser", config.isEraserMode());
-                //标记是在线模式还是离线模式
-                if (isLogin) {
-                    intent.putExtra("state", PopupMenu.TYPE.ONLINE);
-                } else {
-                    intent.putExtra("state", PopupMenu.TYPE.OFFLINE);
-                }
                 OnlineMainActivity.this.startActivity(intent);
             }
         });
@@ -1289,13 +1300,24 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
      * 加载右上角弹出框
      **/
     private void initPopup() {
-        if (isLogin) {
-            popupMenu = new PopupMenu(this, PopupMenu.TYPE.ONLINE, isHeng);
-        } else {
-            popupMenu = new PopupMenu(this, PopupMenu.TYPE.OFFLINE, isHeng);
-        }
-        rightBtn = (ImageView) findViewById(R.id.rightbtn);
-        rightBtn.setOnClickListener(this);
+        cutLinearLayout = (LinearLayout) findViewById(R.id.cut);
+        saveLinearLayout = (LinearLayout) findViewById(R.id.save);
+        clearLinearLayout = (LinearLayout) findViewById(R.id.clear);
+        menuLinearLayout = (LinearLayout) findViewById(R.id.ll_menu);
+        uploadLinearLayout = (LinearLayout) findViewById(R.id.upload);
+        finishLinearLayout = (LinearLayout) findViewById(R.id.finish);
+        deleteLinearLayout = (LinearLayout) findViewById(R.id.delete);
+        langscapeLinearLayout = (LinearLayout) findViewById(R.id.langscape);
+        menuScrollView = (HorizontalScrollView) findViewById(R.id.hsv_menu);
+
+        cutLinearLayout.setOnClickListener(this);
+        menuLinearLayout.setOnClickListener(this);
+        saveLinearLayout.setOnClickListener(this);
+        clearLinearLayout.setOnClickListener(this);
+        uploadLinearLayout.setOnClickListener(this);
+        finishLinearLayout.setOnClickListener(this);
+        deleteLinearLayout.setOnClickListener(this);
+        langscapeLinearLayout.setOnClickListener(this);
     }
 
     /**
@@ -2267,6 +2289,14 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         } else {
             setContentView(R.layout.activity_online_main_v);
             this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+    }
+
+    private void showMenu(boolean isShowed) {
+        if (isShowed) {
+            menuScrollView.setVisibility(View.GONE);
+        } else {
+            menuScrollView.setVisibility(View.VISIBLE);
         }
     }
 
