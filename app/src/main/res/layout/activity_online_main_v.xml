@@ -224,9 +224,9 @@
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="1"
                                 android:background="@drawable/bg_edittext_white_round"
-                                android:paddingBottom="2dp"
+                                android:paddingBottom="4dp"
                                 android:paddingLeft="10dp"
-                                android:paddingTop="2dp"
+                                android:paddingTop="4dp"
                                 android:singleLine="true"
                                 android:textSize="12dp" />
 

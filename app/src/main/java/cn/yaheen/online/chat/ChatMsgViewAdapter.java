@@ -94,17 +94,13 @@ public class ChatMsgViewAdapter extends BaseAdapter {
         }
 
         viewHolder = new ViewHolder();
-        viewHolder.tvSendTime = (TextView) convertView
-                .findViewById(R.id.tv_sendtime);
-        viewHolder.tvUserName = (TextView) convertView
-                .findViewById(R.id.tv_username);
+        viewHolder.tvSendTime = (TextView) convertView.findViewById(R.id.tv_sendtime);
+        viewHolder.tvUserName = (TextView) convertView.findViewById(R.id.tv_username);
 
         if (type.equals(0)) {
-            viewHolder.tvContent = (TextView) convertView
-                    .findViewById(R.id.tv_chatcontent);
+            viewHolder.tvContent = (TextView) convertView.findViewById(R.id.tv_chatcontent);
         } else {
-            viewHolder.imgContent = (ImageView) convertView
-                    .findViewById(R.id.tv_chatcontent);
+//            viewHolder.imgContent = (ImageView) convertView.findViewById(R.id.tv_chatcontent);
         }
 
 
@@ -125,7 +121,7 @@ public class ChatMsgViewAdapter extends BaseAdapter {
             if (type.equals(0)) {
                 viewHolder.tvContent.setText(entity.getMessage());
             } else {
-                viewHolder.imgContent.setImageResource(R.drawable.ha);
+//                viewHolder.imgContent.setImageResource(R.drawable.ha);
             }
         } catch (Exception e) {
             e.printStackTrace();
