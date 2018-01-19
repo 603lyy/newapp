@@ -66,7 +66,7 @@
                 android:gravity="center"
                 android:text="在线评教系统"
                 android:textColor="@color/white"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/pagetv"
@@ -97,32 +97,50 @@
                 <LinearLayout
                     android:id="@+id/toolsbar"
                     android:layout_width="fill_parent"
-                    android:layout_height="40dp"
-                    android:background="@color/Grey_200"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
+                    android:layout_height="35dp"
+                    android:layout_alignParentTop="true"
+                    android:background="@color/main_kejian_background"
+                    android:orientation="horizontal">
 
-                    <Button
+                    <TextView
                         android:id="@+id/kjlist"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
                         android:layout_weight="0.3"
-                        android:text="课件列表" />
+                        android:text="课件列表"
+                        android:textColor="@color/white"
+                        android:textSize="10sp" />
 
-                    <Button
+                    <TextView
                         android:id="@+id/perwebpage"
-
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_weight="0.3"
-                        android:text="上一页" />
+                        android:text="上一页"
+                        android:textColor="@color/white"
+                        android:textSize="10sp" />
 
-                    <Button
+                    <TextView
                         android:id="@+id/nextwebpage"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_weight="0.3"
-                        android:text="下一页" />
+                        android:text="下一页"
+                        android:textColor="@color/white"
+                        android:textSize="10sp" />
+
+                    <ImageView
+                        android:id="@+id/kj_resize"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="end|center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/ic_fullscreen_white" />
 
                 </LinearLayout>
 
@@ -168,15 +186,6 @@
                             android:layout_marginLeft="10dp"
                             android:src="@drawable/ic_fullscreen_blue" />
 
-                        <ImageView
-                            android:id="@+id/kj_resize"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_gravity="bottom"
-                            android:layout_marginBottom="10dp"
-                            android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_fullscreen_white"
-                            android:visibility="gone" />
                     </FrameLayout>
 
                     <!--IM START-->
@@ -247,6 +256,7 @@
                     </LinearLayout>
 
                 </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
@@ -267,8 +277,7 @@
                     <me.panavtec.drawableview.DrawableView
                         android:id="@+id/paintView"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/widget" />
+                        android:layout_height="wrap_content" />
 
                     <LinearLayout
                         android:id="@+id/ll_menu"
@@ -386,6 +395,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBottom="@+id/ll_menu"
+                        android:layout_alignTop="@+id/ll_menu"
                         android:layout_toLeftOf="@+id/ll_menu"
                         android:background="@color/menu_background"
                         android:scrollbars="none"

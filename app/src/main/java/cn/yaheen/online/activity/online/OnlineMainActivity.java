@@ -114,11 +114,10 @@ import me.panavtec.drawableview.DrawableView;
 import me.panavtec.drawableview.DrawableViewConfig;
 import me.panavtec.drawableview.draw.SerializablePath;
 import me.panavtec.drawableview.utils.SerializeUtils;
-
 import static cn.yaheen.online.R.id.textView2;
 
 public class OnlineMainActivity extends Activity implements Receiver.Message, View.OnClickListener,
-        PopupMenu.OnItemClickListener, INetwordWatcherListener {
+        INetwordWatcherListener {
 
     private final String TAG = "SosWebSocketClientService";
 
@@ -220,8 +219,8 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
     private ImageView eraserBtn; //橡皮按钮
     private ImageView colorBtn; //画板色板按钮
     private ImageView cutBtn; //画板截图按钮
-    private PopupMenu popupMenu;  //右上角弹出框
     private ImageView rightBtn;
+    private ImageView ivPreStep;//撤销按钮
     private ImageView backhome; //返回按钮
     private SurfaceView contentnpv;
     private SwitchButton sbDefault;//课件视讯切换
@@ -476,6 +475,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                     if (!sbDefault.isChecked()) {
                         initVodPlayer(layout, layout.getLayoutParams().width, layout.getLayoutParams().height);
                     }
+                    contentResizeFull.setVisibility(View.GONE);
                     canvasResize.setImageResource(R.drawable.ic_fullscreen_white);
                 }
                 isFullScreen = !isFullScreen;
@@ -506,28 +506,26 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                 isMsgFull = !isMsgFull;
                 break;
             case R.id.content_resize_full:
-                if (isFullScreen) {
-                    RelativeLayout rl = null;
-                    int width = 0, height = 0;
-                    if (isHeng) {
-                        contentResizeFull.setVisibility(View.GONE);
-                        findViewById(R.id.linearLayout).setVisibility(View.VISIBLE);
-                        rl = (RelativeLayout) findViewById(R.id.activity_online);
-                        width = (int) (constant.getDmHeight() * 0.382);
-                        height = (int) ((constant.getDmWidth() - DensityUtils.dip2px(context, 30)) / 2);
-                        resizeBtnShow(true, kjResize);
-                        isFullScreen = !isFullScreen;
-                    } else {
-                        rl = (RelativeLayout) findViewById(R.id.main);
-                        width = constant.getDmWidth() / 2;
-                        height = rl.getLayoutParams().height;
-                        resizeBtnShow(true, kjResize, msgResize);
-                        isContentFull = !isContentFull;
-                    }
-                    stopContentPlay(rl);
-                    initVodPlayer((LinearLayout) findViewById(R.id.showview), width, height);
-                    contentResize.setImageResource(R.drawable.ic_fullscreen_blue);
+                RelativeLayout rlayout = null;
+                int mWidth = 0, mHeight = 0;
+                if (isHeng) {
+                    findViewById(R.id.linearLayout).setVisibility(View.VISIBLE);
+                    rlayout = (RelativeLayout) findViewById(R.id.activity_online);
+                    mWidth = (int) (constant.getDmHeight() * 0.382);
+                    mHeight = (int) ((constant.getDmWidth() - DensityUtils.dip2px(context, 30)) / 2);
+                    resizeBtnShow(true, kjResize);
+                    isFullScreen = !isFullScreen;
+                } else {
+                    rlayout = (RelativeLayout) findViewById(R.id.main);
+                    mWidth = constant.getDmWidth() / 2;
+                    mHeight = rlayout.getLayoutParams().height;
+                    resizeBtnShow(true, kjResize, msgResize);
+                    isContentFull = !isContentFull;
                 }
+                stopContentPlay(rlayout);
+                contentResizeFull.setVisibility(View.GONE);
+                initVodPlayer((LinearLayout) findViewById(R.id.showview), mWidth, mHeight);
+                contentResize.setImageResource(R.drawable.ic_fullscreen_blue);
                 break;
             case R.id.content_resize:
                 //竖屏时视频不会完全全屏
@@ -538,7 +536,6 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                     RelativeLayout rl = null;
                     int width = 0, height = 0;
                     if (isHeng) {
-                        contentResizeFull.setVisibility(View.VISIBLE);
                         findViewById(R.id.linearLayout).setVisibility(View.GONE);
                         rl = (RelativeLayout) findViewById(R.id.activity_online);
                         width = constant.getDmHeight();
@@ -552,10 +549,11 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                         resizeBtnShow(false, view, canvasResize);
                         isContentFull = !isContentFull;
                     }
+                    contentResizeFull.setVisibility(View.VISIBLE);
 
                     initVodPlayer(rl, width, height);
                     rl.bringChildToFront(contentResizeFull);
-                    contentResize.setImageResource(R.drawable.ic_normalscreen_white);
+                    contentResize.setImageResource(R.drawable.ic_normalscreen_blue);
                 } else {//还原
                     RelativeLayout rl = null;
                     int width = 0, height = 0;
@@ -575,7 +573,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                     }
                     stopContentPlay(rl);
                     initVodPlayer((LinearLayout) findViewById(R.id.showview), width, height);
-                    contentResize.setImageResource(R.drawable.ic_fullscreen_white);
+                    contentResize.setImageResource(R.drawable.ic_fullscreen_blue);
                 }
                 break;
             case R.id.ll_menu:
@@ -780,22 +778,6 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         }
     }
 
-    @Override
-    public void onClick(PopupMenu.MENUITEM item) {
-        if (item == PopupMenu.MENUITEM.ITEM1) {
-        } else if (item == PopupMenu.MENUITEM.ITEM2) {
-            // OnUpload();
-        } else if (item == PopupMenu.MENUITEM.ITEM3) {
-        } else if (item == PopupMenu.MENUITEM.ITEM5) {
-        } else if (item == PopupMenu.MENUITEM.ITEM6) {
-        } else if (item == PopupMenu.MENUITEM.ITEM7) {
-        } else if (item == PopupMenu.MENUITEM.ITEM8) {
-            //撤消
-            m_view.undo();
-        } else if (item == PopupMenu.MENUITEM.ITEM10) {
-        }
-    }
-
     private class DialogListener implements View.OnClickListener {
 
         @Override
@@ -880,9 +862,9 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
      * @param webView
      */
     private void initToolsBar(final WebView webView) {
-        Button kejianList = (Button) findViewById(R.id.kjlist);
-        Button nextBtn = (Button) findViewById(R.id.nextwebpage);
-        Button preBtn = (Button) findViewById(R.id.perwebpage);
+        TextView kejianList = (TextView) findViewById(R.id.kjlist);
+        TextView nextBtn = (TextView) findViewById(R.id.nextwebpage);
+        TextView preBtn = (TextView) findViewById(R.id.perwebpage);
         kejianList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -945,10 +927,12 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
      * 初始画板工具
      */
     private void changeScroller() {
-        scrollerbtn = (ImageView) findViewById(R.id.scroller);
-        eraserBtn = (ImageView) findViewById(R.id.erasers);
-        colorBtn = (ImageView) findViewById(R.id.color_colour);
         cutBtn = (ImageView) findViewById(R.id.cuttool);
+        eraserBtn = (ImageView) findViewById(R.id.erasers);
+        scrollerbtn = (ImageView) findViewById(R.id.scroller);
+        colorBtn = (ImageView) findViewById(R.id.color_colour);
+        ivPreStep = (ImageView) findViewById(R.id.iv_pre_step);
+
         scrollerbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1020,6 +1004,14 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                         }
                     }, true, false);
                 }
+            }
+        });
+
+        ivPreStep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //撤消
+                m_view.undo();
             }
         });
 
@@ -1253,6 +1245,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                contentResizeFull.setVisibility(View.GONE);
                 /**
                  * Edit by xszyou on 20170618:视讯和课件模式切换
                  */

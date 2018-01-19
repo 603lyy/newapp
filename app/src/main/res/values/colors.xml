@@ -151,4 +151,5 @@
     <color name="color_dialog_background">#E6F3F9</color>
     <color name="menu_background">#E6F3F9</color>
     <color name="main_menu_background">#B63B12</color>
+    <color name="main_kejian_background">#142E3B</color>
 </resources>
