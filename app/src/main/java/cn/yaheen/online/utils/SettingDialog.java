@@ -29,7 +29,9 @@ public class SettingDialog {
         SwitchButton screen = (SwitchButton) textEntryView.findViewById(R.id.heng);
         final EditText editTextName = (EditText) textEntryView.findViewById(R.id.editTextName);
         final EditText editTextName2 = (EditText) textEntryView.findViewById(R.id.editTextName2);
-        final TextView currentstate = (TextView) textEntryView.findViewById(R.id.currentstate); //屏状态
+        final TextView currentstate = (TextView) textEntryView.findViewById(R.id.currentstate);
+        TextView tvCancel = (TextView) textEntryView.findViewById(R.id.tv_dialog_cancel);
+        TextView tvSure = (TextView) textEntryView.findViewById(R.id.tv_dialog_sure);
 
         String ip = DefaultPrefsUtil.getIpUrl();
         if (ip != null && !"".equals(ip.trim())) {
@@ -50,8 +52,6 @@ public class SettingDialog {
         }
 
         AlertDialog.Builder ad1 = new AlertDialog.Builder(context);
-        ad1.setIcon(R.drawable.setting_dialog);
-        ad1.setTitle("设置ip地址:");
         ad1.setView(textEntryView);
 
         screen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -68,37 +68,37 @@ public class SettingDialog {
             }
         });
 
-        ad1.setPositiveButton("保存", null);
-        ad1.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int i) {
-
-            }
-        });
-
         // 显示对话框
         final AlertDialog dialog = ad1.show();
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+
+        tvCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String IP = editTextName.getText().toString();
-                String teacherName = editTextName2.getText().toString();
-                if (IP != null && !"".equals(IP.trim()) && teacherName != null && !teacherName.trim().equals("")) {
-                    DefaultPrefsUtil.setIpUrl(IP.trim());
-                    DefaultPrefsUtil.setTeacherName(teacherName);
-                    Toast.makeText(context, "设置成功", Toast.LENGTH_SHORT).show();
-                    ((MainActivity) context).getmHandler().sendEmptyMessageDelayed(10, 200);
+                if (dialog != null) {
                     dialog.dismiss();
-                } else {
-                    Toast.makeText(context, "不能为空", Toast.LENGTH_SHORT).show();
-                    return;
                 }
             }
         });
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-                .setTextColor(context.getResources().getColor(R.color.normal));
-        dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
-                .setTextColor(context.getResources().getColor(R.color.normal));
+
+        tvSure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (dialog != null) {
+                    String IP = editTextName.getText().toString();
+                    String teacherName = editTextName2.getText().toString();
+                    if (IP != null && !"".equals(IP.trim()) && teacherName != null && !teacherName.trim().equals("")) {
+                        DefaultPrefsUtil.setIpUrl(IP.trim());
+                        DefaultPrefsUtil.setTeacherName(teacherName);
+                        Toast.makeText(context, "设置成功", Toast.LENGTH_SHORT).show();
+                        ((MainActivity) context).getmHandler().sendEmptyMessageDelayed(10, 200);
+                        dialog.dismiss();
+                    } else {
+                        Toast.makeText(context, "不能为空", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+            }
+        });
 
     }
 }

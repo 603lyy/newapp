@@ -114,6 +114,7 @@ import me.panavtec.drawableview.DrawableView;
 import me.panavtec.drawableview.DrawableViewConfig;
 import me.panavtec.drawableview.draw.SerializablePath;
 import me.panavtec.drawableview.utils.SerializeUtils;
+
 import static cn.yaheen.online.R.id.textView2;
 
 public class OnlineMainActivity extends Activity implements Receiver.Message, View.OnClickListener,
@@ -224,6 +225,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
     private ImageView backhome; //返回按钮
     private SurfaceView contentnpv;
     private SwitchButton sbDefault;//课件视讯切换
+    private TextView tvLangscape;
     private HorizontalScrollView menuScrollView;
     private LinearLayout saveLinearLayout, uploadLinearLayout, finishLinearLayout,
             cutLinearLayout, deleteLinearLayout, clearLinearLayout, langscapeLinearLayout;
@@ -739,7 +741,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                             @Override
                             public void saveSuccess() {
                                 isHeng = !isHeng;
-//                                popupMenu.setHeng(isHeng);
+                                setTvLangscape();
                                 DefaultPrefsUtil.setIsHorizontalScreen(isHeng);
                                 if (isLogin) {
                                     stopContentPlay(null);
@@ -1294,6 +1296,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
      **/
     private void initPopup() {
         cutLinearLayout = (LinearLayout) findViewById(R.id.cut);
+        tvLangscape = (TextView) findViewById(R.id.langscapeTxt);
         saveLinearLayout = (LinearLayout) findViewById(R.id.save);
         clearLinearLayout = (LinearLayout) findViewById(R.id.clear);
         menuLinearLayout = (LinearLayout) findViewById(R.id.ll_menu);
@@ -1311,6 +1314,8 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         finishLinearLayout.setOnClickListener(this);
         deleteLinearLayout.setOnClickListener(this);
         langscapeLinearLayout.setOnClickListener(this);
+
+        setTvLangscape();
     }
 
     /**
@@ -2282,6 +2287,14 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         } else {
             setContentView(R.layout.activity_online_main_v);
             this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+    }
+
+    private void setTvLangscape() {
+        if (isHeng) {
+            tvLangscape.setText("竖屏");
+        } else {
+            tvLangscape.setText("横屏");
         }
     }
 
