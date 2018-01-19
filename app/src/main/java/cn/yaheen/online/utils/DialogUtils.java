@@ -14,8 +14,9 @@ import cn.yaheen.online.interfaces.PageCallBack;
 public class DialogUtils {
 
 
-    private  static  AlertDialog dialog;
-    public static void showNormalDialog(Context context, String msg, final DialogCallback callback,final  IDialogCancelCallback cancelCallback,  String PositiveButton,String NegativeButton ){
+    private static AlertDialog dialog;
+
+    public static void showNormalDialog(Context context, String msg, final DialogCallback callback, final IDialogCancelCallback cancelCallback, String PositiveButton, String NegativeButton) {
         /* @setIcon 设置对话框图标
          * @setTitle 设置对话框标题
          * @setMessage 设置对话框消息提示
@@ -30,7 +31,9 @@ public class DialogUtils {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //...To-do
-                        callback.callback();
+                        if (callback != null) {
+                            callback.callback();
+                        }
                     }
                 });
         normalDialog.setNegativeButton(NegativeButton,
@@ -38,7 +41,9 @@ public class DialogUtils {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //...To-do
-                        cancelCallback.cancelCallback();
+                        if (cancelCallback != null) {
+                            cancelCallback.cancelCallback();
+                        }
                     }
                 });
         // 显示
@@ -46,7 +51,7 @@ public class DialogUtils {
     }
 
 
-    public static void showDialog(Context context, String msg, final DialogCallback callback,final  IDialogCancelCallback cancelCallback ){
+    public static void showDialog(Context context, String msg, final DialogCallback callback, final IDialogCancelCallback cancelCallback) {
         /* @setIcon 设置对话框图标
          * @setTitle 设置对话框标题
          * @setMessage 设置对话框消息提示
@@ -61,7 +66,9 @@ public class DialogUtils {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //...To-do
-                        callback.callback();
+                        if (callback != null) {
+                            callback.callback();
+                        }
                     }
                 });
         normalDialog.setNegativeButton("取消",
@@ -69,44 +76,45 @@ public class DialogUtils {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //...To-do
-                        cancelCallback.cancelCallback();
+                        if (cancelCallback != null) {
+                            cancelCallback.cancelCallback();
+                        }
                     }
                 });
         // 显示
-        dialog=normalDialog.show();
+        dialog = normalDialog.show();
 
     }
 
 
-
-    public  static void  closeShowDialog(){
-        if (dialog!=null){
+    public static void closeShowDialog() {
+        if (dialog != null) {
             dialog.dismiss();
         }
     }
 
 
-    public  static void LstiDialog(final String[] items, final Context context ,final PageCallBack callBack){
+    public static void LstiDialog(final String[] items, final Context context, final PageCallBack callBack) {
 
 
         AlertDialog.Builder normalDialog = new AlertDialog.Builder(context);
         AlertDialog dialog = normalDialog.create();
 
         normalDialog.setTitle("请选择页码")
-                        .setItems(items, new DialogInterface.OnClickListener() {
+                .setItems(items, new DialogInterface.OnClickListener() {
 
-        public void onClick(DialogInterface dialog,
-        int which) {
-            Integer page = new Integer(which);
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+                        Integer page = new Integer(which);
 
-            callBack.callback(page);
-        }
-    });
+                        callBack.callback(page);
+                    }
+                });
 
 
         normalDialog.show();
-        dialog.getWindow().setLayout(SysUtils.getsWindowWidth(context)/10, SysUtils.getsWindowHeight(context)/2);
-        }
+        dialog.getWindow().setLayout(SysUtils.getsWindowWidth(context) / 10, SysUtils.getsWindowHeight(context) / 2);
+    }
 
 
 }

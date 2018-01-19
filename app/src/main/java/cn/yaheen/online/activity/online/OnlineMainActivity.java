@@ -729,7 +729,12 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                 break;
             case R.id.clear:
                 //清屏
-                m_view.clearPaths();
+                DialogUtils.showDialog(OnlineMainActivity.this, "你确定要清除屏幕吗？", new DialogCallback() {
+                    @Override
+                    public void callback() {
+                        m_view.clearPaths();
+                    }
+                },null);
                 showMenu(true);
                 break;
             case R.id.langscape:
