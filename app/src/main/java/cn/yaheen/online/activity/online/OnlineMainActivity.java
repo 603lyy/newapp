@@ -734,7 +734,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                     public void callback() {
                         m_view.clearPaths();
                     }
-                },null);
+                }, null);
                 showMenu(true);
                 break;
             case R.id.langscape:
@@ -944,7 +944,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
             @Override
             public void onClick(View view) {
                 if (!m_view.isOneFingerMode()) {
-                    scrollerbtn.setImageResource(R.drawable.pen_icon);
+                    scrollerbtn.setImageResource(R.drawable.pen_btn);
                     config.setStrokeColor(Color.WHITE);
                     eraserBtn.setVisibility(View.GONE);
                     colorBtn.setVisibility(View.GONE);

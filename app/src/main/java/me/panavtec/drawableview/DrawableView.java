@@ -207,9 +207,7 @@ public class DrawableView extends View
             pictureModel.setSourse(bitmap);
         }
 
-        if (creatBitmap == null) {
-            creatBitmap = Bitmap.createBitmap(canvasWidth, canvasHeight, Bitmap.Config.ARGB_8888);
-        }
+        creatBitmap = Bitmap.createBitmap(canvasWidth, canvasHeight, Bitmap.Config.ARGB_8888);
 
         return pathDrawer.obtainBitmapByP(creatBitmap, paths, pictureModel);
     }
