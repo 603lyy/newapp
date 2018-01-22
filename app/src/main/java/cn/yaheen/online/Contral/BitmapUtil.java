@@ -13,15 +13,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import cn.yaheen.online.view.SketchpadView;
-
 
 public class BitmapUtil
 {
-	@SuppressWarnings("unused")
-	private SketchpadView canvasView;
     
-
     public static Bitmap duplicateBitmap(Bitmap bmpSrc)
     {
         if (null == bmpSrc)

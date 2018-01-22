@@ -13,15 +13,11 @@ import android.widget.SeekBar;
 import com.google.gson.Gson;
 
 import cn.yaheen.online.R;
-import cn.yaheen.online.activity.online.OnlineMainActivity;
-import cn.yaheen.online.app.*;
 import cn.yaheen.online.app.OnlineApp;
 import cn.yaheen.online.bean.MsgBean;
 import cn.yaheen.online.data.GridImageAdapter;
 import cn.yaheen.online.utils.SysUtils;
 import cn.yaheen.online.view.MSeekBar;
-import cn.yaheen.online.view.SketchpadView;
-import me.panavtec.drawableview.DrawableViewConfig;
 
 
 /**

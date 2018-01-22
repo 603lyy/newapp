@@ -63,50 +63,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.OpenGridViewActivity"
-            android:label="@string/dialog_open"
-            android:screenOrientation="landscape"
-            android:theme="@style/open">
-            <intent-filter android:label="@string/dialog_open">
-                <action android:name="android.intent.action.VIEW" />
-                <action android:name="android.intent.action.EDIT" />
-                <action android:name="com.android.notepad.action.EDIT_CONTACT" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data android:mimeType="vnd.android.cursor.item/vnd.opendialog.open" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.INSERT" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data android:mimeType="vnd.android.cursor.dir/vnd.opendialog.open" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".activity.SaveGridViewActivity"
-            android:label="@string/dialog_save"
-            android:screenOrientation="landscape"
-            android:theme="@style/open">
-            <intent-filter android:label="@string/dialog_save">
-                <action android:name="android.intent.action.VIEW" />
-                <action android:name="android.intent.action.EDIT" />
-                <action android:name="com.android.notepad.action.EDIT_CONTACT" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data android:mimeType="vnd.android.cursor.item/vnd.opendialog.open" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.INSERT" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data android:mimeType="vnd.android.cursor.dir/vnd.opendialog.open" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".activity.GridViewColorActivity"
             android:theme="@style/Transparent">
             <intent-filter>
@@ -125,18 +81,6 @@
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
-            android:name=".activity.OnlineActivity"
-            android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity
-            android:name=".activity.SketchpadMainActivity"
-            android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity
-            android:name=".activity.Online2Activity"
-            android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity
             android:name=".activity.offline.TakePhotoActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
@@ -145,12 +89,10 @@
         <activity
             android:name=".activity.offline.OffMainActivity"
             android:configChanges="orientation|screenSize" />
-        <activity android:name=".activity.offline.OffMainActivity2" />
         <activity
             android:name=".activity.online.OnlineMainActivity"
             android:configChanges="orientation|screenSize"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
-        <activity android:name=".activity.online.SaveFileActivity" />
         <activity
             android:name=".activity.GradeActivity"
             android:windowSoftInputMode="adjustResize" />
