@@ -63,6 +63,7 @@ public class MainActivity extends Activity {
     private SwitchButton sbDefault;
     private ImageView setingBtn;
     private TextView textView;
+    private TextView tvVersion;
     private Button pingJiao;
     private Button login;
 
@@ -104,6 +105,7 @@ public class MainActivity extends Activity {
         passwordEdit = (EditText) findViewById(R.id.passwordText);
         courseNameEdit = (EditText) findViewById(R.id.editText2);
         sbDefault = (SwitchButton) findViewById(R.id.sb_default);
+        tvVersion = (TextView) findViewById(R.id.tv_version);
         setingBtn = (ImageView) findViewById(R.id.setting);
         textView = (TextView) findViewById(R.id.textView);
         teacher = (EditText) findViewById(R.id.editText);
@@ -118,6 +120,7 @@ public class MainActivity extends Activity {
         sbDefault.setChecked(true);
         teacher.setText(DefaultPrefsUtil.getTeacherName());
         usernameEdit.setText(DefaultPrefsUtil.getUserName());
+        tvVersion.setText("Ver " + VersionUtils.getVersionName(this));
         passwordEdit.setText(DefaultPrefsUtil.getUserPassword());
 
         sbDefault.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

@@ -3,7 +3,7 @@
     xmlns:sbtn="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:alpha="200"
     android:background="@drawable/login_bg_3"
     android:fillViewport="true"
@@ -62,9 +62,9 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="300dp"
+            android:layout_height="230dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="20dp"
             android:layout_marginTop="30dp"
             android:orientation="vertical"
             android:paddingLeft="30dp"
@@ -160,6 +160,16 @@
             </LinearLayout>
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_version"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="1dp"
+            android:layout_marginRight="5dp"
+            android:gravity="end|bottom"
+            android:textSize="12dp" />
 
     </LinearLayout>
 </ScrollView>

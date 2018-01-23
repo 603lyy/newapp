@@ -31,7 +31,7 @@ public class VersionUtils {
         version = getVersionCode(context);
 
 //        RequestParams pa = new RequestParams("http://192.168.250.103:8080/aa.json");
-        RequestParams pa = new RequestParams("http://" + DefaultPrefsUtil.getIpUrl()+":8080/loles/apk/version.json");
+        RequestParams pa = new RequestParams("http://" + DefaultPrefsUtil.getIpUrl() + ":8080/loles/apk/version.json");
         x.http().get(pa, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -72,7 +72,7 @@ public class VersionUtils {
     /**
      * 获取软件版本号
      */
-    private static int getVersionCode(Context context) {
+    public static int getVersionCode(Context context) {
         final String packageName = context.getPackageName();
         int version = 1;
         try {
@@ -82,5 +82,20 @@ public class VersionUtils {
             e.printStackTrace();
         }
         return version;
+    }
+
+    /**
+     * 获取软件版本名
+     */
+    public static String getVersionName(Context context) {
+        final String packageName = context.getPackageName();
+        String name = "";
+        try {
+            PackageInfo info = context.getPackageManager().getPackageInfo(packageName, 0);
+            name = info.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return name;
     }
 }
