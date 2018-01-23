@@ -1,119 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:scrollbars="none">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/setting_dialog" />
-
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:text="设置IP地址"
-            android:textSize="18dp" />
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
 
-    </LinearLayout>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/setting_dialog" />
 
-    <EditText
-        android:id="@+id/editTextName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:hint="服  务  器"
-        android:textCursorDrawable="@drawable/setting_dialog_cursor"
-        android:theme="@style/MyEditText">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="设置IP地址"
+                android:textSize="18dp" />
 
-        <requestFocus />
-    </EditText>
+        </LinearLayout>
 
-    <EditText
-        android:id="@+id/editTextName2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:hint="评教老师"
-        android:textCursorDrawable="@drawable/setting_dialog_cursor"
-        android:theme="@style/MyEditText">
-
-        <requestFocus />
-    </EditText>
-
-    <LinearLayout
-        android:id="@+id/screenContrl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
-        android:orientation="horizontal"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp"
-        android:weightSum="1">
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="150dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.48"
-            android:gravity="center_vertical"
-            android:text="横/竖屏选择(默认横屏)" />
-
-        <cn.yaheen.online.switchbutton.SwitchButton
-            android:id="@+id/heng"
-            style="@style/SwitchButtonStyle"
-            android:layout_alignParentRight="true" />
-
-        <TextView
-            android:id="@+id/currentstate"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.48"
-            android:gravity="center_vertical"
-            android:text="当前：横屏" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tv_dialog_cancel"
+        <EditText
+            android:id="@+id/editTextName"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:gravity="center"
-            android:text="取消"
-            android:textSize="18dp"
-            android:textColor="@color/normal" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:hint="服  务  器"
+            android:textCursorDrawable="@drawable/setting_dialog_cursor"
+            android:theme="@style/MyEditText">
 
-        <TextView
-            android:id="@+id/tv_dialog_sure"
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/et_nick_name"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:background="@color/normal"
-            android:gravity="center"
-            android:text="保存"
-            android:textSize="18dp"
-            android:textColor="@color/white" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:hint="评教昵称"
+            android:textCursorDrawable="@drawable/setting_dialog_cursor"
+            android:theme="@style/MyEditText">
+
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/editTextName2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:hint="评教老师"
+            android:textCursorDrawable="@drawable/setting_dialog_cursor"
+            android:theme="@style/MyEditText">
+
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/et_psd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:hint="教师密码"
+            android:textCursorDrawable="@drawable/setting_dialog_cursor"
+            android:theme="@style/MyEditText">
+
+            <requestFocus />
+        </EditText>
+
+        <LinearLayout
+            android:id="@+id/screenContrl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.48"
+                android:gravity="center_vertical"
+                android:text="横/竖屏选择(默认横屏)" />
+
+            <cn.yaheen.online.switchbutton.SwitchButton
+                android:id="@+id/heng"
+                style="@style/SwitchButtonStyle"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/currentstate"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.48"
+                android:gravity="center_vertical"
+                android:text="当前：横屏" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_dialog_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:background="@color/Grey_100"
+                android:gravity="center"
+                android:text="取消"
+                android:textSize="18dp"
+                android:textColor="@color/normal" />
+
+            <TextView
+                android:id="@+id/tv_dialog_sure"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:background="@color/normal"
+                android:gravity="center"
+                android:text="保存"
+                android:textSize="18dp"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

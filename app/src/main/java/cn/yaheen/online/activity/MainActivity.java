@@ -131,16 +131,16 @@ public class MainActivity extends Activity {
                     isLogin = true;
                     login.setText("登录");
                     textView.setText("在线模式");
-                    teacher.setVisibility(View.GONE);
-                    passwordEdit.setVisibility(View.VISIBLE);
-                    usernameEdit.setVisibility(View.VISIBLE);
+//                    teacher.setVisibility(View.GONE);
+//                    passwordEdit.setVisibility(View.VISIBLE);
+//                    usernameEdit.setVisibility(View.VISIBLE);
                 } else {
                     isLogin = false;
                     login.setText("开始上课");
                     textView.setText("离线模式");
-                    teacher.setVisibility(View.VISIBLE);
-                    passwordEdit.setVisibility(View.GONE);
-                    usernameEdit.setVisibility(View.GONE);
+//                    teacher.setVisibility(View.VISIBLE);
+//                    passwordEdit.setVisibility(View.GONE);
+//                    usernameEdit.setVisibility(View.GONE);
                 }
             }
         });
@@ -347,9 +347,9 @@ public class MainActivity extends Activity {
      */
     private void login() {
         final String courseName = courseNameEdit.getText().toString().trim();
-        final String password = passwordEdit.getText().toString().trim();
-        final String username = usernameEdit.getText().toString().trim();
-        final String teacherName = teacher.getText().toString().trim();
+        String teacherName = DefaultPrefsUtil.getTeacherName();
+        String password = DefaultPrefsUtil.getUserPassword();
+        String username = DefaultPrefsUtil.getUserName();
 
         //在线模式
         if (isLogin) {

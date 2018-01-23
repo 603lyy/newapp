@@ -304,9 +304,9 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
             switch (msg.what) {
                 case 1:
                     if (!isPingJiaoOpen && isLogin) {
-                        titleTV.setText("在线评教系统");
+                        titleTV.setText("互动评教系统");
                     } else {
-                        titleTV.setText("在线评教系统" + courseCode);
+                        titleTV.setText("互动评教系统" + courseCode);
                     }
                     break;
                 default:

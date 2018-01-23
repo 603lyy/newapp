@@ -27,7 +27,7 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="在线评教系统"
+            android:text="互动评教系统"
             android:gravity="center"
             android:textColor="#FFF" />
         <TextView
