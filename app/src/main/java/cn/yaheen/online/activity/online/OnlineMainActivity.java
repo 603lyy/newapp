@@ -1486,15 +1486,30 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         }
 
         uploadDAO.deleteByPageAndUID(delpage, uuid);
-        if (delpage <= 1) {
-            if (page <= 1) {
-                page = 0;
-                doNewPage(false);
-            }
-            this.loadPage(0);
+
+        //打开被删除的后一页
+        if (page <= 1) {
+            //删除最后一页
+            page = 0;
+            doNewPage(false);
         } else {
-            this.loadPage(page - 2);
+            //
+            if (delpage < page) {
+                loadPage(delpage - 1);
+            } else {
+                loadPage(page - 2);
+            }
         }
+
+//        if (delpage <= 1) {
+//            if (page <= 1) {
+//                page = 0;
+//                doNewPage(false);
+//            }
+//            this.loadPage(0);
+//        } else {
+//            this.loadPage(delpage - 2);
+//        }
     }
 
     /**
@@ -1635,9 +1650,9 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
             public void onBufferingUpdateListener(int percent) {
             }
         });
-//        mPlayer.prepareAndPlay("rtmp://live.hkstv.hk.lxdns.com/live/hks");
+        mPlayer.prepareAndPlay("rtmp://live.hkstv.hk.lxdns.com/live/hks");
 //        mPlayer.prepareAndPlay("http://flv15.quanmin.tv/live/177_L4.flv");
-        mPlayer.prepareAndPlay(Constant.getOnlineurl() + "screen_" + courseCode);
+//        mPlayer.prepareAndPlay(Constant.getOnlineurl() + "screen_" + courseCode);
         contentisPlaying = true;
     }
 
@@ -2379,8 +2394,8 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
             initWebSocket();
             if (mPlayer != null) {
                 mPlayer.stop();
-//                mPlayer.prepareAndPlay("rtmp://live.hkstv.hk.lxdns.com/live/hks");
-                mPlayer.prepareAndPlay(Constant.getOnlineurl() + "screen_" + courseCode);
+                mPlayer.prepareAndPlay("rtmp://live.hkstv.hk.lxdns.com/live/hks");
+//                mPlayer.prepareAndPlay(Constant.getOnlineurl() + "screen_" + courseCode);
             }
         }
     }
