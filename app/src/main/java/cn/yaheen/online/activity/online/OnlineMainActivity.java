@@ -156,7 +156,11 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
     /**
      * 当前画笔大小
      */
-    private int curVal = 2;
+    private int curPenVal = 2;
+    /**
+     * 当前橡皮大小
+     */
+    private int curRubberVal = 2;
     /**
      * 当前页，用于翻页
      */
@@ -943,6 +947,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         scrollerbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //手指滑动模式
                 if (!m_view.isOneFingerMode()) {
                     scrollerbtn.setImageResource(R.drawable.pen_btn);
                     config.setStrokeColor(Color.WHITE);
@@ -950,11 +955,15 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                     colorBtn.setVisibility(View.GONE);
                     m_view.setOneFingerMode(true);
                 } else {
+                    //画笔模式，初始化为画笔
                     scrollerbtn.setImageResource(R.drawable.hand_point);
+                    eraserBtn.setImageResource(R.drawable.pen_btn);
                     eraserBtn.setVisibility(View.VISIBLE);
                     colorBtn.setVisibility(View.VISIBLE);
+                    config.setStrokeWidth(curPenVal);
                     config.setStrokeColor(curColor);
-                    config.setStrokeWidth(curVal);
+                    config.setEraserMode(false);
+                    config.setTextMode(true);
                     m_view.setOneFingerMode(false);
                 }
             }
@@ -967,13 +976,13 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                 if (config.getStrokeColor() == Color.WHITE) {
                     eraserBtn.setImageResource(R.drawable.pen_btn);
                     config.setStrokeColor(curColor);
-                    config.setStrokeWidth(curVal);
+                    config.setStrokeWidth(curPenVal);
                     config.setEraserMode(false);
                     config.setTextMode(true);
                 } else {
                     eraserBtn.setImageResource(R.drawable.eraser_btn);
                     config.setStrokeColor(Color.WHITE);
-                    config.setStrokeWidth(curVal);
+                    config.setStrokeWidth(curRubberVal);
                     config.setEraserMode(true);
                     config.setTextMode(false);
                 }
@@ -984,7 +993,11 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(OnlineMainActivity.this, GridViewColorActivity.class);
-                intent.putExtra("curval", curVal);
+                if (config.isEraserMode()) {
+                    intent.putExtra("curVal", curRubberVal);
+                } else {
+                    intent.putExtra("curVal", curPenVal);
+                }
                 intent.putExtra("isEraser", config.isEraserMode());
                 OnlineMainActivity.this.startActivity(intent);
             }
@@ -2096,17 +2109,27 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
     public void getMsg(String str) {
         Gson gson = new Gson();
         MsgBean msgBean = gson.fromJson(str, MsgBean.class);
+        //设置颜色
         if (msgBean.getColor() != 0) {
             curColor = msgBean.getColor();
             config.setStrokeColor(msgBean.getColor());
         } else {
 //            config.setStrokeColor(curColor);
         }
+        //设置画笔粗细
         if (msgBean.getSeekBarVal() != 0) {
-            curVal = msgBean.getSeekBarVal();
+            if (config.isEraserMode()) {
+                curRubberVal = msgBean.getSeekBarVal();
+            } else {
+                curPenVal = msgBean.getSeekBarVal();
+            }
             config.setStrokeWidth(msgBean.getSeekBarVal());
         } else {
-            config.setStrokeWidth(curVal);
+            if (config.isEraserMode()) {
+                config.setStrokeWidth(curRubberVal);
+            } else {
+                config.setStrokeWidth(curPenVal);
+            }
         }
     }
 

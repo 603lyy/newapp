@@ -236,7 +236,8 @@ public class MainActivity extends Activity {
                                            @NonNull int[] grantResults) {
         switch (requestCode) {
             case 1:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults != null && grantResults.length > 0 &&
+                        grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //创建文件夹
                     if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
                         File canvas = new File(Environment.getExternalStorageDirectory() + "/canvas/");

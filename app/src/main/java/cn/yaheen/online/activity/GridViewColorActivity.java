@@ -49,7 +49,7 @@ public class GridViewColorActivity extends Activity {
 
         Intent intent = this.getIntent();
                 /*取出Intent中附加的数据*/
-        curval = intent.getIntExtra("curval", 2);
+        curval = intent.getIntExtra("curVal", 2);
         isEraserMode = intent.getBooleanExtra("isEraser", false);
         android.view.WindowManager.LayoutParams layoutParams = this.getWindow().getAttributes();
 
