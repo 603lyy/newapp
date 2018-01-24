@@ -304,9 +304,9 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
             switch (msg.what) {
                 case 1:
                     if (!isPingJiaoOpen && isLogin) {
-                        titleTV.setText("互动评教系统");
+                        titleTV.setText(getString(R.string.app_name_ping));
                     } else {
-                        titleTV.setText("互动评教系统" + courseCode);
+                        titleTV.setText(getString(R.string.app_name_ping) + courseCode);
                     }
                     break;
                 default:
@@ -1614,7 +1614,6 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         mPlayer.setStopedListener(new MediaPlayer.MediaPlayerStopedListener() {
             @Override
             public void onStopped() {
-                Log.i("lin", "onStopped: stop");
             }
         });
         //缓冲信息更新事件
@@ -2383,12 +2382,18 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         clearData();
         if (mImageReader != null) {
             mImageReader.close();
+            mImageReader = null;
         }
         if (networkWatcher != null) {
             networkWatcher.release();
+            networkWatcher = null;
         }
         if (mConnection != null) {
             mConnection = null;
+        }
+
+        if (mPlayer != null) {
+            mPlayer = null;
         }
 
         OnlineApp.getRefWatcher().watch(this);

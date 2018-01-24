@@ -422,7 +422,14 @@ public class MainActivity extends Activity {
             });
 
 //            强制登录
-//            String courseUdi = DefaultPrefsUtil.getCourseUid(courseName);
+//            Gson gson = new Gson();
+//            String result = "{\"result\":true,\"msg\":\"update success\",\"id\":\"402881" +
+//                    "265f5731a6015f57334e030000\",\"token\":\"B4AF7B82C8601D2ABC1BE88E27418E7" +
+//                    "2\",\"loginTime\":\"2017-10-26 13:41:40\"}";
+//            LoginBean loginBean = gson.fromJson(result, LoginBean.class);
+//            createCourse(loginBean);
+
+
 //            LoginBean lb = new LoginBean();
 //            lb.setToken("xxxxx");
 //            goONlineActivity(courseUdi, lb);
