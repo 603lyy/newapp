@@ -55,7 +55,7 @@ import cn.yaheen.online.utils.Constant;
 import cn.yaheen.online.utils.DialogCallback;
 import cn.yaheen.online.utils.DialogUtils;
 import cn.yaheen.online.utils.IDialogCancelCallback;
-import cn.yaheen.online.utils.ImgUtil;
+import cn.yaheen.online.utils.image.ImgUtil;
 import cn.yaheen.online.utils.sharepreferences.DefaultPrefsUtil;
 import cn.yaheen.online.utils.sharepreferences.SharedPreferencesUtils;
 import cn.yaheen.online.utils.SysUtils;

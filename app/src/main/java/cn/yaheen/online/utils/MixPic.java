@@ -9,6 +9,7 @@ import java.util.List;
 
 import cn.yaheen.online.Contral.BitmapUtil;
 import cn.yaheen.online.model.UploadModel;
+import cn.yaheen.online.utils.image.ImgUtil;
 
 /**
  * Created by linjingsheng on 17/3/20.
@@ -56,7 +57,7 @@ public class MixPic extends  Thread {
                         if (uploadModels.get(i).getBigpic()!=null&&!"".equals(uploadModels.get(i).getBigpic())){
                             Bitmap first= BitmapUtil.loadBitmapFromSDCard(uploadModels.get(i).getBigpic());
                             Bitmap second=BitmapUtil.loadBitmapFromSDCard(uploadModels.get(i).getCanvaspic());
-                            bitmaps[i]=ImgUtil.mixPictrue(second,first);
+                            bitmaps[i]= ImgUtil.mixPictrue(second,first);
                         }else {
                             bitmaps[i]=BitmapUtil.loadBitmapFromSDCard(uploadModels.get(i).getCanvaspic());
                         }

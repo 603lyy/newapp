@@ -47,8 +47,6 @@ public class GridViewAdapter extends BaseSwipeAdapter {
     public GridViewAdapter(Context mContext) {
         this.mContext = mContext;
         uploadDAO = new UploadDAO();
-
-        System.out.print("");
     }
 
     @Override

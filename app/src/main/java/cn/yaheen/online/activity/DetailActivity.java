@@ -45,7 +45,7 @@ import cn.yaheen.online.bean.ResponseEntityResult;
 import cn.yaheen.online.dao.UploadDAO;
 import cn.yaheen.online.model.UploadModel;
 import cn.yaheen.online.utils.Constant;
-import cn.yaheen.online.utils.ImgUtil;
+import cn.yaheen.online.utils.image.ImgUtil;
 import cn.yaheen.online.utils.sharepreferences.DefaultPrefsUtil;
 import cn.yaheen.online.utils.sharepreferences.SharedPreferencesUtils;
 import cn.yaheen.online.utils.SysUtils;

@@ -1,4 +1,4 @@
-package cn.yaheen.online.utils;
+package cn.yaheen.online.utils.image;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -6,22 +6,16 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.Picture;
 import android.media.Image;
 import android.media.ImageReader;
-import android.os.Environment;
 import android.util.Base64;
-import android.view.View;
 import android.webkit.WebView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.ref.SoftReference;
 import java.nio.ByteBuffer;
-
-import cn.yaheen.online.R;
 
 /**
  * Created by linjingsheng on 17/2/16.
@@ -230,7 +224,7 @@ public class ImgUtil {
     public static Bitmap startCapture(ImageReader mImageReader, String path, int bitmapX, int bitmapY, int bitmapWidth, int bitmapHeight) {
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            Image image = mImageReader.acquireNextImage();
+            Image image = mImageReader.acquireLatestImage();
             if (image == null) {
                 return null;
             }

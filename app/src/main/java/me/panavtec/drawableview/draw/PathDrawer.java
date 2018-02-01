@@ -2,15 +2,11 @@ package me.panavtec.drawableview.draw;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
 
 import java.util.List;
 
-import cn.yaheen.online.utils.ImgUtil;
-import me.panavtec.drawableview.DrawableViewConfig;
+import cn.yaheen.online.utils.image.ImgUtil;
 import me.panavtec.drawableview.model.PictureModel;
 
 public class PathDrawer {
