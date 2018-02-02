@@ -287,9 +287,7 @@ public class MainActivity extends Activity {
      */
     private void createCourse(LoginBean loginBean) {
         String courseName = courseNameEdit.getText().toString().trim();
-        String username = usernameEdit.getText().toString().trim();
-        String password = passwordEdit.getText().toString().trim();
-        String teacherName = teacher.getText().toString().trim();
+        String teacherName = DefaultPrefsUtil.getTeacherName();
         UploadModel uploadModel = new UploadModel();
         UploadDAO uploadDAO = new UploadDAO();
         String uuid = UUIDUtils.getUuid();
@@ -298,9 +296,6 @@ public class MainActivity extends Activity {
         DefaultPrefsUtil.setLoginTime(loginBean.getLoginTime());
         DefaultPrefsUtil.setCourseUid(courseName, uuid);
         DefaultPrefsUtil.setToken(loginBean.getToken());
-        DefaultPrefsUtil.setTeacherName(teacherName);
-        DefaultPrefsUtil.setUserPassword(password);
-        DefaultPrefsUtil.setUserName(username);
         DefaultPrefsUtil.setUUID(uuid);
 
         uploadModel.setPage(1);
@@ -328,17 +323,11 @@ public class MainActivity extends Activity {
      */
     private void goONlineActivity(String uuid, LoginBean loginBean) {
         String courseName = courseNameEdit.getText().toString().trim();
-        String username = usernameEdit.getText().toString().trim();
-        String password = passwordEdit.getText().toString().trim();
-        String teacherName = teacher.getText().toString().trim();
 
         DefaultPrefsUtil.setCourseCode(isLogin ? courseName : null);
         DefaultPrefsUtil.setLoginTime(loginBean.getLoginTime());
         DefaultPrefsUtil.setCourseUid(courseName, uuid);
         DefaultPrefsUtil.setToken(loginBean.getToken());
-        DefaultPrefsUtil.setTeacherName(teacherName);
-        DefaultPrefsUtil.setUserPassword(password);
-        DefaultPrefsUtil.setUserName(username);
         DefaultPrefsUtil.setUUID(uuid);
 
         Intent intent = new Intent();
