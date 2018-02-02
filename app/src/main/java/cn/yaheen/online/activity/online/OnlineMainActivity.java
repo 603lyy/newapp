@@ -96,7 +96,7 @@ import cn.yaheen.online.utils.DensityUtils;
 import cn.yaheen.online.utils.DialogCallback;
 import cn.yaheen.online.utils.DialogUtils;
 import cn.yaheen.online.utils.IDialogCancelCallback;
-import cn.yaheen.online.utils.ImgUtil;
+import cn.yaheen.online.utils.image.ImgUtil;
 import cn.yaheen.online.utils.sharepreferences.DefaultPrefsUtil;
 import cn.yaheen.online.utils.sharepreferences.SharedPreferencesUtils;
 import cn.yaheen.online.utils.SysUtils;
@@ -2421,6 +2421,10 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
         if (mImageReader != null) {
             mImageReader.close();
             mImageReader = null;
+        }
+        if (mVirtualDisplay != null) {
+            mVirtualDisplay.release();
+            mVirtualDisplay = null;
         }
         if (networkWatcher != null) {
             networkWatcher.release();
