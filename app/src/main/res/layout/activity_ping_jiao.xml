@@ -4,7 +4,7 @@
     android:padding="10dp"
     android:verticalSpacing="10dp"
     android:horizontalSpacing="10dp"
-    android:numColumns="4"
+    android:numColumns="3"
     android:listSelector="@drawable/item_selector"
     android:layout_width="match_parent"
     android:layout_height="match_parent">

@@ -2,25 +2,18 @@ package cn.yaheen.online.utils;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
-
-import org.xutils.db.table.DbModel;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.yaheen.online.Contral.BitmapUtil;
 import cn.yaheen.online.R;
 import cn.yaheen.online.dao.EvaluateDAO;
 import cn.yaheen.online.dao.UploadDAO;
@@ -56,7 +49,6 @@ public class GridViewAdapter extends BaseSwipeAdapter {
 
     @Override
     public View generateView(int position, ViewGroup parent) {
-
         return LayoutInflater.from(mContext).inflate(R.layout.grid_item, null);
     }
 
@@ -76,22 +68,8 @@ public class GridViewAdapter extends BaseSwipeAdapter {
 
         if (list != null && list.size() > 0) {
             final String uuid = list.get(position).getUid();
-            List<EvaluateModel> evaluateModels = evaluateDAO.findByUID(uuid);
-            if (evaluateModels != null && evaluateModels.size() > 0) {
-                try {
-                    double Olactivity = Double.parseDouble(evaluateModels.get(0).getOlactivity());
-                    double Preparation = Double.parseDouble(evaluateModels.get(0).getPreparation());
-                    double Psychosis = Double.parseDouble(evaluateModels.get(0).getPsychosis());
-                    double Quality = Double.parseDouble(evaluateModels.get(0).getQuality());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            }
-
             course.setText(list.get(position).getCoursename());
             teacher.setText(list.get(position).getTeacher());
-
 
             trash.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -131,7 +109,6 @@ public class GridViewAdapter extends BaseSwipeAdapter {
 
                                 }
                                 uploadDAO.deleteByUID(uuid);
-
                                 Intent intent = new Intent();
                                 intent.setAction("cn.yaheen.online");
                                 intent.putExtra("msg", "ok");
@@ -154,27 +131,20 @@ public class GridViewAdapter extends BaseSwipeAdapter {
                 }
             });
         }
-
-//        t.setText((position + 1 )+".");
     }
 
     @Override
     public int getCount() {
-
         return list.size();
     }
 
     @Override
     public Object getItem(int position) {
-
         return list.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-
         return position;
     }
-
-
 }
