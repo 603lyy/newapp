@@ -23,6 +23,11 @@ public class UploadDAO {
 
     public UploadDAO() {
         db = DBUtil.createdatabase("dbonline");
+        try {
+            db.addColumn(UploadModel.class,"fx_time");
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean save(UploadModel entry) {
@@ -137,6 +142,18 @@ public class UploadDAO {
     public Boolean updateAllStatus(int status, String uuid) {
         try {
             int a = db.update(UploadModel.class, WhereBuilder.b("fx_uid", "=", uuid), new KeyValue("fx_status", status));
+            return true;
+        } catch (DbException e) {
+            return false;
+        }
+    }
+
+    /**
+     * 更新修改时间
+     */
+    public Boolean updateTime(String time, String uuid) {
+        try {
+            int a = db.update(UploadModel.class, WhereBuilder.b("fx_uid", "=", uuid), new KeyValue("fx_time", time));
             return true;
         } catch (DbException e) {
             return false;

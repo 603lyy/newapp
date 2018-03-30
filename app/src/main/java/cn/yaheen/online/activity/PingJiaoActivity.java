@@ -64,10 +64,12 @@ public class PingJiaoActivity extends Activity implements Receiver.Message {
                 String uid = dbModel.getString("fx_uid");
                 List<UploadModel> uploadModel = uploadDAO.findByUID(uid);
                 UploadModel upload = new UploadModel();
+                upload.setUid(uid);
+                upload.setPage(uploadModel.size());
                 upload.setMixpic(uploadModel.get(0).getMixpic());
                 upload.setTeacher(uploadModel.get(0).getTeacher());
-                upload.setUid(uid);
                 upload.setCoursename(uploadModel.get(0).getCoursename());
+                upload.setChangeTime(uploadModel.get(0).getChangeTime());
                 list.add(upload);
             }
         }

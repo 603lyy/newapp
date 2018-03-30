@@ -1,20 +1,16 @@
 package cn.yaheen.online.model;
 
-import android.support.annotation.NonNull;
-
 import org.xutils.db.annotation.Column;
 import org.xutils.db.annotation.Table;
-
-import java.util.Comparator;
 
 /**
  * Created by linjingsheng on 17/2/15.
  */
-@Table(name = "tb_upload",onCreated = "")
-public class UploadModel   {
+@Table(name = "tb_upload", onCreated = "")
+public class UploadModel {
 
-    @Column(name = "id",isId = true,autoGen = true,property = "NOT NULL")
-    private  int id;
+    @Column(name = "id", isId = true, autoGen = true, property = "NOT NULL")
+    private int id;
     @Column(name = "fx_teacher")
     private String teacher;
 
@@ -22,7 +18,7 @@ public class UploadModel   {
     private String coursename;
 
     @Column(name = "fx_page")
-    private  int page;
+    private int page;
 
     @Column(name = "fx_camerapic")
     private String bigpic;
@@ -33,8 +29,12 @@ public class UploadModel   {
     @Column(name = "fx_mixpic")
     private String mixpic;
 
+    //修改的时间
+    @Column(name = "fx_time")
+    private String changetime;
+
     @Column(name = "fx_status")
-    private  int status;//0：未保存本地、1：已保存、2：已上传
+    private int status;//0：未保存本地、1：已保存、2：已上传
     public final static int STATUS_NOT_SAVE = 0;
     public final static int STATUS_SAVED = 1;
     public final static int STATUS_UPLOADED = 2;
@@ -117,6 +117,14 @@ public class UploadModel   {
         this.status = status;
     }
 
+    public String getChangeTime() {
+        return changetime;
+    }
+
+    public void setChangeTime(String changeTime) {
+        this.changetime = changeTime;
+    }
+
     @Override
     public String toString() {
         return "UploadModel{" +
@@ -127,6 +135,7 @@ public class UploadModel   {
                 ", bigpic='" + bigpic + '\'' +
                 ", canvaspic='" + canvaspic + '\'' +
                 ", mixpic='" + mixpic + '\'' +
+                ", changetime='" + changetime + '\'' +
                 ", status=" + status +
                 '}';
     }

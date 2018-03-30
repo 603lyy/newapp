@@ -96,6 +96,7 @@ import cn.yaheen.online.utils.DensityUtils;
 import cn.yaheen.online.utils.DialogCallback;
 import cn.yaheen.online.utils.DialogUtils;
 import cn.yaheen.online.utils.IDialogCancelCallback;
+import cn.yaheen.online.utils.TimeUtils;
 import cn.yaheen.online.utils.image.ImgUtil;
 import cn.yaheen.online.utils.sharepreferences.DefaultPrefsUtil;
 import cn.yaheen.online.utils.sharepreferences.SharedPreferencesUtils;
@@ -1969,6 +1970,7 @@ public class OnlineMainActivity extends Activity implements Receiver.Message, Vi
                         bigpicsCacheMap.clear();
                     }
                     uploadDAO.updateAllStatus(UploadModel.STATUS_SAVED, uuid);//记录所有数据已经保存
+                    uploadDAO.updateTime(TimeUtils.getsCurrentTimeYMD(), uuid);//更新修改时间
                     if (saveCallBack != null) {
                         saveCallBack.saveSuccess();
                     }

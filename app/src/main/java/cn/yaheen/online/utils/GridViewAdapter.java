@@ -54,8 +54,10 @@ public class GridViewAdapter extends BaseSwipeAdapter {
 
     @Override
     public void fillValues(final int position, View convertView) {
+        TextView time = (TextView) convertView.findViewById(R.id.tv_time);
         TextView course = (TextView) convertView.findViewById(R.id.course);
         TextView teacher = (TextView) convertView.findViewById(R.id.teacher);
+        TextView page = (TextView) convertView.findViewById(R.id.tv_total_page);
         ImageView trash = (ImageView) convertView.findViewById(R.id.trash);
         if (uploadDAO == null) {
             uploadDAO = new UploadDAO();
@@ -68,8 +70,11 @@ public class GridViewAdapter extends BaseSwipeAdapter {
 
         if (list != null && list.size() > 0) {
             final String uuid = list.get(position).getUid();
+
             course.setText(list.get(position).getCoursename());
             teacher.setText(list.get(position).getTeacher());
+            time.setText(list.get(position).getChangeTime());
+            page.setText(list.get(position).getPage() + "");
 
             trash.setOnClickListener(new View.OnClickListener() {
                 @Override
