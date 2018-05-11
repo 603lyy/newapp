@@ -9,8 +9,8 @@ android {
             storePassword 'yaheen'
         }
     }
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
     aaptOptions {
         cruncherEnabled = false
         useNewCruncher = false
@@ -20,7 +20,7 @@ android {
     defaultConfig {
         applicationId "cn.yaheen.online"
         minSdkVersion 21
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 2204
         versionName "2.2.04"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -55,36 +55,38 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.0'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
     //阿里云直播播放器
-    compile(name: 'AliyunPlayer', ext: 'aar')
-    // compile 'me.panavtec:drawableview:0.6.0'
-    compile files('libs/gesture-imageview.jar')
-    compile files('libs/Native_Libs2.jar')
-    compile 'com.anthonycr.grant:permissions:1.0'
-    compile 'com.soundcloud.android:android-crop:1.0.1@aar'
-    compile 'com.android.support:design:25.3.0'
-    compile 'org.xutils:xutils:3.3.42'
-    compile 'com.dou361.ijkplayer:jjdxm-ijkplayer:1.0.6'
-    compile 'com.daimajia.swipelayout:library:1.2.0@aar'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.google.code.gson:gson:2.2.4'
-    compile 'com.android.support:recyclerview-v7:25.3.0'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'org.greenrobot:greendao:3.2.0'
-    testCompile 'junit:junit:4.12'
-    compile files('libs/NodeMediaClient-v1.2.12.jar')
+    implementation(name: 'AliyunPlayer', ext: 'aar')
+    // implementation 'me.panavtec:drawableview:0.6.0'
+    implementation files('libs/gesture-imageview.jar')
+    implementation files('libs/Native_Libs2.jar')
+    implementation 'com.anthonycr.grant:permissions:1.0'
+    implementation 'com.soundcloud.android:android-crop:1.0.1@aar'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'org.xutils:xutils:3.3.42'
+    implementation 'com.dou361.ijkplayer:jjdxm-ijkplayer:1.0.6'
+    implementation 'com.daimajia.swipelayout:library:1.2.0@aar'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.google.code.gson:gson:2.2.4'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'org.greenrobot:greendao:3.2.0'
+    testImplementation 'junit:junit:4.12'
+    implementation files('libs/NodeMediaClient-v1.2.12.jar')
     //bugly崩溃收集
-    compile 'com.tencent.bugly:crashreport:latest.release'
+    implementation 'com.tencent.bugly:crashreport:latest.release'
     //七牛云播放器
-    compile files('libs/pldroid-player-2.0.2.jar')
+    implementation files('libs/pldroid-player-2.0.2.jar')
     //内存检测
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
-    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    //二维码扫描
+    implementation 'cn.yipianfengye.android:zxing-library:2.2'
 }
-//compile 'me.panavtec:drawableview:0.6.0'
+//implementation 'me.panavtec:drawableview:0.6.0'

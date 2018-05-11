@@ -8,6 +8,7 @@ import android.media.projection.MediaProjectionManager;
 import com.alivc.player.AliVcMediaPlayer;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
+import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 import org.xutils.x;
 
@@ -53,6 +54,9 @@ public class OnlineApp extends Application {
 
         //阿里云播放器
         AliVcMediaPlayer.init(getApplicationContext(), "");
+
+        //二维码扫描
+        ZXingLibrary.initDisplayOpinion(this);
     }
 
 

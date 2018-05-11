@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,6 +27,8 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.tencent.bugly.crashreport.CrashReport;
+import com.uuzuche.lib_zxing.activity.CaptureActivity;
+import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -59,9 +62,24 @@ import cn.yaheen.online.utils.version.VersionUtils;
 
 public class MainActivity extends Activity {
 
+    /**
+     * 请求CAMERA权限码
+     */
+    public static final int REQUEST_CAMERA_PERM = 101;
+
+    /**
+     * 扫描跳转Activity RequestCode
+     */
+    public static final int REQUEST_CODE = 111;
+
+    /**
+     * 选择系统图片Request Code
+     */
+    public static final int REQUEST_IMAGE = 112;
+
     private EditText courseNameEdit, teacher, usernameEdit, passwordEdit;
     private SwitchButton sbDefault;
-    private ImageView setingBtn;
+    private ImageView setingBtn, ivScan;
     private TextView textView;
     private TextView tvVersion;
     private Button pingJiao;
@@ -101,16 +119,17 @@ public class MainActivity extends Activity {
         cn.yaheen.online.app.OnlineApp.getInstance().addActivity(this);
         setContentView(R.layout.activity_main);
 
-        usernameEdit = (EditText) findViewById(R.id.usernameText);
-        passwordEdit = (EditText) findViewById(R.id.passwordText);
-        courseNameEdit = (EditText) findViewById(R.id.editText2);
-        sbDefault = (SwitchButton) findViewById(R.id.sb_default);
-        tvVersion = (TextView) findViewById(R.id.tv_version);
-        setingBtn = (ImageView) findViewById(R.id.setting);
-        textView = (TextView) findViewById(R.id.textView);
-        teacher = (EditText) findViewById(R.id.editText);
-        pingJiao = (Button) findViewById(R.id.button2);
-        login = (Button) findViewById(R.id.button);
+        usernameEdit = findViewById(R.id.usernameText);
+        passwordEdit = findViewById(R.id.passwordText);
+        courseNameEdit = findViewById(R.id.editText2);
+        sbDefault = findViewById(R.id.sb_default);
+        tvVersion = findViewById(R.id.tv_version);
+        setingBtn = findViewById(R.id.setting);
+        textView = findViewById(R.id.textView);
+        teacher = findViewById(R.id.editText);
+        pingJiao = findViewById(R.id.button2);
+        ivScan = findViewById(R.id.iv_scan);
+        login = findViewById(R.id.button);
 
         checkVersion();
         initPermission();
@@ -170,6 +189,15 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 login();
+            }
+        });
+
+        //打开相机扫描
+        ivScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplication(), CaptureActivity.class);
+                startActivityForResult(intent, REQUEST_CODE);
             }
         });
 
@@ -276,6 +304,34 @@ public class MainActivity extends Activity {
             }
             if (!bigpic.exists()) {
                 bigpic.mkdirs();
+            }
+        }
+    }
+
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        /**
+         * 处理二维码扫描结果
+         */
+        if (requestCode == REQUEST_CODE) {
+            //处理扫描结果（在界面上显示）
+            if (null != data) {
+                Bundle bundle = data.getExtras();
+                if (bundle == null) {
+                    return;
+                }
+                if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
+                    String result = bundle.getString(CodeUtils.RESULT_STRING);
+                    if (result != null) {
+                        courseNameEdit.setText(result);
+                    } else {
+                        Toast.makeText(MainActivity.this, "解析二维码失败", Toast.LENGTH_LONG).show();
+                    }
+                } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
+                    Toast.makeText(MainActivity.this, "解析二维码失败", Toast.LENGTH_LONG).show();
+                }
             }
         }
     }
